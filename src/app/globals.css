@@ -408,7 +408,7 @@ h1 .thin {
   align-items: center;
   justify-content: center;
   padding: 10px 20px;
-  border-radius: 6px;
+  border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   background: transparent;
   color: var(--bone);
