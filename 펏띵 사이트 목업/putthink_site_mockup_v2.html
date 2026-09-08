@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>펏띵 Putthink — 그린을 읽어주는 AR 퍼팅 코치</title>
+<meta name="description" content="아이폰 라이다로 그린의 다중 경사를 스캔하고, AR로 퍼팅 방향과 세기를 안내합니다. 다운로드 후 9회 무료.">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   PUTTHINK — design tokens
+   원칙: 앰버는 "제품 화면 안"에서만 주인공.
+   사이트 크롬은 순수 블랙 + 본화이트의 에디토리얼 무채색.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --ink:#0A0A0A;
+  --ink-2:#141414;
+  --ink-3:#1E1E1E;
+  --bone:#F3F1EB;
+  --bone-2:#E8E5DC;
+  --turf:#0F3A28;
+  --turf-2:#16543A;
+
+  --amber:#FFB020;
+  --amber-ink:#150E02;
+
+  --g-1:#8A8A85;
+  --g-2:#5A5A56;
+  --line-d:rgba(255,255,255,.10);
+  --line-l:rgba(10,10,10,.10);
+
+  --font:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --max:1240px;
+  --pad:clamp(20px,4.4vw,60px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--ink)}
+body{
+  background:var(--ink);color:var(--bone);font-family:var(--font);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;word-break:keep-all;
+}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+/* film grain — subtle, modern */
+body::after{
+  content:'';position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─────────────── NAV ─────────────── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+.nav.on{background:rgba(10,10,10,.82);backdrop-filter:blur(20px);border-bottom-color:var(--line-d)}
+.nav-in{max-width:var(--max);margin:0 auto;padding:18px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-size:19px;font-weight:800;letter-spacing:-.05em;display:flex;align-items:center;gap:9px}
+.logo i{width:7px;height:7px;background:var(--amber);border-radius:50%;display:block}
+.nlinks{display:flex;gap:clamp(14px,2.2vw,30px);list-style:none;align-items:center}
+.nlinks a{font-size:14px;color:var(--g-1);transition:color .2s}
+.nlinks a:hover{color:var(--bone)}
+.btn-dl{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:6px;
+  background:var(--bone);color:var(--ink);font-size:13.5px;font-weight:700;letter-spacing:-.01em;
+  transition:transform .2s,background .2s
+}
+.btn-dl:hover{transform:translateY(-1px);background:#fff}
+.burger{display:none;width:38px;height:38px;border:1px solid var(--line-d);border-radius:6px;background:none;cursor:pointer;position:relative}
+.burger b{position:absolute;left:11px;width:16px;height:1.5px;background:var(--bone)}
+.burger b:nth-child(1){top:14px}.burger b:nth-child(2){top:19px}.burger b:nth-child(3){top:24px}
+
+/* ─────────────── HERO ─────────────── */
+.hero{position:relative;padding-top:clamp(120px,15vw,180px);padding-bottom:clamp(50px,7vw,90px);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,70px);align-items:center}
+.kicker{
+  display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;
+  color:var(--g-1);letter-spacing:.04em;margin-bottom:26px;
+  border:1px solid var(--line-d);border-radius:100px;padding:7px 14px
+}
+.kicker s{width:5px;height:5px;background:var(--amber);border-radius:50%;text-decoration:none}
+h1{font-size:clamp(44px,7.2vw,88px);font-weight:800;line-height:1.08;letter-spacing:-.05em}
+h1 .thin{font-weight:300;letter-spacing:-.04em}
+.hero p.lede{margin-top:26px;font-size:clamp(15.5px,1.25vw,17.5px);color:var(--g-1);max-width:42ch;line-height:1.75}
+.hero-cta{margin-top:36px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.appstore{
+  display:inline-flex;align-items:center;gap:11px;background:var(--bone);color:var(--ink);
+  border-radius:10px;padding:12px 20px;transition:transform .2s
+}
+.appstore:hover{transform:translateY(-2px)}
+.appstore svg{width:22px;height:22px}
+.appstore span{display:block;font-size:9.5px;font-weight:600;color:var(--g-2);line-height:1.2;letter-spacing:.02em}
+.appstore strong{display:block;font-size:15px;font-weight:800;letter-spacing:-.03em;line-height:1.2}
+.free-note{font-size:13.5px;color:var(--g-1)}
+.free-note b{color:var(--amber);font-weight:700}
+
+/* phone */
+.phone-col{display:flex;justify-content:center;position:relative}
+.phone{width:min(292px,80vw);aspect-ratio:.462;border-radius:44px;background:#000;padding:7px;position:relative;
+  box-shadow:0 50px 100px -40px rgba(0,0,0,.9),0 0 0 1px #232323}
+.scr{width:100%;height:100%;border-radius:38px;overflow:hidden;position:relative;
+  background:radial-gradient(115% 70% at 20% 6%,#B9CE93,transparent 55%),
+             linear-gradient(178deg,#9CBB76 0%,#5F8A44 32%,#2E5228 68%,#16281B 100%)}
+.scr::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 80px 18px rgba(0,0,0,.4)}
+.notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:82px;height:24px;background:#000;border-radius:99px;z-index:9}
+.hud{position:absolute;top:48px;left:12px;display:flex;align-items:center;gap:6px;background:rgba(8,12,9,.62);
+  border:1px solid rgba(255,255,255,.12);border-radius:99px;padding:6px 11px;backdrop-filter:blur(12px);z-index:5}
+.hud i{width:5px;height:5px;border-radius:50%;background:#3ED598;display:block}
+.hud span{font-size:9.5px;font-weight:700}
+.aim{position:absolute;inset:0;z-index:3}
+.panel{position:absolute;left:0;right:0;bottom:0;z-index:5;background:rgba(7,11,8,.84);backdrop-filter:blur(18px);
+  border-top:1px solid rgba(255,255,255,.1);border-radius:18px 18px 0 0;padding:15px 15px 19px}
+.p-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.p-s{font-size:9.5px;color:#9AA396}
+.p-b{font-size:28px;font-weight:800;color:var(--amber);line-height:1;margin:3px 0;letter-spacing:-.03em}
+.p-comp{width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.12);position:relative;flex:none}
+.p-comp i{position:absolute;left:50%;top:50%;width:2px;height:15px;background:var(--amber);transform:translate(-50%,-100%) rotate(17deg);transform-origin:bottom}
+.p-cta{margin-top:9px;font-size:10px;font-weight:800;color:var(--amber);background:rgba(255,176,32,.13);
+  border:1px solid rgba(255,176,32,.34);border-radius:9px;padding:7px;text-align:center}
+
+/* ─────────────── PROOF BAR ─────────────── */
+.proof{border-top:1px solid var(--line-d);border-bottom:1px solid var(--line-d)}
+.proof-in{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-d)}
+.pcell{background:var(--ink);padding:clamp(22px,2.6vw,30px) clamp(16px,2vw,26px)}
+.pcell .v{font-size:clamp(22px,2.4vw,30px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.pcell .v em{font-style:normal;font-size:.5em;font-weight:600;color:var(--g-1);margin-left:3px}
+.pcell .k{margin-top:9px;font-size:12.5px;color:var(--g-1);line-height:1.5}
+
+/* ─────────────── SECTION SCAFFOLD ─────────────── */
+.sec{padding-block:clamp(70px,9vw,130px)}
+.sec.light{background:var(--bone);color:var(--ink)}
+.sec.turf{background:var(--turf);color:var(--bone)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g-1);margin-bottom:18px}
+.sec.light .eyebrow{color:var(--g-2)}
+.sec.turf .eyebrow{color:#7FA890}
+h2{font-size:clamp(30px,4.4vw,56px);font-weight:800;letter-spacing:-.04em;line-height:1.16}
+h2 .thin{font-weight:300}
+.sub{margin-top:20px;font-size:16px;color:var(--g-1);max-width:52ch;line-height:1.75}
+.sec.light .sub{color:var(--g-2)}
+.sec.turf .sub{color:#9DBCA9}
+.head{margin-bottom:clamp(38px,5vw,62px)}
+
+/* ─────────────── BENTO ─────────────── */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.bx{background:var(--ink-2);border:1px solid var(--line-d);border-radius:18px;padding:clamp(24px,2.8vw,34px);position:relative;overflow:hidden}
+.bx.wide{grid-column:span 2}
+.bx.full{grid-column:1/-1}
+.bx h3{font-size:clamp(18px,1.8vw,22px);font-weight:700;letter-spacing:-.025em;margin-bottom:11px}
+.bx p{font-size:14.5px;color:var(--g-1);line-height:1.75}
+.bx .num{font-family:var(--mono);font-size:11.5px;color:var(--amber);margin-bottom:18px;letter-spacing:.02em}
+.bx-viz{margin-top:22px;border-radius:12px;overflow:hidden;border:1px solid var(--line-d);background:#0C0C0C}
+
+/* ─────────────── SHOWCASE (퍼팅 뽐내기) ─────────────── */
+.cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.cat{padding:9px 16px;border:1px solid var(--line-l);border-radius:99px;font-size:13.5px;font-weight:600;color:var(--g-2);background:transparent}
+.cat.on{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+.feed{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:#fff;border:1px solid var(--line-l);border-radius:16px;overflow:hidden}
+.card-v{aspect-ratio:4/5;position:relative;background:linear-gradient(170deg,#9CBB76,#3E6B32 55%,#1B3220)}
+.card-v .meta{position:absolute;left:10px;bottom:10px;right:10px;display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:10.5px;background:rgba(6,10,7,.7);color:#F3F1EB;border:1px solid rgba(255,255,255,.16);
+  border-radius:6px;padding:4px 8px;backdrop-filter:blur(8px)}
+.chip.hot{background:var(--amber);color:var(--amber-ink);border-color:transparent;font-weight:700}
+.card-v .rank{position:absolute;top:10px;left:10px;background:var(--ink);color:var(--bone);font-size:11px;font-weight:800;
+  border-radius:6px;padding:4px 9px;letter-spacing:-.01em}
+.card-b{padding:14px 16px 16px}
+.card-b .u{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.card-b .av{width:26px;height:26px;border-radius:50%;background:var(--bone-2);flex:none}
+.card-b .un{font-size:13.5px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.card-b .ct{font-size:12.5px;color:var(--g-2);line-height:1.6}
+.card-b .lk{margin-top:11px;padding-top:11px;border-top:1px solid var(--line-l);display:flex;justify-content:space-between;font-size:12px;color:var(--g-2)}
+.card-b .lk b{color:var(--ink);font-weight:700}
+
+/* ─────────────── HALL OF FAME ─────────────── */
+.hof{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.hcard{border:1px solid var(--line-l);border-radius:14px;overflow:hidden;background:#fff}
+.hcard .th{aspect-ratio:1;background:linear-gradient(160deg,#9CBB76,#3E6B32 60%,#1B3220);position:relative}
+.hcard .th .mo{position:absolute;top:9px;left:9px;font-family:var(--mono);font-size:10.5px;background:rgba(6,10,7,.72);
+  color:#F3F1EB;border-radius:5px;padding:3px 7px}
+.hcard .th .cr{position:absolute;bottom:9px;right:9px;font-size:17px}
+.hcard .hb{padding:12px 14px}
+.hcard .hb .n{font-size:13px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.hcard .hb .d{font-size:11.5px;color:var(--g-2);margin-top:4px}
+
+/* ─────────────── PRICING ─────────────── */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}
+.plan{border:1px solid var(--line-d);border-radius:18px;padding:clamp(26px,2.8vw,34px);background:var(--ink-2)}
+.plan.best{background:var(--bone);color:var(--ink);border-color:transparent;position:relative}
+.plan .tag{font-size:12px;font-weight:700;color:var(--g-1);margin-bottom:16px;letter-spacing:.02em}
+.plan.best .tag{color:var(--g-2)}
+.plan .amt{font-size:clamp(30px,3.4vw,40px);font-weight:800;letter-spacing:-.045em;line-height:1}
+.plan .amt em{font-style:normal;font-size:.38em;font-weight:600;color:var(--g-1);margin-left:4px}
+.plan.best .amt em{color:var(--g-2)}
+.plan .per{margin-top:10px;font-size:13px;color:var(--g-1)}
+.plan.best .per{color:var(--g-2)}
+.plan ul{list-style:none;margin-top:22px;padding-top:20px;border-top:1px solid var(--line-d);display:grid;gap:11px}
+.plan.best ul{border-top-color:var(--line-l)}
+.plan li{font-size:13.5px;color:var(--g-1);display:flex;gap:10px;align-items:baseline}
+.plan.best li{color:var(--g-2)}
+.plan li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--amber);flex:none;transform:translateY(-2px)}
+.plan .go{display:block;text-align:center;margin-top:24px;padding:13px;border-radius:9px;font-size:14px;font-weight:700;
+  border:1px solid var(--line-d);color:var(--bone)}
+.plan.best .go{background:var(--ink);color:var(--bone);border-color:transparent}
+.badge-top{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--amber);color:var(--amber-ink);
+  font-size:11px;font-weight:800;padding:4px 12px;border-radius:99px;white-space:nowrap}
+
+/* ─────────────── INVITE ─────────────── */
+.iv-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.iv-card{background:#fff;border:1px solid var(--line-l);border-radius:18px;padding:clamp(24px,2.8vw,32px)}
+.iv-card.hi{background:var(--ink);color:var(--bone);border-color:transparent}
+.iv-card .k{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g-2);margin-bottom:14px}
+.iv-card.hi .k{color:#8A8A84}
+.iv-card h3{font-size:clamp(20px,2.1vw,25px);font-weight:800;letter-spacing:-.03em;margin-bottom:5px}
+.iv-card .cap{font-size:13px;color:var(--g-2)}
+.iv-card.hi .cap{color:#ABABA4}
+.iv-card ul{list-style:none;display:grid;gap:15px;margin-top:20px;padding-top:20px;border-top:1px solid var(--line-l)}
+.iv-card.hi ul{border-top-color:rgba(255,255,255,.14)}
+.iv-card li{font-size:13.5px;color:var(--g-2);line-height:1.65}
+.iv-card.hi li{color:#B9B9B2}
+.iv-card li b{display:block;color:var(--ink);font-size:14.5px;font-weight:700;margin-bottom:3px}
+.iv-card.hi li b{color:var(--bone)}
+.invite{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,60px);align-items:center}
+
+/* ─────────────── CTA + FOOTER ─────────────── */
+.cta{text-align:center;padding-block:clamp(80px,10vw,130px);border-top:1px solid var(--line-d)}
+.cta h2{margin-bottom:24px}
+.cta .hero-cta{justify-content:center}
+.ft{border-top:1px solid var(--line-d);padding-block:clamp(44px,5vw,60px)}
+.ft-in{display:flex;flex-wrap:wrap;gap:30px 48px;justify-content:space-between}
+.ft h5{font-size:12px;color:var(--g-2);font-weight:600;margin-bottom:14px;letter-spacing:.04em}
+.ft ul{list-style:none;display:grid;gap:9px}
+.ft a{font-size:13.5px;color:var(--g-1)}
+.ft a:hover{color:var(--bone)}
+.ft-b{margin-top:clamp(34px,4vw,46px);padding-top:22px;border-top:1px solid var(--line-d);
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:12.5px;color:var(--g-2)}
+.ft-b a{color:var(--g-1);border-bottom:1px solid var(--line-d)}
+
+@media(max-width:1000px){
+  .hero-grid{grid-template-columns:1fr}
+  .phone-col{order:-1;margin-bottom:16px}
+  .bento{grid-template-columns:1fr}
+  .feed,.hof{grid-template-columns:1fr 1fr}
+  .bx.wide{grid-column:span 1}
+  .prize,.invite{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}
+  .proof-in{grid-template-columns:1fr 1fr}
+}
+@media(max-width:820px){.nlinks{display:none}.burger{display:block}}
+@media(max-width:620px){
+  .bento,.feed,.hof{grid-template-columns:1fr}
+  .bx.wide{grid-column:span 1}
+  .iv-cols{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-in">
+    <a class="logo" href="#top"><i></i>putthink</a>
+    <ul class="nlinks">
+      <li><a href="#how">작동 원리</a></li>
+      <li><a href="#showcase">퍼팅 뽐내기</a></li>
+      <li><a href="#hof">명예의 전당</a></li>
+      <li><a href="#pricing">요금제</a></li>
+      <li><a href="#support">지원</a></li>
+    </ul>
+    <a class="btn-dl" href="#download">App Store에서 받기</a>
+    <button class="burger" aria-label="메뉴"><b></b><b></b><b></b></button>
+  </div>
+</nav>
+
+<span id="top"></span>
+
+<!-- ══════════ HERO ══════════ -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker"><s></s>iPhone LiDAR · AR Putting Coach</span>
+      <h1>그린은 이미<br><span class="thin">정답을 알고 있다.</span></h1>
+      <p class="lede">
+        아이폰 라이다로 그린을 스캔하면 다중 경사를 읽어 퍼팅 방향과 세기를 AR로 보여줍니다.
+        읽는 건 펏띵이 합니다. 치는 건 당신이 하고요.
+      </p>
+      <div class="hero-cta">
+        <a class="appstore" href="#download">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.53c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.61-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.87-.76-1.48.02-2.84.86-3.6 2.18-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.25 2.74 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.08 2.65-2.14.84-1.23 1.18-2.42 1.2-2.48-.03-.01-2.29-.88-2.31-3.5zM14.88 5.9c.6-.74 1.01-1.75.9-2.77-.87.04-1.93.58-2.56 1.31-.56.65-1.06 1.7-.93 2.7.97.08 1.97-.5 2.59-1.24z"/></svg>
+          <div><span>Download on the</span><strong>App Store</strong></div>
+        </a>
+        <div class="free-note">다운로드 후 <b>9회 무료</b> · 카드 등록 없이</div>
+      </div>
+    </div>
+
+    <div class="phone-col">
+      <div class="phone"><div class="scr">
+        <div class="notch"></div>
+        <div class="hud"><i></i><span>조준 중</span></div>
+        <svg class="aim" viewBox="0 0 292 632" preserveAspectRatio="none">
+          <line x1="128" y1="392" x2="212" y2="158" stroke="#FFB020" stroke-width="17" stroke-linecap="round" opacity=".16"/>
+          <line x1="128" y1="392" x2="212" y2="158" stroke="#FFB020" stroke-width="4.5" stroke-linecap="round"/>
+        </svg>
+        <div class="panel">
+          <div class="p-top">
+            <div>
+              <div class="p-s mono">4.8m 볼·홀 실거리</div>
+              <div class="p-b mono">5.7m</div>
+              <div class="p-s mono">+0.9m 오르막 보정</div>
+            </div>
+            <div class="p-comp"><i></i></div>
+          </div>
+          <div class="p-cta">5.7m 치는 느낌으로 퍼팅하세요</div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ PROOF ══════════ -->
+<section class="proof">
+  <div class="wrap"><div class="proof-in">
+    <div class="pcell"><div class="v mono">30<em>회 중</em></div><div class="k">실외 필드테스트 퍼팅</div></div>
+    <div class="pcell"><div class="v mono">4<em>회 홀인</em></div><div class="k">나머지 26회 전량 컨시드</div></div>
+    <div class="pcell"><div class="v mono">3<em>건</em></div><div class="k">다중경사 경로예측 등록특허</div></div>
+    <div class="pcell"><div class="v mono">7<em>개국</em></div><div class="k">한국·미국·영국·캐나다·호주·일본·독일</div></div>
+  </div></div>
+</section>
+
+<!-- ══════════ HOW ══════════ -->
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">How it works</div>
+      <h2>스캔하고, 보고,<br><span class="thin">그대로 친다.</span></h2>
+      <p class="sub">계산은 이미 끝나 있습니다. 2018년부터 쌓은 등록특허 3건의 물리 모델이 그린의 다중 경사를 실시간으로 풉니다.</p>
+    </div>
+
+    <div class="bento">
+      <div class="bx">
+        <div class="num">01 — SCAN</div>
+        <h3>그린을 걸으며 스캔</h3>
+        <p>볼에서 홀까지 걸어가면 라이다가 지형을 5cm 격자 높이맵으로 재구성합니다.</p>
+        <div class="bx-viz">
+          <svg viewBox="0 0 340 130" style="width:100%;height:auto">
+            <rect width="340" height="130" fill="#0C0C0C"/>
+            <g stroke="#2A2A2A" stroke-width="1">
+              <path d="M0 32H340M0 65H340M0 98H340M56 0V130M113 0V130M170 0V130M227 0V130M284 0V130"/>
+            </g>
+            <g fill="none" stroke="#FFB020" stroke-width="1.5" opacity=".9">
+              <path d="M26 100Q90 58 170 72T314 40"/>
+              <path d="M26 84Q90 44 170 56T314 26"/>
+            </g>
+            <circle cx="52" cy="96" r="4.5" fill="#F3F1EB"/>
+            <circle cx="292" cy="34" r="6" fill="none" stroke="#F3F1EB" stroke-width="1.6"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="bx wide">
+        <div class="num">02 — AIM</div>
+        <h3>실제 그린 위에 조준선이 겹칩니다</h3>
+        <p>계산된 출발 방향이 카메라 화면 위 AR 라인으로 실제 크기로 표시됩니다. 라인 끝을 보고 그대로 조준하면 됩니다.</p>
+        <div class="bx-viz">
+          <svg viewBox="0 0 700 150" style="width:100%;height:auto">
+            <defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#9CBB76"/><stop offset=".55" stop-color="#4A7A38"/><stop offset="1" stop-color="#1B3220"/>
+            </linearGradient></defs>
+            <rect width="700" height="150" fill="url(#gr)"/>
+            <line x1="150" y1="132" x2="430" y2="34" stroke="#FFB020" stroke-width="20" stroke-linecap="round" opacity=".18"/>
+            <line x1="150" y1="132" x2="430" y2="34" stroke="#FFB020" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="150" cy="132" r="6" fill="#fff"/>
+            <circle cx="470" cy="26" r="7.5" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+            <g font-family="JetBrains Mono, monospace" font-size="12" fill="#0A0A0A" font-weight="500">
+              <text x="446" y="52">β 10.4°</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="bx full">
+        <div class="num">03 — STROKE</div>
+        <h3>"5.7m 치는 느낌으로"</h3>
+        <p>m/s 같은 숫자는 실제로 칠 때 도움이 안 됩니다. 그래서 오르막·내리막을 반영한 평지 환산 거리로 알려줍니다. 원시값을 보고 싶다면 그것도 같이 표시됩니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SHOWCASE ══════════ -->
+<section class="sec light" id="showcase">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Putt Showcase</div>
+      <h2>퍼팅 뽐내기</h2>
+      <p class="sub">
+        업로드할 때 화면에 찍힌 실거리·경사각을 직접 입력합니다. <b>조준 화면 자체가 영상에 그대로 남아있어서</b>,
+        숫자를 부풀려도 다른 사람이 영상만 보면 바로 알 수 있습니다. 그래서 "운 좋게 들어간 퍼팅"과 "어려운 걸 읽어낸 퍼팅"이 자연스럽게 구분됩니다.
+      </p>
+    </div>
+
+    <div class="cats">
+      <span class="cat on">전체</span>
+      <span class="cat">롱퍼트</span>
+      <span class="cat">다중브레이크 난이도</span>
+      <span class="cat">극복(오르막·내리막)</span>
+      <span class="cat">첫 홀인</span>
+    </div>
+
+    <div class="feed">
+      <article class="card">
+        <div class="card-v">
+          <div class="rank">이달 1위</div>
+          <div class="meta"><span class="chip hot">β 14.2°</span><span class="chip">12.4m</span><span class="chip">−1.8m 내리막</span></div>
+        </div>
+        <div class="card-b">
+          <div class="u"><div class="av"></div><div class="un">bogey_hunter</div></div>
+          <div class="ct">트리플 브레이크에서 12m 넘게 들어갔습니다. 라인 안 믿었으면 절대 못 넣었어요.</div>
+          <div class="lk"><span>남서울CC · 4일 전</span><span><b>1,284</b> 좋아요</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-v">
+          <div class="rank">이달 2위</div>
+          <div class="meta"><span class="chip hot">β 11.6°</span><span class="chip">8.2m</span><span class="chip">+1.2m 오르막</span></div>
+        </div>
+        <div class="card-b">
+          <div class="u"><div class="av"></div><div class="un">green_reader</div></div>
+          <div class="ct">오르막 + 좌경사 조합이라 감으로는 답이 안 나오던 자리였습니다.</div>
+          <div class="lk"><span>레이크사이드 · 6일 전</span><span><b>962</b> 좋아요</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-v">
+          <div class="rank">첫 홀인</div>
+          <div class="meta"><span class="chip">5.1m</span><span class="chip">β 6.8°</span><span class="chip hot">입문 3주차</span></div>
+        </div>
+        <div class="card-b">
+          <div class="u"><div class="av"></div><div class="un">park_golf99</div></div>
+          <div class="ct">골프 시작하고 처음으로 롱퍼트 넣어봤습니다. 손 떨렸어요.</div>
+          <div class="lk"><span>제주 오라CC · 2일 전</span><span><b>734</b> 좋아요</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ HALL OF FAME ══════════ -->
+<section class="sec light" id="hof">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Hall of Fame</div>
+      <h2>명예의 전당</h2>
+      <p class="sub">
+        운영자가 심사하지 않습니다. 매달 좋아요를 가장 많이 받은 퍼팅이 자동으로 등재되고,
+        <b style="color:var(--ink)">1위에게는 무료 실행 크레딧이 자동 지급</b>됩니다. 역대 등재작은 영구 보관되어 개인 프로필에서 언제든 링크로 자랑할 수 있습니다.
+      </p>
+    </div>
+    <div class="hof">
+      <div class="hcard"><div class="th"><span class="mo mono">2026.08</span><span class="cr">🏆</span></div>
+        <div class="hb"><div class="n">iron_will</div><div class="d mono">15.2m · β 12.8° 롱퍼트</div></div></div>
+      <div class="hcard"><div class="th"><span class="mo mono">2026.07</span><span class="cr">🏆</span></div>
+        <div class="hb"><div class="n">slice_master</div><div class="d mono">β 16.4° 다중브레이크</div></div></div>
+      <div class="hcard"><div class="th"><span class="mo mono">2026.06</span><span class="cr">🏆</span></div>
+        <div class="hb"><div class="n">one_putt_kim</div><div class="d mono">−2.4m 내리막 극복</div></div></div>
+      <div class="hcard"><div class="th"><span class="mo mono">2026.05</span><span class="cr">🏆</span></div>
+        <div class="hb"><div class="n">rookie_jun</div><div class="d mono">9.8m 첫 홀인</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PRICING ══════════ -->
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Pricing</div>
+      <h2>먼저 9번,<br><span class="thin">그냥 써보세요.</span></h2>
+      <p class="sub">다운로드하면 카드 등록 없이 9회를 무료로 쓸 수 있습니다. 다 쓰고 나서 구독을 시작하면 3일 무료체험이 한 번 더 붙습니다.</p>
+    </div>
+
+    <div class="plans">
+      <div class="plan">
+        <div class="tag">무료</div>
+        <div class="amt">9<em>회</em></div>
+        <div class="per">다운로드 즉시 · 카드 등록 없음</div>
+        <ul>
+          <li>모든 기능 제한 없이 사용</li>
+          <li>라이다 스캔 · AR 조준선 전부 포함</li>
+          <li>퍼팅 뽐내기 열람 가능</li>
+        </ul>
+        <a class="go" href="#download">App Store에서 받기</a>
+      </div>
+
+      <div class="plan best">
+        <span class="badge-top">3일 무료체험 · 가장 인기</span>
+        <div class="tag">연간 구독</div>
+        <div class="amt">$74.99<em>/년</em></div>
+        <div class="per">월 $6.25 · 월간 대비 37% 절약</div>
+        <ul>
+          <li>퍼팅 횟수 무제한</li>
+          <li>퍼팅 뽐내기 업로드 · 명예의 전당 도전</li>
+          <li>매달 라운딩 즐기는 분께 가장 저렴</li>
+        </ul>
+        <a class="go" href="#download">3일 무료로 시작</a>
+      </div>
+
+      <div class="plan">
+        <div class="tag">월간 · 3개월 · 6개월</div>
+        <div class="amt">$9.99<em>/월~</em></div>
+        <div class="per">3개월 $24.99 · 6개월 $44.99</div>
+        <ul>
+          <li>연간과 동일한 전체 기능</li>
+          <li>시즌에만 치는 골퍼에게 적합</li>
+          <li>언제든 해지 가능</li>
+        </ul>
+        <a class="go" href="#download">플랜 비교하기</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ INVITE ══════════ -->
+<section class="sec light">
+  <div class="wrap invite">
+    <div>
+      <div class="eyebrow">Invite</div>
+      <h2>같이 치는 사람이<br><span class="thin">있어야 재밌으니까.</span></h2>
+      <p class="sub">초대 링크로 들어오면 둘 다 원래보다 더 받습니다. 초대 횟수 제한은 없습니다.</p>
+    </div>
+    <div class="iv-cols">
+      <div class="iv-card hi">
+        <div class="k">보낸 사람</div>
+        <h3>무료 실행 크레딧 +9회</h3>
+        <div class="cap">구독 중이어도, 아니어도 똑같이 받습니다</div>
+        <ul>
+          <li><b>다운로드 순간 바로 적립</b>친구가 앱을 깔기만 하면 조건 없이 쌓입니다.</li>
+          <li><b>구독 중에도 계속 쌓임</b>지금 안 써도 크레딧은 사라지지 않고, 나중에 구독을 쉬게 되면 그때 그대로 쓸 수 있습니다.</li>
+          <li><b>초대 횟수 제한 없음</b>몇 명을 초대하든 계속 쌓입니다.</li>
+        </ul>
+      </div>
+      <div class="iv-card">
+        <div class="k">받은 사람</div>
+        <h3>무료 실행 18회로 시작</h3>
+        <div class="cap">그냥 다운로드하면 9회, 초대 링크로 오면 2배</div>
+        <ul>
+          <li><b>다운로드 즉시 18회 무료</b>카드 등록 없이 바로 시작합니다.</li>
+          <li><b>구독 시 무료체험 7일</b>기본 3일보다 두 배 넘게 깁니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA ══════════ -->
+<section class="cta" id="download">
+  <div class="wrap">
+    <h2>오늘 라운드부터<br><span class="thin">그린을 읽어보세요.</span></h2>
+    <div class="hero-cta">
+      <a class="appstore" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.53c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.61-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.87-.76-1.48.02-2.84.86-3.6 2.18-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.25 2.74 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.08 2.65-2.14.84-1.23 1.18-2.42 1.2-2.48-.03-.01-2.29-.88-2.31-3.5zM14.88 5.9c.6-.74 1.01-1.75.9-2.77-.87.04-1.93.58-2.56 1.31-.56.65-1.06 1.7-.93 2.7.97.08 1.97-.5 2.59-1.24z"/></svg>
+        <div><span>Download on the</span><strong>App Store</strong></div>
+      </a>
+      <div class="free-note">다운로드 후 <b>9회 무료</b> · 카드 등록 없이</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="ft" id="support">
+  <div class="wrap">
+    <div class="ft-in">
+      <div>
+        <a class="logo" href="#top" style="margin-bottom:14px"><i></i>putthink</a>
+        <p style="font-size:13px;color:var(--g-2);max-width:24ch">Multi Break Putting App</p>
+      </div>
+      <div><h5>제품</h5><ul>
+        <li><a href="#how">작동 원리</a></li><li><a href="#pricing">요금제</a></li><li><a href="#">지원 골프장</a></li><li><a href="#">지원 기기</a></li>
+      </ul></div>
+      <div><h5>커뮤니티</h5><ul>
+        <li><a href="#showcase">퍼팅 뽐내기</a></li><li><a href="#hof">명예의 전당</a></li><li><a href="#">커뮤니티 운영 규정</a></li>
+      </ul></div>
+      <div><h5>지원</h5><ul>
+        <li><a href="#">자주 묻는 질문</a></li><li><a href="#">문의하기</a></li><li><a href="#">이용약관</a></li><li><a href="#">개인정보처리방침</a></li>
+      </ul></div>
+      <div><h5>회사</h5><ul>
+        <li><a href="https://nasem.kr" target="_blank" rel="noopener">주식회사 나샘</a></li><li><a href="#">보도자료</a></li><li><a href="#">특허 안내</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-b">
+      <span>© 2026 NASAEM CO., LTD.</span>
+      <span>기관 투자자 및 인수 문의는 <a href="data_room_mockup.html">Data Room</a>을 이용해 주세요</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('on',scrollY>10),{passive:true});
+</script>
+</body>
+</html>

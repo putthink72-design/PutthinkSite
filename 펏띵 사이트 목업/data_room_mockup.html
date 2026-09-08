@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>펏띵 Data Room</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F7F4; --panel:#FFFFFF; --panel-2:#FBFBF9;
+  --line:#E6E6E1; --line-soft:#EFEFEA;
+  --ink:#15171A; --text-1:#1E2023; --text-2:#6B706B; --text-3:#9BA09A;
+
+  --amber:#FFB020; --amber-deep:#C97D0A; --amber-ink:#1A1204; --amber-soft:#FFF3DE; --amber-line:#F5D9A0;
+  --up:#2F7D5C; --up-soft:#E6F2EC;
+
+  --font:'Pretendard',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
+  --maxw:1180px; --gutter:clamp(20px,4vw,56px);
+}
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+body{ background:var(--bg); color:var(--text-1); font-family:var(--font); font-size:15px; line-height:1.65; word-break:keep-all; }
+.num{ font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; }
+.shell{ max-width:var(--maxw); margin:0 auto; padding-inline:var(--gutter); }
+a{ color:inherit; }
+
+/* label banner distinguishing the two mock screens in this single review file */
+.screenlabel{ background:var(--ink); color:#fff; text-align:center; padding:10px; font-size:13px; letter-spacing:.02em; }
+.screenlabel b{ color:var(--amber); }
+
+/* ============================================================ SCREEN 1: REQUEST ACCESS (public) */
+.gate{ min-height:92vh; display:flex; align-items:center; justify-content:center; padding:60px 20px; background:
+  radial-gradient(60% 50% at 50% 0%, #FCEFD4, transparent 60%), var(--bg); }
+.gate-card{ width:100%; max-width:460px; }
+.gate-brand{ display:flex; align-items:center; gap:9px; justify-content:center; margin-bottom:34px; font-weight:800; font-size:18px; }
+.gate-brand .dot{ width:8px; height:8px; border-radius:50%; background:var(--amber); }
+.gate-box{ background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:clamp(28px,4vw,40px); box-shadow:0 24px 60px -30px rgba(20,20,10,.15); }
+.gate-eyebrow{ font-size:12.5px; color:var(--amber-deep); font-weight:700; margin-bottom:10px; }
+.gate-box h1{ font-size:23px; font-weight:800; letter-spacing:-0.02em; margin-bottom:10px; }
+.gate-box .lede{ font-size:14px; color:var(--text-2); line-height:1.75; margin-bottom:28px; }
+
+.field{ margin-bottom:16px; }
+.field label{ display:block; font-size:13px; font-weight:600; margin-bottom:7px; color:var(--text-1); }
+.field input, .field select, .field textarea{
+  width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:10px; background:var(--panel-2);
+  font-family:var(--font); font-size:14.5px; color:var(--text-1);
+}
+.field textarea{ resize:vertical; min-height:80px; }
+.field input:focus, .field select:focus, .field textarea:focus{ outline:2px solid var(--amber); outline-offset:1px; border-color:transparent; }
+
+.gate-submit{
+  width:100%; padding:13px 0; border:none; border-radius:10px; margin-top:6px; cursor:pointer;
+  background:linear-gradient(180deg,var(--amber),var(--amber-deep)); color:var(--amber-ink); font-weight:800; font-size:14.5px;
+  box-shadow:0 10px 24px -12px rgba(229,150,15,.5);
+}
+.gate-fine{ margin-top:18px; font-size:12.5px; color:var(--text-3); text-align:center; line-height:1.7; }
+
+/* ============================================================ SCREEN 2: DASHBOARD (approved) */
+.dash{ background:var(--bg); min-height:100vh; }
+
+.dtop{ background:var(--panel); border-bottom:1px solid var(--line); }
+.dtop-in{ max-width:var(--maxw); margin:0 auto; padding:16px var(--gutter); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.dbrand{ display:flex; align-items:center; gap:10px; font-weight:800; font-size:16px; }
+.dbrand .dot{ width:7px; height:7px; border-radius:50%; background:var(--amber); }
+.dbrand .tag{ font-size:11.5px; font-weight:700; color:var(--amber-deep); background:var(--amber-soft); border:1px solid var(--amber-line); padding:3px 9px; border-radius:999px; margin-left:6px; }
+.duser{ display:flex; align-items:center; gap:14px; font-size:13px; color:var(--text-2); }
+.duser .avatar{ width:28px; height:28px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; }
+.dsignout{ font-size:13px; color:var(--text-2); border:1px solid var(--line); padding:7px 13px; border-radius:8px; }
+
+.dhead{ padding-block:clamp(28px,3.4vw,40px); }
+.dhead h1{ font-size:clamp(22px,2.4vw,28px); font-weight:800; letter-spacing:-0.02em; }
+.dhead p{ margin-top:8px; font-size:14px; color:var(--text-2); }
+.sync{ display:inline-flex; align-items:center; gap:7px; margin-top:14px; font-size:12.5px; color:var(--text-3); }
+.sync .d{ width:6px; height:6px; border-radius:50%; background:var(--up); }
+
+/* KPI row */
+.kpis{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px; }
+.kpi{ background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px 22px; }
+.kpi .k{ font-size:12.5px; color:var(--text-2); margin-bottom:10px; }
+.kpi .v{ font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+.kpi .d{ display:inline-flex; align-items:center; gap:4px; margin-top:9px; font-size:12px; font-weight:700; color:var(--up); background:var(--up-soft); padding:3px 8px; border-radius:999px; }
+
+/* two-col chart row */
+.chartrow{ display:grid; grid-template-columns:1.3fr 1fr; gap:14px; margin-bottom:14px; }
+.card{ background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:clamp(20px,2.4vw,26px); }
+.card-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:20px; }
+.card-head h3{ font-size:15px; font-weight:700; }
+.card-head .sub{ font-size:12px; color:var(--text-3); }
+
+.legend{ display:flex; gap:16px; margin-top:14px; }
+.legend span{ display:flex; align-items:center; gap:7px; font-size:12px; color:var(--text-2); }
+.legend i{ width:9px; height:9px; border-radius:2px; display:block; }
+
+/* country table */
+.tbl{ width:100%; border-collapse:collapse; font-size:13.5px; }
+.tbl th{ text-align:left; font-size:11.5px; color:var(--text-3); font-weight:600; padding:0 10px 10px; border-bottom:1px solid var(--line); }
+.tbl td{ padding:12px 10px; border-bottom:1px solid var(--line-soft); }
+.tbl tr:last-child td{ border-bottom:none; }
+.tbl .country{ display:flex; align-items:center; gap:9px; font-weight:600; }
+.tbl .flag{ width:20px; height:14px; border-radius:2px; box-shadow:0 0 0 1px var(--line); }
+.tbl td.num, .tbl th.num{ text-align:right; font-variant-numeric:tabular-nums; }
+
+/* assets */
+.assets{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin-top:14px; }
+.asset{ background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px; display:flex; flex-direction:column; gap:10px; }
+.asset .ico{ width:34px; height:34px; border-radius:9px; background:var(--amber-soft); border:1px solid var(--amber-line); display:flex; align-items:center; justify-content:center; color:var(--amber-deep); font-weight:800; font-size:13px; }
+.asset h4{ font-size:14.5px; font-weight:700; }
+.asset p{ font-size:12.5px; color:var(--text-2); line-height:1.7; flex:1; }
+.asset a{ font-size:13px; font-weight:700; color:var(--amber-deep); }
+
+.dfooter{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between; margin-top:34px; padding-top:24px; border-top:1px solid var(--line); }
+.dfooter p{ font-size:12.5px; color:var(--text-3); }
+.meet-btn{ padding:11px 20px; border-radius:10px; background:var(--ink); color:#fff; font-size:13.5px; font-weight:700; }
+
+@media (max-width:900px){
+  .kpis{ grid-template-columns:1fr 1fr; }
+  .chartrow{ grid-template-columns:1fr; }
+}
+@media (max-width:560px){ .kpis{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<!-- flag sprite (self-contained, no external dependency — same approach as marketing site) -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+<symbol id="f-kr" viewBox="0 0 36 36"><path fill="#EEE" d="M36 27c0 2.209-1.791 4-4 4H4c-2.209 0-4-1.791-4-4V9c0-2.209 1.791-4 4-4h28c2.209 0 4 1.791 4 4v18z"/><circle fill="#C60C30" cx="18" cy="14" r="4.2"/><circle fill="#003478" cx="18" cy="22" r="4.2"/></symbol>
+<symbol id="f-us" viewBox="0 0 36 36"><path fill="#B22334" d="M0 9c0-2.209 1.791-4 4-4h28c2.209 0 4 1.791 4 4v18c0 2.209-1.791 4-4 4H4c-2.209 0-4-1.791-4-4V9z"/><path fill="#EEE" d="M0 9.9h36v2.8H0zm0 5.6h36v2.8H0zm0 5.6h36v2.8H0zm0 5.6h36v1.5c0 .5-.05.99-.14 1.3H.14A6 6 0 010 27.3v-.6z"/><path fill="#3C3B6E" d="M18 5H4c-2.209 0-4 1.791-4 4v10h18V5z"/></symbol>
+<symbol id="f-gb" viewBox="0 0 36 36"><path fill="#00247D" d="M0 9.059V13h5.628zM4.664 31H13v-5.837zM23 25.164V31h8.335zM0 23v3.941L5.63 23zM31.337 5H23v5.837zM36 26.942V23h-5.631zM36 13V9.059L30.371 13zM13 5H4.664L13 10.837z"/><path fill="#CF1B2B" d="M25.14 23L34.85 29.8c.4-.5.7-1.1.9-1.8L28.7 23zM13 25.164L4.66 31h2.7l7.64-5.3zM23 10.837L31.337 5h-2.7L23 9.1zM10.86 13L1.15 6.2c-.4.5-.7 1.1-.9 1.8L7.3 13z"/><path fill="#EEE" d="M14.5 5H21.5V31H14.5z"/><path fill="#EEE" d="M0 14.5H36V21.5H0z"/><path fill="#CF1B2B" d="M16 5H20V31H16z"/><path fill="#CF1B2B" d="M0 16H36V20H0z"/></symbol>
+<symbol id="f-ca" viewBox="0 0 36 36"><path fill="#D52B1E" d="M4 5C1.791 5 0 6.791 0 9v18c0 2.209 1.791 4 4 4h6V5H4zm28 0h-6v26h6c2.209 0 4-1.791 4-4V9c0-2.209-1.791-4-4-4z"/><path fill="#EEE" d="M10 5h16v26H10z"/><path fill="#D52B1E" d="M18 12l1.8 3.6 3.9-1-1.4 3.8 3.7 1.6-3.7 1.6 1.4 3.8-3.9-1L18 28l-1.8-3.6-3.9 1 1.4-3.8-3.7-1.6 3.7-1.6-1.4-3.8 3.9 1z"/></symbol>
+<symbol id="f-au" viewBox="0 0 36 36"><path fill="#00247D" d="M0 9c0-2.209 1.791-4 4-4h28c2.209 0 4 1.791 4 4v18c0 2.209-1.791 4-4 4H4c-2.209 0-4-1.791-4-4V9z"/><g fill="#FFF"><circle cx="27" cy="10" r="1.1"/><circle cx="30" cy="15" r="1.3"/><circle cx="27" cy="21" r="1.5"/><circle cx="22" cy="19" r="1"/><circle cx="30.5" cy="24" r="1"/></g><path fill="#EEE" d="M4 5h14v11H4z"/><path fill="#CF1B2B" d="M4 5h14v2H4zm0 4.5h14v2H4z"/><path fill="#CF1B2B" d="M9 5h4v11H9z"/></symbol>
+<symbol id="f-jp" viewBox="0 0 36 36"><path fill="#EEE" d="M36 27c0 2.209-1.791 4-4 4H4c-2.209 0-4-1.791-4-4V9c0-2.209 1.791-4 4-4h28c2.209 0 4 1.791 4 4v18z"/><circle fill="#ED1B2F" cx="18" cy="18" r="7"/></symbol>
+<symbol id="f-de" viewBox="0 0 36 36"><path fill="#FFCD05" d="M0 27c0 2.209 1.791 4 4 4h28c2.209 0 4-1.791 4-4v-4H0v4z"/><path fill="#ED1F24" d="M0 14h36v9H0z"/><path fill="#141414" d="M32 5H4C1.791 5 0 6.791 0 9v5h36V9c0-2.209-1.791-4-4-4z"/></symbol>
+</svg>
+
+<div class="screenlabel">이 파일은 검토용으로 <b>화면 1(접근 요청)</b>과 <b>화면 2(대시보드)</b>를 한 페이지에 이어 붙였습니다 — 실제 구현 시 별도 라우트로 분리됩니다.</div>
+
+<!-- ══════════════════════════════════════════════ SCREEN 1 — REQUEST ACCESS ══════════════════════════════════════════════ -->
+<div class="gate">
+  <div class="gate-card">
+    <div class="gate-brand"><span class="dot"></span>putthink</div>
+    <div class="gate-box">
+      <div class="gate-eyebrow">DATA ROOM 접근 요청</div>
+      <h1>실사용 트랙션과<br>재무 현황을 확인하세요</h1>
+      <p class="lede">인수·투자 검토를 위한 접근 요청입니다. 검토 후 이메일로 매직링크를 보내드립니다.</p>
+
+      <form id="gateForm">
+        <div class="field"><label>이메일</label><input type="email" placeholder="name@company.com"></div>
+        <div class="field"><label>소속</label><input type="text" placeholder="회사 또는 펀드명"></div>
+        <div class="field"><label>역할</label>
+          <select><option>선택해주세요</option><option>투자자 / VC</option><option>전략적 인수자(Corp Dev)</option><option>자문사 / 법무</option><option>기타</option></select>
+        </div>
+        <div class="field"><label>문의 내용 (선택)</label><textarea placeholder="검토 배경이나 궁금한 점을 남겨주세요"></textarea></div>
+        <button type="button" class="gate-submit" id="gateSubmitBtn">접근 요청 보내기</button>
+      </form>
+      <div id="gateSuccess" style="display:none; text-align:center; padding:20px 0;">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--up-soft);color:var(--up);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin:0 auto 16px;">✓</div>
+        <h2 style="font-size:18px;font-weight:800;margin-bottom:8px;">요청이 접수되었습니다</h2>
+        <p style="font-size:13.5px;color:var(--text-2);line-height:1.75;margin-bottom:22px;">검토 후 영업일 기준 1~2일 내 이메일로 매직링크를 보내드립니다.</p>
+        <a href="#dashboard" class="gate-submit" style="display:block;text-decoration:none;box-sizing:border-box;">데모: 승인된 화면 미리보기 →</a>
+      </div>
+      <p class="gate-fine" id="gateFine">제출하신 정보는 접근 승인 검토 목적으로만 사용됩니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ SCREEN 2 — DASHBOARD ══════════════════════════════════════════════ -->
+<div style="background:#FFF3DE; border-bottom:1px solid #F5D9A0; text-align:center; padding:9px; font-size:12.5px; color:#8A5A0A;">
+  ↓ 아래는 <b>승인된 VC·매수자가 매직링크로 로그인한 뒤 보는 화면</b>입니다 (화면 2)
+</div>
+<div class="dash" id="dashboard">
+
+  <div class="dtop">
+    <div class="dtop-in">
+      <div class="dbrand"><span class="dot"></span>putthink<span class="tag">DATA ROOM</span></div>
+      <div class="duser">
+        <span>investor@example-fund.com</span>
+        <div class="avatar">JK</div>
+        <a class="dsignout" href="#">로그아웃</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell">
+    <div class="dhead">
+      <h1>펏띵 트랙션 대시보드</h1>
+      <p>7개국 출시 기준 실사용 지표와 재무 현황입니다. 아래 수치는 App Store Connect에서 자동 동기화됩니다.</p>
+      <div class="sync"><span class="d"></span>마지막 동기화: 2026-09-06 06:00 KST</div>
+      <div style="display:inline-block; margin-top:10px; margin-left:0; font-size:11.5px; font-weight:700; color:#B45309; background:#FFF3DE; border:1px solid #F5D9A0; padding:4px 10px; border-radius:999px;">⚠ 예시 데이터 — 출시 전 목업 화면입니다</div>
+    </div>
+
+    <!-- KPI row -->
+    <div class="kpis">
+      <div class="kpi">
+        <div class="k">누적 다운로드</div>
+        <div class="v num">18,432</div>
+        <div class="d">↑ 12.4% WoW</div>
+      </div>
+      <div class="kpi">
+        <div class="k">MAU</div>
+        <div class="v num">6,105</div>
+        <div class="d">↑ 8.1% WoW</div>
+      </div>
+      <div class="kpi">
+        <div class="k">무료→유료 전환율</div>
+        <div class="v num">2.7%</div>
+        <div class="d">↑ 0.2%p</div>
+      </div>
+      <div class="kpi">
+        <div class="k">MRR</div>
+        <div class="v num">$4,180</div>
+        <div class="d">↑ 15.6% MoM</div>
+      </div>
+    </div>
+
+    <!-- charts -->
+    <div class="chartrow">
+      <div class="card">
+        <div class="card-head"><h3>매출 추이 (MRR)</h3><span class="sub">최근 6개월 · USD</span></div>
+        <svg viewBox="0 0 560 180" width="100%" height="180" preserveAspectRatio="none">
+          <g stroke="#EFEFEA" stroke-width="1"><path d="M0 30H560M0 75H560M0 120H560M0 165H560"/></g>
+          <path d="M20 150 L110 138 L200 132 L290 108 L380 78 L470 46 L550 20" fill="none" stroke="#FFB020" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 150 L110 138 L200 132 L290 108 L380 78 L470 46 L550 20 L550 178 L20 178 Z" fill="#FFB020" opacity=".08"/>
+          <g fill="#E5960F"><circle cx="20" cy="150" r="3.4"/><circle cx="110" cy="138" r="3.4"/><circle cx="200" cy="132" r="3.4"/><circle cx="290" cy="108" r="3.4"/><circle cx="380" cy="78" r="3.4"/><circle cx="470" cy="46" r="3.4"/><circle cx="550" cy="20" r="3.6"/></g>
+          <g font-family="Pretendard" font-size="11" fill="#9BA09A">
+            <text x="20" y="176" text-anchor="middle">4월</text><text x="110" y="176" text-anchor="middle">5월</text><text x="200" y="176" text-anchor="middle">6월</text>
+            <text x="290" y="176" text-anchor="middle">7월</text><text x="380" y="176" text-anchor="middle">8월</text><text x="470" y="176" text-anchor="middle">9월</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>국가별 다운로드</h3><span class="sub">누적 기준</span></div>
+        <svg viewBox="0 0 300 180" width="100%" height="180">
+          <g font-family="Pretendard" font-size="11.5" fill="#3D423D">
+            <text x="0" y="14">미국</text><rect x="46" y="3" width="200" height="14" rx="3" fill="#FFB020"/><text x="252" y="14" fill="#9BA09A">8,240</text>
+            <text x="0" y="42">한국</text><rect x="46" y="31" width="128" height="14" rx="3" fill="#FFCE73"/><text x="180" y="42" fill="#9BA09A">5,120</text>
+            <text x="0" y="70">일본</text><rect x="46" y="59" width="56" height="14" rx="3" fill="#FFE2A8"/><text x="108" y="70" fill="#9BA09A">2,010</text>
+            <text x="0" y="98">캐나다</text><rect x="46" y="87" width="38" height="14" rx="3" fill="#FFE2A8"/><text x="90" y="98" fill="#9BA09A">1,340</text>
+            <text x="0" y="126">영국</text><rect x="46" y="115" width="28" height="14" rx="3" fill="#FFE2A8"/><text x="80" y="126" fill="#9BA09A">980</text>
+            <text x="0" y="154">호주+독일</text><rect x="46" y="143" width="22" height="14" rx="3" fill="#FFE2A8"/><text x="74" y="154" fill="#9BA09A">742</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- country table -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-head"><h3>국가별 세부 지표</h3><span class="sub">최근 30일</span></div>
+      <table class="tbl">
+        <thead><tr><th>국가</th><th class="num">다운로드</th><th class="num">유료 전환자</th><th class="num">전환율</th><th class="num">MRR</th></tr></thead>
+        <tbody>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-us"/></svg>미국</div></td><td class="num">8,240</td><td class="num">223</td><td class="num">2.7%</td><td class="num">$1,890</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-kr"/></svg>한국</div></td><td class="num">5,120</td><td class="num">158</td><td class="num">3.1%</td><td class="num">$1,240</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-jp"/></svg>일본</div></td><td class="num">2,010</td><td class="num">44</td><td class="num">2.2%</td><td class="num">$412</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-ca"/></svg>캐나다</div></td><td class="num">1,340</td><td class="num">29</td><td class="num">2.2%</td><td class="num">$298</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-gb"/></svg>영국</div></td><td class="num">980</td><td class="num">19</td><td class="num">1.9%</td><td class="num">$201</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-au"/></svg>호주</div></td><td class="num">512</td><td class="num">11</td><td class="num">2.1%</td><td class="num">$118</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-de"/></svg>독일</div></td><td class="num">230</td><td class="num">4</td><td class="num">1.7%</td><td class="num">$41</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- assets -->
+    <div class="card-head" style="margin-top:30px;"><h3 style="font-size:16px;">기술·재무 자료</h3></div>
+    <div class="assets">
+      <div class="asset">
+        <div class="ico">P</div>
+        <h4>등록특허 3건 원문</h4>
+        <p>10-2148254 · 10-2202594 · 10-2053911, 전체 명세서 PDF</p>
+        <a href="#">다운로드 →</a>
+      </div>
+      <div class="asset">
+        <div class="ico">R</div>
+        <h4>사업현황 · 매각가치 보고서</h4>
+        <p>7개국 매출 추정, Low/Base/High 시나리오 포함</p>
+        <a href="#">다운로드 →</a>
+      </div>
+      <div class="asset">
+        <div class="ico">C</div>
+        <h4>소스코드 저장소 접근</h4>
+        <p>NDA 서명 후 GitHub 리포지토리 초대</p>
+        <a href="#">접근 요청 →</a>
+      </div>
+      <div class="asset">
+        <div class="ico">V</div>
+        <h4>필드 테스트 검증 이력</h4>
+        <p>5차에 걸친 실외 테스트 원본 영상 및 기록</p>
+        <a href="#">다운로드 →</a>
+      </div>
+    </div>
+
+    <div class="dfooter">
+      <p>궁금한 점이 있으시면 담당자와 직접 미팅을 잡으실 수 있습니다.</p>
+      <a class="meet-btn" href="#">미팅 요청하기</a>
+    </div>
+  </div>
+
+  <div style="height:60px;"></div>
+</div>
+
+<script>
+document.getElementById('gateSubmitBtn').addEventListener('click', function(){
+  document.getElementById('gateForm').style.display = 'none';
+  document.getElementById('gateFine').style.display = 'none';
+  document.getElementById('gateSuccess').style.display = 'block';
+});
+</script>
+</body>
+</html>
