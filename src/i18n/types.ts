@@ -34,6 +34,7 @@ export type Dictionary = {
     uphillAdjust: string;
     strokeCue: string;
     playDemo: string;
+    fullDemo: string;
     closeDemo: string;
   };
   appStore: {

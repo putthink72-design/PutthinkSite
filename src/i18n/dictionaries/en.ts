@@ -37,6 +37,7 @@ const en: Dictionary = {
     uphillAdjust: "+0.9m uphill adjust",
     strokeCue: "Stroke it like 5.7m",
     playDemo: "Play demo video",
+    fullDemo: "Full Demo (7:45)",
     closeDemo: "Close",
   },
   appStore: {

@@ -62,9 +62,6 @@ export function Nav() {
         </button>
       </div>
       <div className={`mobile-menu${open ? " open" : ""}`}>
-        <div style={{ padding: "8px 0 16px" }}>
-          <LanguageSwitcher />
-        </div>
         {links.map((l) => (
           <LocaleLink key={l.href} href={l.href} onClick={() => setOpen(false)}>
             {l.label}

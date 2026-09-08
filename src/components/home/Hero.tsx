@@ -12,8 +12,10 @@ import { useI18n } from "@/i18n/provider";
 
 /** Muted preview — plays on page load */
 const HERO_LOOP = "/hero/phone-loop.mp4";
-/** Full quality + sound — plays on click */
-const HERO_FULL = "/hero/phone.mp4";
+/** Phone tap — shorter demo with sound */
+const HERO_DEMO = "/hero/phone.mp4";
+/** Full Demo button — full-length demo with sound */
+const HERO_FULL = "/hero/phonefull.mp4";
 const HERO_POSTER = "/hero/phone-poster.jpg";
 
 async function playMuted(el: HTMLVideoElement) {
@@ -26,7 +28,6 @@ async function playMuted(el: HTMLVideoElement) {
   try {
     await el.play();
   } catch {
-    // Retry once after metadata is ready
     await new Promise<void>((resolve) => {
       const done = () => {
         el.removeEventListener("canplay", done);
@@ -42,12 +43,12 @@ async function playMuted(el: HTMLVideoElement) {
 export function Hero() {
   const { dict } = useI18n();
   const t = dict.hero;
-  const [open, setOpen] = useState(false);
+  const [modalSrc, setModalSrc] = useState<string | null>(null);
   const [loopPlaying, setLoopPlaying] = useState(false);
   const loopRef = useRef<HTMLVideoElement>(null);
   const fullRef = useRef<HTMLVideoElement>(null);
+  const open = modalSrc !== null;
 
-  // First visit / after closing modal: start muted loop
   useEffect(() => {
     if (open) return;
     const el = loopRef.current;
@@ -57,26 +58,26 @@ export function Hero() {
     });
   }, [open]);
 
-  const openFull = useCallback(() => {
+  const openModal = useCallback((src: string) => {
     const loop = loopRef.current;
     if (loop) {
       loop.pause();
       setLoopPlaying(false);
     }
-    setOpen(true);
+    setModalSrc(src);
   }, []);
 
-  const closeFull = useCallback(() => {
+  const closeModal = useCallback(() => {
     const full = fullRef.current;
     if (full) {
       full.pause();
       full.currentTime = 0;
     }
-    setOpen(false);
+    setModalSrc(null);
   }, []);
 
   useEffect(() => {
-    if (!open) return;
+    if (!modalSrc) return;
 
     const id = window.setTimeout(() => {
       const full = fullRef.current;
@@ -87,7 +88,7 @@ export function Hero() {
     }, 0);
 
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeFull();
+      if (e.key === "Escape") closeModal();
     };
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
@@ -97,12 +98,12 @@ export function Hero() {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
     };
-  }, [open, closeFull]);
+  }, [modalSrc, closeModal]);
 
   const onPhoneKey = (e: ReactKeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      openFull();
+      openModal(HERO_DEMO);
     }
   };
 
@@ -135,7 +136,7 @@ export function Hero() {
             className="phone phone-hit"
             role="button"
             tabIndex={0}
-            onClick={openFull}
+            onClick={() => openModal(HERO_DEMO)}
             onKeyDown={onPhoneKey}
             aria-label={t.playDemo}
           >
@@ -164,30 +165,38 @@ export function Hero() {
               ) : null}
             </div>
           </div>
+          <button
+            type="button"
+            className="phone-full-demo"
+            onClick={() => openModal(HERO_FULL)}
+          >
+            {t.fullDemo}
+          </button>
         </div>
       </div>
 
-      {open ? (
+      {modalSrc ? (
         <div
           className="vid-modal"
           role="dialog"
           aria-modal="true"
-          aria-label={t.playDemo}
-          onClick={closeFull}
+          aria-label={modalSrc === HERO_FULL ? t.fullDemo : t.playDemo}
+          onClick={closeModal}
         >
           <div className="vid-modal-panel" onClick={(e) => e.stopPropagation()}>
             <button
               type="button"
               className="vid-modal-close"
-              onClick={closeFull}
+              onClick={closeModal}
               aria-label={t.closeDemo}
             >
               ×
             </button>
             <video
+              key={modalSrc}
               ref={fullRef}
               className="vid-modal-player"
-              src={HERO_FULL}
+              src={modalSrc}
               poster={HERO_POSTER}
               controls
               playsInline

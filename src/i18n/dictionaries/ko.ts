@@ -37,6 +37,7 @@ const ko: Dictionary = {
     uphillAdjust: "+0.9m 오르막 보정",
     strokeCue: "5.7m 치는 느낌으로 퍼팅하세요",
     playDemo: "데모 영상 재생",
+    fullDemo: "Full Demo (7분 45초)",
     closeDemo: "닫기",
   },
   appStore: {
