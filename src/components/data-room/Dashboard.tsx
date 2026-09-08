@@ -50,7 +50,7 @@ export function Dashboard({ email = "investor@example-fund.com" }: { email?: str
         <div className="dtop-in">
           <div className="dbrand">
             <span className="dot" />
-            putthink
+            Putthink
             <span className="tag">DATA ROOM</span>
           </div>
           <div className="duser">

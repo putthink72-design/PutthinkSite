@@ -23,7 +23,7 @@ export function Logo({ href = "/" }: { href?: string }) {
   return (
     <Link className="logo" href={href}>
       <i aria-hidden="true" />
-      putthink
+      Putthink
     </Link>
   );
 }

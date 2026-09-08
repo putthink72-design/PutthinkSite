@@ -16,7 +16,7 @@ export function RequestForm() {
         <div className="gate-brand" style={{ justifyContent: "space-between", maxWidth: 460, margin: "0 auto 34px", width: "100%" }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 9 }}>
             <span className="dot" />
-            putthink
+            Putthink
           </span>
           <LanguageSwitcher />
         </div>
