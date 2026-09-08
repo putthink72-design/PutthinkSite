@@ -1226,6 +1226,12 @@ h2 .thin {
   min-width: 0;
   max-width: 100%;
 }
+.ft-brand {
+  flex: 1 1 160px;
+}
+.ft-col {
+  flex: 0 1 auto;
+}
 .ft h5 {
   font-size: 12px;
   color: var(--g-2);
@@ -1518,6 +1524,19 @@ h2 .thin {
   }
   .nav-in .btn-dl {
     display: none;
+  }
+  .ft-in {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 20px;
+    justify-content: stretch;
+  }
+  .ft-brand {
+    grid-column: 1 / -1;
+    flex: none;
+  }
+  .ft-col {
+    flex: none;
   }
 }
 @media (max-width: 620px) {

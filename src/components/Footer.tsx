@@ -12,7 +12,7 @@ export function Footer() {
     <footer className="ft" id="support">
       <div className="wrap">
         <div className="ft-in">
-          <div>
+          <div className="ft-brand">
             <Logo href={href("/")} />
             <p
               style={{
@@ -25,7 +25,7 @@ export function Footer() {
               {t.tagline}
             </p>
           </div>
-          <div>
+          <div className="ft-col">
             <h5>{t.product}</h5>
             <ul>
               <li>
@@ -42,7 +42,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="ft-col">
             <h5>{t.community}</h5>
             <ul>
               <li>
@@ -56,7 +56,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="ft-col">
             <h5>{t.support}</h5>
             <ul>
               <li>
@@ -73,7 +73,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="ft-col">
             <h5>{t.company}</h5>
             <ul>
               <li>
