@@ -36,6 +36,20 @@ export async function generateMetadata({
       description: dict.meta.ogDescription,
       type: "website",
       locale: raw === "ko" ? "ko_KR" : raw === "ja" ? "ja_JP" : "en_US",
+      images: [
+        {
+          url: "/opengraph.png",
+          width: 1456,
+          height: 720,
+          alt: dict.meta.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: dict.meta.title,
+      description: dict.meta.ogDescription,
+      images: ["/opengraph.png"],
     },
   };
 }

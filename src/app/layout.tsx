@@ -11,6 +11,10 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://putthink.com"),
+  icons: {
+    icon: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
