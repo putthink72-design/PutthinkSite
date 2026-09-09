@@ -1281,7 +1281,7 @@ h2 .thin {
 
 .lang-switch select {
   appearance: none;
-  background: transparent;
+  background-color: transparent;
   border: 1px solid var(--line-d);
   border-radius: 6px;
   color: var(--g-1);
@@ -1290,6 +1290,8 @@ h2 .thin {
   font-weight: 600;
   padding: 8px 28px 8px 12px;
   cursor: pointer;
+  /* Chrome inherits light text into the native menu — force a readable light popup */
+  color-scheme: light;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%238A8A85' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
@@ -1302,37 +1304,9 @@ h2 .thin {
   outline: 2px solid var(--amber);
   outline-offset: 2px;
 }
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.lang-switch select {
-  appearance: none;
-  background: transparent;
-  border: 1px solid var(--line-d);
-  border-radius: 6px;
-  color: var(--g-1);
-  font-family: var(--font);
-  font-size: 12.5px;
-  font-weight: 600;
-  padding: 8px 28px 8px 12px;
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%238A8A85' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-}
-.lang-switch select:hover {
-  color: var(--bone);
-  border-color: rgba(255, 255, 255, 0.2);
+.lang-switch select option {
+  color: #1e2023;
+  background-color: #ffffff;
 }
 
 /* Legal (terms / privacy) */
