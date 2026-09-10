@@ -1,17 +1,13 @@
 "use client";
 
 import { LocaleLink } from "@/components/LocaleLink";
+import { HofCardView } from "@/components/hof/HofCardView";
 import { useI18n } from "@/i18n/provider";
 import type { LiveHofCard } from "@/lib/showcase-data";
-
-function hofMeta(item: LiveHofCard, holeUnit: string, catLabel: string) {
-  return `${item.clubName} · ${item.courseName} · ${item.holeNumber}${holeUnit} · ${catLabel}`;
-}
 
 export function HallOfFame({ items }: { items: LiveHofCard[] }) {
   const { dict } = useI18n();
   const t = dict.hof;
-  const s = dict.showcase;
 
   return (
     <section className="sec light" id="hof">
@@ -27,21 +23,7 @@ export function HallOfFame({ items }: { items: LiveHofCard[] }) {
         </div>
         <div className="hof">
           {items.map((item) => (
-            <div className="hcard" key={`${item.period}-${item.id}`}>
-              <div className="th">
-                <span className="mo mono">{item.period}</span>
-                <span className="cr" aria-hidden="true">
-                  🏆
-                </span>
-              </div>
-              <div className="hb">
-                <div className="n">{item.nickname}</div>
-                <div className="ct">{item.caption}</div>
-                <div className="d mono">
-                  {hofMeta(item, s.holeUnit, s.cats[item.category])}
-                </div>
-              </div>
-            </div>
+            <HofCardView key={`${item.period}-${item.id}`} item={item} />
           ))}
         </div>
         <p style={{ marginTop: 28, textAlign: "center" }}>

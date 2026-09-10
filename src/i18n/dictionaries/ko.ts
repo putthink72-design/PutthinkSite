@@ -35,7 +35,7 @@ const ko: Dictionary = {
     aiming: "조준 중",
     realDistance: "4.8m 볼·홀 실거리",
     uphillAdjust: "+0.9m 오르막 보정",
-    strokeCue: "5.7m 치는 느낌으로 퍼팅하세요",
+    strokeCue: "8.3m 치는 느낌으로 퍼팅하세요",
     playDemo: "데모 영상 재생",
     fullDemo: "Full Demo (7분 45초)",
     closeDemo: "닫기",
@@ -72,7 +72,7 @@ const ko: Dictionary = {
     aimBody:
       "계산된 출발 방향이 카메라 화면 위 AR 라인으로 실제 크기로 표시됩니다. 라인 끝을 보고 그대로 조준하면 됩니다.",
     strokeNum: "03 — STROKE",
-    strokeTitle: '"5.7m 치는 느낌으로"',
+    strokeTitle: '"8.3m 치는 느낌으로"',
     strokeBody:
       "m/s 같은 숫자는 실제로 칠 때 도움이 안 됩니다. 그래서 오르막·내리막을 반영한 평지 환산 거리로 알려줍니다. 원시값을 보고 싶다면 그것도 같이 표시됩니다.",
   },

@@ -35,7 +35,7 @@ const ja: Dictionary = {
     aiming: "照準中",
     realDistance: "4.8m ボール〜ホール実距離",
     uphillAdjust: "+0.9m 上り補正",
-    strokeCue: "5.7mの感覚で打ってください",
+    strokeCue: "8.3mの感覚で打ってください",
     playDemo: "デモ映像を再生",
     fullDemo: "Full Demo (7分45秒)",
     closeDemo: "閉じる",
@@ -72,7 +72,7 @@ const ja: Dictionary = {
     aimBody:
       "算出した打ち出し方向が、カメラ映像上に実寸のARラインで表示されます。ラインの先を見てそのまま狙えばOKです。",
     strokeNum: "03 — STROKE",
-    strokeTitle: "「5.7mの感覚で」",
+    strokeTitle: "「8.3mの感覚で」",
     strokeBody:
       "m/sの数字だけでは打ちにくい。だから上り・下りを織り込んだ平地換算距離で伝えます。生の値も一緒に見られます。",
   },

@@ -806,6 +806,23 @@ h2 .thin {
   background: #0c0c0c;
 }
 
+/* How It Works — one step per row on all breakpoints */
+.how-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  min-width: 0;
+}
+.how-step .how-step-viz {
+  margin-top: 22px;
+}
+.how-step-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: top;
+}
+
 /* ─────────────── SHOWCASE ─────────────── */
 .cats {
   display: flex;
@@ -851,15 +868,32 @@ h2 .thin {
   overflow: hidden;
 }
 .card-v {
-  aspect-ratio: 4 / 5;
   position: relative;
+  background: #111;
+}
+.card-v:not(:has(.video-thumb-frame)) {
+  aspect-ratio: 4 / 5;
   background: linear-gradient(170deg, #9cbb76, #3e6b32 55%, #1b3220);
+}
+.video-thumb-frame {
+  position: relative;
+  width: 100%;
+  background: #111;
+}
+.card-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #111;
 }
 .card-v .meta {
   position: absolute;
   left: 10px;
   bottom: 10px;
   right: 10px;
+  z-index: 2;
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
@@ -884,6 +918,7 @@ h2 .thin {
   position: absolute;
   top: 10px;
   left: 10px;
+  z-index: 2;
   background: var(--ink);
   color: var(--bone);
   font-size: 11px;
@@ -931,14 +966,6 @@ h2 .thin {
 .card-b .lk b {
   color: var(--ink);
   font-weight: 700;
-}
-.card-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: #111;
 }
 .like-btn {
   appearance: none;
@@ -1064,14 +1091,28 @@ h2 .thin {
 }
 .hcard .th {
   width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #111;
+}
+.hcard .th:not(:has(.video-thumb-frame)) {
   aspect-ratio: 1 / 1;
   background: linear-gradient(160deg, #9cbb76, #3e6b32 60%, #1b3220);
-  position: relative;
+}
+.hcard .th .hof-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #111;
+  pointer-events: none;
 }
 .hcard .th .mo {
   position: absolute;
   top: 9px;
   left: 9px;
+  z-index: 1;
   font-family: var(--mono);
   font-size: 10.5px;
   background: rgba(6, 10, 7, 0.72);
@@ -1083,6 +1124,7 @@ h2 .thin {
   position: absolute;
   bottom: 9px;
   right: 9px;
+  z-index: 1;
   font-size: 17px;
 }
 .hcard .hb {

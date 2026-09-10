@@ -100,7 +100,12 @@ export async function fetchShowcaseFeed(opts?: {
     if (opts?.limit) q = q.limit(opts.limit);
 
     const { data, error } = await q;
-    if (error || !data?.length) return mockShowcase().slice(0, opts?.limit);
+    // Live env: never replace DB results with mock (even when empty/error).
+    if (error) {
+      console.error("[showcase] fetchShowcaseFeed", error.message, error.code);
+      return [];
+    }
+    if (!data?.length) return [];
 
     let likedIds = new Set<string>();
     if (opts?.userId) {
@@ -115,15 +120,12 @@ export async function fetchShowcaseFeed(opts?: {
       likedIds = new Set((likes ?? []).map((l) => l.showcase_id as string));
     }
 
-    return (data as ShowcaseRow[]).map((row, i) =>
-      mapShowcase(
-        row,
-        likedIds.has(row.id),
-        i === 0 ? undefined : undefined,
-      ),
+    return (data as ShowcaseRow[]).map((row) =>
+      mapShowcase(row, likedIds.has(row.id)),
     );
-  } catch {
-    return mockShowcase().slice(0, opts?.limit);
+  } catch (err) {
+    console.error("[showcase] fetchShowcaseFeed", err);
+    return [];
   }
 }
 
@@ -159,7 +161,12 @@ export async function fetchHallOfFame(opts?: {
     if (opts?.limit) q = q.limit(opts.limit);
 
     const { data, error } = await q;
-    if (error || !data?.length) return mockHof().slice(0, opts?.limit);
+    // Live env: never replace DB results with mock (even when empty/error).
+    if (error) {
+      console.error("[showcase] fetchHallOfFame", error.message, error.code);
+      return [];
+    }
+    if (!data?.length) return [];
 
     return data
       .map((row) => {
@@ -183,8 +190,9 @@ export async function fetchHallOfFame(opts?: {
         } satisfies LiveHofCard;
       })
       .filter(Boolean) as LiveHofCard[];
-  } catch {
-    return mockHof().slice(0, opts?.limit);
+  } catch (err) {
+    console.error("[showcase] fetchHallOfFame", err);
+    return [];
   }
 }
 

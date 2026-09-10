@@ -42,6 +42,8 @@ export async function middleware(req: NextRequest) {
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
     pathname.startsWith("/auth") ||
+    pathname.startsWith("/i/") ||
+    pathname.startsWith("/.well-known") ||
     pathname.includes(".")
   ) {
     const res = NextResponse.next();

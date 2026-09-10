@@ -35,7 +35,7 @@ const en: Dictionary = {
     aiming: "Aiming",
     realDistance: "4.8m ball-to-hole",
     uphillAdjust: "+0.9m uphill adjust",
-    strokeCue: "Stroke it like 5.7m",
+    strokeCue: "Stroke it like 8.3m",
     playDemo: "Play demo video",
     fullDemo: "Full Demo (7:45)",
     closeDemo: "Close",
@@ -72,7 +72,7 @@ const en: Dictionary = {
     aimBody:
       "Your start line appears as a true-scale AR line on camera. Point at the end of the line and fire.",
     strokeNum: "03 — STROKE",
-    strokeTitle: '"Stroke it like 5.7m"',
+    strokeTitle: '"Stroke it like 8.3m"',
     strokeBody:
       "Raw m/s doesn’t help on the green. We convert uphill and downhill into a flat-feel distance—and still show the raw numbers if you want them.",
   },

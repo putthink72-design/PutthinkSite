@@ -6,6 +6,7 @@ import type { LiveShowcaseCard } from "@/lib/showcase-data";
 import { useI18n } from "@/i18n/provider";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { createClient } from "@/lib/supabase/client";
+import { VideoThumb } from "@/components/VideoThumb";
 
 export function ShowcaseCardView({
   item: initial,
@@ -90,13 +91,9 @@ export function ShowcaseCardView({
     <article className="card">
       <div className="card-v">
         {item.videoUrl ? (
-          <video
+          <VideoThumb
             className="card-video"
             src={item.videoUrl}
-            muted
-            playsInline
-            loop
-            preload="metadata"
             controls
           />
         ) : null}

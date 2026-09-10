@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "AM2W4Z8KRW.com.putthink.putthink",
+        "paths": ["/i/*", "/ko/i/*", "/en/i/*", "/ja/i/*"]
+      }
+    ]
+  }
+}

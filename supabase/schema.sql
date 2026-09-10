@@ -6,10 +6,18 @@ create table if not exists profiles (
   -- init: organic=3, invited (referred_by set)=6 — never client-update
   free_runs_balance int not null default 3,
   referred_by uuid references profiles(id),
-  device_keychain_id text unique, -- iOS Keychain device token (abuse guard)
+  device_claim_token text unique, -- iOS Keychain device token (abuse guard)
   free_tier_claimed boolean not null default false,
   free_tier_source text check (free_tier_source in ('organic','invited')),
+  display_nickname text, -- auto [golf]+[animal]+[4digits] or user edit
   created_at timestamptz default now()
+);
+
+create table if not exists invite_codes (
+  code text primary key,
+  user_id uuid not null unique references profiles(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  constraint invite_codes_code_format check (code ~ '^[0-9A-Za-z]{8}$')
 );
 
 create table if not exists putt_showcase (
@@ -51,13 +59,14 @@ create table if not exists credit_ledger (
   created_at timestamptz default now()
 );
 
--- Invite rewards audit log (no repeat cap; promo offers are not ledger credits)
+-- Invite rewards audit (lifetime once per inviter↔invitee pair)
 create table if not exists invite_rewards (
   id uuid primary key default gen_random_uuid(),
   inviter_id uuid references profiles(id) not null,
   invitee_id uuid references profiles(id) not null,
   reward_type text not null check (reward_type in ('credit_3','promo_offer_1week')),
-  granted_at timestamptz default now()
+  granted_at timestamptz default now(),
+  unique (inviter_id, invitee_id)
 );
 
 create table if not exists field_tests (
@@ -117,6 +126,7 @@ alter table putt_showcase enable row level security;
 alter table showcase_likes enable row level security;
 alter table hall_of_fame enable row level security;
 alter table credit_ledger enable row level security;
+alter table invite_codes enable row level security;
 alter table invite_rewards enable row level security;
 alter table field_tests enable row level security;
 alter table contact_messages enable row level security;
@@ -135,6 +145,21 @@ create policy "field_tests_select_anon" on field_tests for select using (true);
 
 -- profiles: users read own; free_runs_balance never client-updated
 create policy "profiles_select_own" on profiles for select using (auth.uid() = id);
+
+create policy "invite_codes_select_own" on invite_codes for select
+  using (auth.uid() = user_id);
+
+create unique index if not exists profiles_display_nickname_unique
+  on profiles (display_nickname)
+  where display_nickname is not null;
+
+-- Nickname / non-balance profile fields only (do not raise free_runs from client).
+drop policy if exists "profiles_update_own_nickname" on profiles;
+create policy "profiles_update_own_nickname"
+on profiles for update
+to authenticated
+using (auth.uid() = id)
+with check (auth.uid() = id);
 
 -- credit_ledger / invite_rewards: client read-own only; writes via service role (Edge Functions)
 create policy "credit_ledger_select_own" on credit_ledger for select
