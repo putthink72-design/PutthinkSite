@@ -21,7 +21,13 @@ export function AppStoreButton({ href = APP_STORE_URL }: { href?: string }) {
 
 export function Logo({ href = "/" }: { href?: string }) {
   return (
-    <Link className="logo" href={href}>
+    <Link
+      className="logo"
+      href={href}
+      onClick={() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }}
+    >
       <i aria-hidden="true" />
       Putthink
     </Link>

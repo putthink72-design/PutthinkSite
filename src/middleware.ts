@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createServerClient } from "@supabase/ssr";
 import {
   LOCALE_COOKIE,
   isLanguageOption,
@@ -13,15 +14,41 @@ function preferenceFromCookie(req: NextRequest): LanguageOption | null {
   return raw;
 }
 
-export function middleware(req: NextRequest) {
+async function withSupabaseSession(req: NextRequest, res: NextResponse) {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return res;
+
+  const supabase = createServerClient(url, key, {
+    cookies: {
+      getAll() {
+        return req.cookies.getAll();
+      },
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value, options }) => {
+          res.cookies.set(name, value, options);
+        });
+      },
+    },
+  });
+  await supabase.auth.getUser();
+  return res;
+}
+
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
-    pathname.includes(".") // favicon, public assets
+    pathname.startsWith("/auth") ||
+    pathname.includes(".")
   ) {
-    return NextResponse.next();
+    const res = NextResponse.next();
+    if (pathname.startsWith("/auth")) {
+      return withSupabaseSession(req, res);
+    }
+    return res;
   }
 
   const segment = pathname.split("/")[1];
@@ -43,12 +70,12 @@ export function middleware(req: NextRequest) {
         sameSite: "lax",
       });
     }
-    return res;
+    return withSupabaseSession(req, res);
   }
 
   const res = NextResponse.next();
   res.headers.set("x-putthink-locale", segment!);
-  return res;
+  return withSupabaseSession(req, res);
 }
 
 export const config = {

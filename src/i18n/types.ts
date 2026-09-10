@@ -79,6 +79,7 @@ export type Dictionary = {
     viewAll: string;
     empty: string;
     likes: string;
+    likeUnavailable: string;
     holeUnit: string;
     pageSub: string;
     cats: {
@@ -298,5 +299,16 @@ export type Dictionary = {
   legal: {
     termsTitle: string;
     privacyTitle: string;
+  };
+  auth: {
+    title: string;
+    sub: string;
+    apple: string;
+    google: string;
+    loading: string;
+    close: string;
+    note: string;
+    error: string;
+    notConfigured: string;
   };
 };

@@ -46,7 +46,23 @@ npm run dev
 
 1. 프로젝트 생성 후 `.env.local`에 URL/키 설정
 2. `supabase/schema.sql` 실행
-3. Storage 버킷 `putt-showcase` 생성 (영상 업로드용)
+3. (이미 schema 적용한 DB라면) `supabase/storage_putt_showcase.sql` 실행 — 버킷 `putt-showcase` + Storage RLS
+4. `supabase/rpc_showcase_hof.sql` 실행 — 프로필 자동생성 · 좋아요 RPC · HoF 선정 함수
+5. Auth: Sign in with Apple / Google 활성화 + Redirect URL에 `/auth/callback` 추가
+6. (선택) `supabase/functions/hof-monthly` 배포 후 매월 1일 KST cron
+
+### Showcase 영상 업로드 (앱)
+
+- 로그인 후 Storage `putt-showcase`에 업로드
+- **경로 필수:** `{auth.uid()}/{filename}.mp4` (또는 `.mov`)
+- 메타데이터는 `putt_showcase`에 insert (`user_id` = 본인 uid, `video_url` = public object URL)
+- 한도: 400MB, MIME `video/mp4` · `video/quicktime`
+
+### 웹 로그인 UX
+
+- 메뉴·피드·명예의 전당은 **비로그인으로 전부 열람**
+- Apple/Google 로그인은 **좋아요를 누를 때만** 모달로 표시
+- 업로드 UI는 웹에 없음 (앱 전용)
 
 ## 스택
 

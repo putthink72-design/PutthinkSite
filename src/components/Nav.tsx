@@ -4,12 +4,11 @@ import { APP_STORE_URL } from "@/lib/constants";
 import { Logo } from "./AppStoreButton";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { LocaleLink } from "./LocaleLink";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useI18n } from "@/i18n/provider";
 
 export function Nav() {
   const { dict, href } = useI18n();
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   const links = [
@@ -20,15 +19,8 @@ export function Nav() {
     { href: "/support", label: dict.nav.support },
   ];
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <nav className={`nav${scrolled || open ? " on" : ""}`} id="nav">
+    <nav className="nav" id="nav">
       <div className="nav-in">
         <Logo href={href("/")} />
         <ul className="nlinks">

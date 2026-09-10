@@ -2,9 +2,10 @@
 
 import { LocaleLink } from "@/components/LocaleLink";
 import { useI18n } from "@/i18n/provider";
-import { MOCK_SHOWCASE, formatHoleLocation } from "@/lib/mock-data";
+import type { LiveShowcaseCard } from "@/lib/showcase-data";
+import { ShowcaseCardView } from "@/components/showcase/ShowcaseCardView";
 
-export function ShowcasePreview() {
+export function ShowcasePreview({ items }: { items: LiveShowcaseCard[] }) {
   const { dict } = useI18n();
   const t = dict.showcase;
 
@@ -30,35 +31,8 @@ export function ShowcasePreview() {
         </div>
 
         <div className="feed">
-          {MOCK_SHOWCASE.map((item) => (
-            <article className="card" key={item.id}>
-              <div className="card-v">
-                {item.rank ? <div className="rank">{item.rank}</div> : null}
-                <div className="meta">
-                  <span className="chip hot">{t.cats[item.category]}</span>
-                </div>
-              </div>
-              <div className="card-b">
-                <div className="u">
-                  <div className="av" />
-                  <div className="un">{item.nickname}</div>
-                </div>
-                <div className="ct">{item.caption}</div>
-                <div className="lk">
-                  <span>
-                    {formatHoleLocation(
-                      item.clubName,
-                      item.courseName,
-                      item.holeNumber,
-                      t.holeUnit,
-                    )}
-                  </span>
-                  <span>
-                    <b>{item.likes}</b> {t.likes}
-                  </span>
-                </div>
-              </div>
-            </article>
+          {items.map((item) => (
+            <ShowcaseCardView key={item.id} item={item} />
           ))}
         </div>
 

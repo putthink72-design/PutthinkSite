@@ -6,7 +6,7 @@ export const APP_STORE_URL =
 export const SITE_NAME = "펏띵 Putthink";
 export const SITE_TAGLINE = "그린을 읽어주는 AR 퍼팅 코치";
 export const SITE_DESCRIPTION =
-  "아이폰 라이다로 그린의 다중 경사를 스캔하고, AR로 퍼팅 방향과 세기를 안내합니다. 다운로드 후 9회 무료.";
+  "아이폰 라이다로 그린의 다중 경사를 스캔하고, AR로 퍼팅 방향과 세기를 안내합니다. 다운로드 후 3회 무료.";
 
 /** Official field-test numbers — do not change */
 export const FIELD_TEST = {
@@ -16,10 +16,9 @@ export const FIELD_TEST = {
 } as const;
 
 export const PRICING = {
-  freeRuns: 9,
-  inviteFreeRuns: 18,
-  trialDays: 3,
-  inviteTrialDays: 7,
+  freeRuns: 3,
+  inviteFreeRuns: 6,
+  inviterCreditRuns: 3,
   monthly: 9.99,
   quarterly: 24.99,
   semiAnnual: 44.99,

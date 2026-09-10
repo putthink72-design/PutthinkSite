@@ -162,13 +162,9 @@ body::after {
   left: 0;
   right: 0;
   z-index: 100;
-  transition: background 0.35s, border-color 0.35s;
-  border-bottom: 1px solid transparent;
-}
-.nav.on {
   background: rgba(10, 10, 10, 0.82);
   backdrop-filter: blur(20px);
-  border-bottom-color: var(--line-d);
+  border-bottom: 1px solid var(--line-d);
 }
 .nav-in {
   max-width: var(--max);
@@ -936,6 +932,123 @@ h2 .thin {
   color: var(--ink);
   font-weight: 700;
 }
+.card-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #111;
+}
+.like-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: right;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.like-btn .like-heart {
+  font-size: 13px;
+  line-height: 1;
+  color: var(--g-2);
+}
+.like-btn.on .like-heart,
+.like-btn.on b {
+  color: #c45c26;
+}
+.like-btn:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+.like-btn:not(:disabled):hover b,
+.like-btn:not(:disabled):hover .like-heart {
+  color: #c45c26;
+}
+
+.auth-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(6, 10, 7, 0.55);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.auth-modal-panel {
+  width: min(400px, 100%);
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--line-l);
+  padding: 28px 24px 22px;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+}
+.auth-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: 0;
+  background: transparent;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--g-2);
+  cursor: pointer;
+}
+.auth-modal-panel h2 {
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+.auth-modal-sub {
+  font-size: 14px;
+  color: var(--g-2);
+  line-height: 1.55;
+  margin: 0 0 20px;
+}
+.auth-modal-actions {
+  display: grid;
+  gap: 10px;
+}
+.auth-btn {
+  appearance: none;
+  border-radius: 10px;
+  border: 1px solid var(--line-l);
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #fff;
+  color: var(--ink);
+}
+.auth-btn.apple {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+.auth-btn.google {
+  background: #fff;
+}
+.auth-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.auth-modal-note {
+  margin: 16px 0 0;
+  font-size: 12px;
+  color: var(--g-2);
+  line-height: 1.5;
+}
+.auth-modal-err {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: #b42318;
+}
 
 /* ─────────────── HALL OF FAME ─────────────── */
 .hof {
@@ -950,7 +1063,8 @@ h2 .thin {
   background: #fff;
 }
 .hcard .th {
-  aspect-ratio: 1;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   background: linear-gradient(160deg, #9cbb76, #3e6b32 60%, #1b3220);
   position: relative;
 }
@@ -981,31 +1095,23 @@ h2 .thin {
   letter-spacing: -0.01em;
 }
 .hcard .hb .ct {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--g-2);
-  line-height: 1.55;
-  margin-top: 6px;
+  line-height: 1.45;
+  margin-top: 5px;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.hcard .hb .loc {
+.hcard .hb .d {
   font-size: 11.5px;
   color: var(--g-2);
-  margin-top: 8px;
-}
-.hcard .hb .cat-tag {
-  margin-top: 8px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ink);
-}
-.hcard .hb .auto {
-  margin-top: 8px;
-  font-size: 11px;
-  color: var(--g-2);
-  font-weight: 600;
+  margin-top: 6px;
+  line-height: 1.45;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ─────────────── PRICING ─────────────── */

@@ -1,21 +1,22 @@
-"use client";
+import { fetchShowcaseFeed, getSessionUserId } from "@/lib/showcase-data";
+import { ShowcaseFeed } from "@/components/showcase/ShowcaseFeed";
+import { getDictionary } from "@/i18n/get-dictionary";
+import { isLocale, type Locale } from "@/i18n/config";
+import { notFound } from "next/navigation";
 
-import { useMemo, useState } from "react";
-import { useI18n } from "@/i18n/provider";
-import { MOCK_SHOWCASE, formatHoleLocation } from "@/lib/mock-data";
-
-const CAT_IDS = ["all", "long_putt", "multi_break", "recovery", "first_holed"] as const;
-
-export default function ShowcasePage() {
-  const { dict } = useI18n();
+export default async function ShowcasePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: raw } = await params;
+  if (!isLocale(raw)) notFound();
+  const locale = raw as Locale;
+  const dict = await getDictionary(locale);
   const t = dict.showcase;
-  const [cat, setCat] = useState<string>("all");
 
-  const items = useMemo(
-    () =>
-      cat === "all" ? MOCK_SHOWCASE : MOCK_SHOWCASE.filter((i) => i.category === cat),
-    [cat],
-  );
+  const userId = await getSessionUserId();
+  const items = await fetchShowcaseFeed({ userId });
 
   return (
     <>
@@ -31,53 +32,7 @@ export default function ShowcasePage() {
 
       <section className="sec light" style={{ paddingTop: 0 }}>
         <div className="wrap">
-          <div className="cats">
-            {CAT_IDS.map((id) => (
-              <button
-                key={id}
-                type="button"
-                className={`cat${cat === id ? " on" : ""}`}
-                onClick={() => setCat(id)}
-              >
-                {t.cats[id]}
-              </button>
-            ))}
-          </div>
-          <div className="feed">
-            {items.map((item) => (
-              <article className="card" key={item.id}>
-                <div className="card-v">
-                  {item.rank ? <div className="rank">{item.rank}</div> : null}
-                  <div className="meta">
-                    <span className="chip hot">{t.cats[item.category]}</span>
-                  </div>
-                </div>
-                <div className="card-b">
-                  <div className="u">
-                    <div className="av" />
-                    <div className="un">{item.nickname}</div>
-                  </div>
-                  <div className="ct">{item.caption}</div>
-                  <div className="lk">
-                    <span>
-                      {formatHoleLocation(
-                        item.clubName,
-                        item.courseName,
-                        item.holeNumber,
-                        t.holeUnit,
-                      )}
-                    </span>
-                    <span>
-                      <b>{item.likes}</b> {t.likes}
-                    </span>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-          {items.length === 0 && (
-            <p style={{ color: "var(--g-2)", textAlign: "center", padding: 40 }}>{t.empty}</p>
-          )}
+          <ShowcaseFeed items={items} />
         </div>
       </section>
     </>
