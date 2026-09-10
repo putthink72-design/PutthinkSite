@@ -152,7 +152,7 @@ const ko: Dictionary = {
     titleThin: "있어야 재밌으니까.",
     sub: "초대 링크로 들어오면 둘 다 원래보다 더 받습니다. 몇 명을 초대하든 계속 쌓이고, 초대 횟수 제한은 없습니다.",
     senderK: "보낸 사람",
-    senderTitle: "구독 중이면 다음 결제 1주 무료 / 아니면 무료 실행 +3회",
+    senderTitle: "구독 중이면 다음 결제 1주 무료\n아니면 무료 실행 +3회",
     senderCap: "지금 상태가 무엇이든 받습니다",
     senderB1: "구독 중이거나 구독한 적 있으면",
     senderP1:

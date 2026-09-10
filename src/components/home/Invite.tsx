@@ -9,7 +9,7 @@ export function Invite() {
   return (
     <section className="sec light">
       <div className="wrap invite">
-        <div>
+        <div className="invite-head">
           <div className="eyebrow">{t.eyebrow}</div>
           <h2>
             {t.title}

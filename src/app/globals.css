@@ -1239,33 +1239,39 @@ h2 .thin {
 
 /* ─────────────── INVITE ─────────────── */
 .invite {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(28px, 4vw, 60px);
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 40px);
   min-width: 0;
 }
-.invite > * {
+.invite-head {
+  max-width: 42rem;
   min-width: 0;
+}
+.invite-head .sub {
+  max-width: 36rem;
 }
 .iv-cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: clamp(14px, 2vw, 20px);
+  align-items: stretch;
   min-width: 0;
 }
 .iv-card {
   background: #fff;
   border: 1px solid var(--line-l);
   border-radius: 18px;
-  padding: clamp(24px, 2.8vw, 32px);
+  padding: clamp(24px, 2.8vw, 36px);
   min-width: 0;
   overflow-wrap: anywhere;
+  box-shadow: 0 10px 30px rgba(10, 10, 10, 0.04);
 }
 .iv-card.hi {
   background: var(--ink);
   color: var(--bone);
   border-color: transparent;
+  box-shadow: none;
 }
 .iv-card .k {
   font-size: 11.5px;
@@ -1279,14 +1285,17 @@ h2 .thin {
   color: #8a8a84;
 }
 .iv-card h3 {
-  font-size: clamp(20px, 2.1vw, 25px);
+  font-size: clamp(20px, 2.1vw, 26px);
   font-weight: 800;
   letter-spacing: -0.03em;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  line-height: 1.25;
+  white-space: pre-line;
 }
 .iv-card .cap {
   font-size: 13px;
   color: var(--g-2);
+  line-height: 1.5;
 }
 .iv-card.hi .cap {
   color: #ababa4;
@@ -1294,9 +1303,9 @@ h2 .thin {
 .iv-card ul {
   list-style: none;
   display: grid;
-  gap: 15px;
-  margin-top: 20px;
-  padding-top: 20px;
+  gap: 16px;
+  margin-top: 22px;
+  padding-top: 22px;
   border-top: 1px solid var(--line-l);
 }
 .iv-card.hi ul {
@@ -1600,9 +1609,6 @@ h2 .thin {
   }
   .bx.wide {
     grid-column: span 1;
-  }
-  .invite {
-    grid-template-columns: 1fr;
   }
   .plans {
     grid-template-columns: 1fr;

@@ -152,7 +152,7 @@ const en: Dictionary = {
     titleThin: "someone to play with.",
     sub: "Invite links give both of you more than the default. Rewards keep stacking—no invite cap.",
     senderK: "You invite",
-    senderTitle: "Subscribed? 1 week free on next bill. Else +3 free runs",
+    senderTitle: "Subscribed? 1 week free on next bill.\nElse +3 free runs",
     senderCap: "You get a reward either way",
     senderB1: "If you’re subscribed or ever subscribed",
     senderP1:
