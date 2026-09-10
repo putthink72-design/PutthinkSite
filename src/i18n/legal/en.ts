@@ -105,7 +105,7 @@ https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 You must not: submit false information or steal others’ identities; attack or disrupt the Site; infringe IP, privacy, or other rights; post illegal, obscene, defamatory, hateful, or spam content; access restricted Data Room areas without approval or leak materials; or violate law, these Terms, or Site notices.
 
 7. Posts and content
-You are responsible for content you post. We may take down or temporarily restrict content that violates law or rights. Distances and angles entered in Showcase are self-reported; verification may rely on aim chrome remaining in the video. We do not guarantee hole-outs, scores, or financial results.
+You are responsible for content you post. We may take down or temporarily restrict content that violates law or rights. Nickname, caption, club, course, hole, and putt type entered in Showcase are self-reported; verification may rely on aim chrome remaining in the video. We do not guarantee hole-outs, scores, or financial results.
 
 8. Data Room
 Data Room access is for legitimate investment or M&A review only, after our approval and authentication. Approved users must keep materials confidential and may not share or reuse them without prior written consent. We may set, change, or revoke access scope and duration.

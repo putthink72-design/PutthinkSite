@@ -1,11 +1,12 @@
 "use client";
 
 import { useI18n } from "@/i18n/provider";
-import { MOCK_HOF } from "@/lib/mock-data";
+import { MOCK_HOF, formatHoleLocation } from "@/lib/mock-data";
 
 export default function HofPage() {
   const { dict } = useI18n();
   const t = dict.hof;
+  const s = dict.showcase;
 
   return (
     <>
@@ -30,8 +31,17 @@ export default function HofPage() {
                   </span>
                 </div>
                 <div className="hb">
-                  <div className="n">{item.user}</div>
-                  <div className="d mono">{item.detail}</div>
+                  <div className="n">{item.nickname}</div>
+                  <div className="ct">{item.caption}</div>
+                  <div className="loc">
+                    {formatHoleLocation(
+                      item.clubName,
+                      item.courseName,
+                      item.holeNumber,
+                      s.holeUnit,
+                    )}
+                  </div>
+                  <div className="cat-tag">{s.cats[item.category]}</div>
                   <div className="auto">{t.autoSelected}</div>
                 </div>
               </div>

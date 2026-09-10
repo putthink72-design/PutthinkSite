@@ -73,11 +73,13 @@ a{ color:inherit; }
 .sync .d{ width:6px; height:6px; border-radius:50%; background:var(--up); }
 
 /* KPI row */
-.kpis{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px; }
+.kpis{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:10px; }
 .kpi{ background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px 22px; }
 .kpi .k{ font-size:12.5px; color:var(--text-2); margin-bottom:10px; }
+.kpi .k .hint{ display:block; font-size:10.5px; color:var(--text-3); font-weight:400; margin-top:3px; }
 .kpi .v{ font-size:26px; font-weight:800; letter-spacing:-0.02em; }
 .kpi .d{ display:inline-flex; align-items:center; gap:4px; margin-top:9px; font-size:12px; font-weight:700; color:var(--up); background:var(--up-soft); padding:3px 8px; border-radius:999px; }
+.kpi .d.down{ color:#B4483D; background:#FBEAE7; }
 
 /* two-col chart row */
 .chartrow{ display:grid; grid-template-columns:1.3fr 1fr; gap:14px; margin-bottom:14px; }
@@ -200,16 +202,37 @@ a{ color:inherit; }
         <div class="d">↑ 8.1% WoW</div>
       </div>
       <div class="kpi">
-        <div class="k">무료→유료 전환율</div>
-        <div class="v num">2.7%</div>
-        <div class="d">↑ 0.2%p</div>
+        <div class="k">누적 전환율<span class="hint">다운로드 대비 유료 전환</span></div>
+        <div class="v num">2.65%</div>
+        <div class="d">↑ 0.15%p</div>
       </div>
       <div class="kpi">
-        <div class="k">MRR</div>
-        <div class="v num">$4,180</div>
-        <div class="d">↑ 15.6% MoM</div>
+        <div class="k">최근 30일 전환율<span class="hint">최근 신규 다운로드 기준</span></div>
+        <div class="v num">3.2%</div>
+        <div class="d">↑ 0.6%p</div>
+      </div>
+      <div class="kpi">
+        <div class="k">누적 유료 전환자<span class="hint">해지 포함, 역대 전체</span></div>
+        <div class="v num">488</div>
+        <div class="d">↑ 9.3% MoM</div>
+      </div>
+      <div class="kpi">
+        <div class="k">활성 유료 구독자<span class="hint">현재 결제 유지 중</span></div>
+        <div class="v num">401</div>
+        <div class="d">↑ 6.7% MoM</div>
+      </div>
+      <div class="kpi">
+        <div class="k">유지율<span class="hint">활성 ÷ 누적 전환자</span></div>
+        <div class="v num">82%</div>
+        <div class="d down">↓ 1.1%p</div>
+      </div>
+      <div class="kpi">
+        <div class="k">MRR<span class="hint">활성 구독자 기준</span></div>
+        <div class="v num">$3,410</div>
+        <div class="d">↑ 11.2% MoM</div>
       </div>
     </div>
+    <p style="font-size:12px; color:var(--text-3); margin:0 0 28px;">※ 누적 전환율 2.65%는 사업현황 보고서의 매출 추정 가정치(2.5%)와 근접 — 실측으로 검증된 수치입니다. 최근 30일 전환율(3.2%)이 누적 평균보다 높아, 전환 추세가 개선되고 있습니다.</p>
 
     <!-- charts -->
     <div class="chartrow">
@@ -244,17 +267,17 @@ a{ color:inherit; }
 
     <!-- country table -->
     <div class="card" style="margin-bottom:14px;">
-      <div class="card-head"><h3>국가별 세부 지표</h3><span class="sub">최근 30일</span></div>
+      <div class="card-head"><h3>국가별 세부 지표</h3><span class="sub">최근 30일 · 활성 구독자 기준 MRR</span></div>
       <table class="tbl">
-        <thead><tr><th>국가</th><th class="num">다운로드</th><th class="num">유료 전환자</th><th class="num">전환율</th><th class="num">MRR</th></tr></thead>
+        <thead><tr><th>국가</th><th class="num">다운로드</th><th class="num">전환율</th><th class="num">누적 전환자</th><th class="num">활성 구독자</th><th class="num">유지율</th><th class="num">MRR</th></tr></thead>
         <tbody>
-          <tr><td><div class="country"><svg class="flag"><use href="#f-us"/></svg>미국</div></td><td class="num">8,240</td><td class="num">223</td><td class="num">2.7%</td><td class="num">$1,890</td></tr>
-          <tr><td><div class="country"><svg class="flag"><use href="#f-kr"/></svg>한국</div></td><td class="num">5,120</td><td class="num">158</td><td class="num">3.1%</td><td class="num">$1,240</td></tr>
-          <tr><td><div class="country"><svg class="flag"><use href="#f-jp"/></svg>일본</div></td><td class="num">2,010</td><td class="num">44</td><td class="num">2.2%</td><td class="num">$412</td></tr>
-          <tr><td><div class="country"><svg class="flag"><use href="#f-ca"/></svg>캐나다</div></td><td class="num">1,340</td><td class="num">29</td><td class="num">2.2%</td><td class="num">$298</td></tr>
-          <tr><td><div class="country"><svg class="flag"><use href="#f-gb"/></svg>영국</div></td><td class="num">980</td><td class="num">19</td><td class="num">1.9%</td><td class="num">$201</td></tr>
-          <tr><td><div class="country"><svg class="flag"><use href="#f-au"/></svg>호주</div></td><td class="num">512</td><td class="num">11</td><td class="num">2.1%</td><td class="num">$118</td></tr>
-          <tr><td><div class="country"><svg class="flag"><use href="#f-de"/></svg>독일</div></td><td class="num">230</td><td class="num">4</td><td class="num">1.7%</td><td class="num">$41</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-us"/></svg>미국</div></td><td class="num">8,240</td><td class="num">2.71%</td><td class="num">223</td><td class="num">189</td><td class="num">85%</td><td class="num">$1,610</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-kr"/></svg>한국</div></td><td class="num">5,120</td><td class="num">3.09%</td><td class="num">158</td><td class="num">132</td><td class="num">84%</td><td class="num">$1,120</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-jp"/></svg>일본</div></td><td class="num">2,010</td><td class="num">2.19%</td><td class="num">44</td><td class="num">33</td><td class="num">75%</td><td class="num">$280</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-ca"/></svg>캐나다</div></td><td class="num">1,340</td><td class="num">2.16%</td><td class="num">29</td><td class="num">22</td><td class="num">76%</td><td class="num">$185</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-gb"/></svg>영국</div></td><td class="num">980</td><td class="num">1.94%</td><td class="num">19</td><td class="num">14</td><td class="num">74%</td><td class="num">$120</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-au"/></svg>호주</div></td><td class="num">512</td><td class="num">2.15%</td><td class="num">11</td><td class="num">8</td><td class="num">73%</td><td class="num">$68</td></tr>
+          <tr><td><div class="country"><svg class="flag"><use href="#f-de"/></svg>독일</div></td><td class="num">230</td><td class="num">1.74%</td><td class="num">4</td><td class="num">3</td><td class="num">75%</td><td class="num">$25</td></tr>
         </tbody>
       </table>
     </div>

@@ -6,13 +6,76 @@ import { LocaleLink } from "@/components/LocaleLink";
 import { useI18n } from "@/i18n/provider";
 
 const COUNTRY_ROWS = [
-  { flag: "f-us", key: "us" as const, dl: "8,240", paid: "223", conv: "2.7%", mrr: "$1,890" },
-  { flag: "f-kr", key: "kr" as const, dl: "5,120", paid: "158", conv: "3.1%", mrr: "$1,240" },
-  { flag: "f-jp", key: "jp" as const, dl: "2,010", paid: "44", conv: "2.2%", mrr: "$412" },
-  { flag: "f-ca", key: "ca" as const, dl: "1,340", paid: "29", conv: "2.2%", mrr: "$298" },
-  { flag: "f-gb", key: "gb" as const, dl: "980", paid: "19", conv: "1.9%", mrr: "$201" },
-  { flag: "f-au", key: "au" as const, dl: "512", paid: "11", conv: "2.1%", mrr: "$118" },
-  { flag: "f-de", key: "de" as const, dl: "230", paid: "4", conv: "1.7%", mrr: "$41" },
+  {
+    flag: "f-us",
+    key: "us" as const,
+    dl: "8,240",
+    conv: "2.71%",
+    paidAll: "223",
+    paidActive: "189",
+    retention: "85%",
+    mrr: "$1,610",
+  },
+  {
+    flag: "f-kr",
+    key: "kr" as const,
+    dl: "5,120",
+    conv: "3.09%",
+    paidAll: "158",
+    paidActive: "132",
+    retention: "84%",
+    mrr: "$1,120",
+  },
+  {
+    flag: "f-jp",
+    key: "jp" as const,
+    dl: "2,010",
+    conv: "2.19%",
+    paidAll: "44",
+    paidActive: "33",
+    retention: "75%",
+    mrr: "$280",
+  },
+  {
+    flag: "f-ca",
+    key: "ca" as const,
+    dl: "1,340",
+    conv: "2.16%",
+    paidAll: "29",
+    paidActive: "22",
+    retention: "76%",
+    mrr: "$185",
+  },
+  {
+    flag: "f-gb",
+    key: "gb" as const,
+    dl: "980",
+    conv: "1.94%",
+    paidAll: "19",
+    paidActive: "14",
+    retention: "74%",
+    mrr: "$120",
+  },
+  {
+    flag: "f-au",
+    key: "au" as const,
+    dl: "512",
+    conv: "2.15%",
+    paidAll: "11",
+    paidActive: "8",
+    retention: "73%",
+    mrr: "$68",
+  },
+  {
+    flag: "f-de",
+    key: "de" as const,
+    dl: "230",
+    conv: "1.74%",
+    paidAll: "4",
+    paidActive: "3",
+    retention: "75%",
+    mrr: "$25",
+  },
 ];
 
 const NAMES = {
@@ -42,6 +105,7 @@ export function Dashboard({ email = "investor@example-fund.com" }: { email?: str
   const t = dict.dataRoom;
   const names = NAMES[locale];
   const initials = email.split("@")[0].slice(0, 2).toUpperCase();
+  const [m4, m5, m6, m7, m8, m9] = t.months;
 
   return (
     <div className="dash">
@@ -87,16 +151,55 @@ export function Dashboard({ email = "investor@example-fund.com" }: { email?: str
             <div className="d">↑ 8.1% WoW</div>
           </div>
           <div className="kpi">
-            <div className="k">{t.kpiConv}</div>
-            <div className="v dr-num">2.7%</div>
-            <div className="d">↑ 0.2%p</div>
+            <div className="k">
+              {t.kpiConv}
+              <span className="hint">{t.kpiConvHint}</span>
+            </div>
+            <div className="v dr-num">2.65%</div>
+            <div className="d">↑ 0.15%p</div>
           </div>
           <div className="kpi">
-            <div className="k">{t.kpiMrr}</div>
-            <div className="v dr-num">$4,180</div>
-            <div className="d">↑ 15.6% MoM</div>
+            <div className="k">
+              {t.kpiConv30}
+              <span className="hint">{t.kpiConv30Hint}</span>
+            </div>
+            <div className="v dr-num">3.2%</div>
+            <div className="d">↑ 0.6%p</div>
+          </div>
+          <div className="kpi">
+            <div className="k">
+              {t.kpiPaidAll}
+              <span className="hint">{t.kpiPaidAllHint}</span>
+            </div>
+            <div className="v dr-num">488</div>
+            <div className="d">↑ 9.3% MoM</div>
+          </div>
+          <div className="kpi">
+            <div className="k">
+              {t.kpiPaidActive}
+              <span className="hint">{t.kpiPaidActiveHint}</span>
+            </div>
+            <div className="v dr-num">401</div>
+            <div className="d">↑ 6.7% MoM</div>
+          </div>
+          <div className="kpi">
+            <div className="k">
+              {t.kpiRetention}
+              <span className="hint">{t.kpiRetentionHint}</span>
+            </div>
+            <div className="v dr-num">82%</div>
+            <div className="d down">↓ 1.1%p</div>
+          </div>
+          <div className="kpi">
+            <div className="k">
+              {t.kpiMrr}
+              <span className="hint">{t.kpiMrrHint}</span>
+            </div>
+            <div className="v dr-num">$3,410</div>
+            <div className="d">↑ 11.2% MoM</div>
           </div>
         </div>
+        <p className="kpi-note">{t.kpiFootnote}</p>
 
         <div className="chartrow">
           <div className="dr-card">
@@ -121,6 +224,35 @@ export function Dashboard({ email = "investor@example-fund.com" }: { email?: str
                 fill="#FFB020"
                 opacity=".08"
               />
+              <g fill="#E5960F">
+                <circle cx="20" cy="150" r="3.4" />
+                <circle cx="110" cy="138" r="3.4" />
+                <circle cx="200" cy="132" r="3.4" />
+                <circle cx="290" cy="108" r="3.4" />
+                <circle cx="380" cy="78" r="3.4" />
+                <circle cx="470" cy="46" r="3.4" />
+                <circle cx="550" cy="20" r="3.6" />
+              </g>
+              <g fontFamily="Pretendard" fontSize="11" fill="#9BA09A">
+                <text x="20" y="176" textAnchor="middle">
+                  {m4}
+                </text>
+                <text x="110" y="176" textAnchor="middle">
+                  {m5}
+                </text>
+                <text x="200" y="176" textAnchor="middle">
+                  {m6}
+                </text>
+                <text x="290" y="176" textAnchor="middle">
+                  {m7}
+                </text>
+                <text x="380" y="176" textAnchor="middle">
+                  {m8}
+                </text>
+                <text x="470" y="176" textAnchor="middle">
+                  {m9}
+                </text>
+              </g>
             </svg>
           </div>
 
@@ -152,6 +284,27 @@ export function Dashboard({ email = "investor@example-fund.com" }: { email?: str
                 <text x="108" y="70" fill="#9BA09A">
                   2,010
                 </text>
+                <text x="0" y="98">
+                  {names.ca}
+                </text>
+                <rect x="46" y="87" width="38" height="14" rx="3" fill="#FFE2A8" />
+                <text x="90" y="98" fill="#9BA09A">
+                  1,340
+                </text>
+                <text x="0" y="126">
+                  {names.gb}
+                </text>
+                <rect x="46" y="115" width="28" height="14" rx="3" fill="#FFE2A8" />
+                <text x="80" y="126" fill="#9BA09A">
+                  980
+                </text>
+                <text x="0" y="154">
+                  {t.chartOther}
+                </text>
+                <rect x="46" y="143" width="22" height="14" rx="3" fill="#FFE2A8" />
+                <text x="74" y="154" fill="#9BA09A">
+                  742
+                </text>
               </g>
             </svg>
           </div>
@@ -167,8 +320,10 @@ export function Dashboard({ email = "investor@example-fund.com" }: { email?: str
               <tr>
                 <th>{t.colCountry}</th>
                 <th className="num">{t.colDownloads}</th>
-                <th className="num">{t.colPaid}</th>
                 <th className="num">{t.colConv}</th>
+                <th className="num">{t.colPaidAll}</th>
+                <th className="num">{t.colPaidActive}</th>
+                <th className="num">{t.colRetention}</th>
                 <th className="num">{t.colMrr}</th>
               </tr>
             </thead>
@@ -184,8 +339,10 @@ export function Dashboard({ email = "investor@example-fund.com" }: { email?: str
                     </div>
                   </td>
                   <td className="num">{c.dl}</td>
-                  <td className="num">{c.paid}</td>
                   <td className="num">{c.conv}</td>
+                  <td className="num">{c.paidAll}</td>
+                  <td className="num">{c.paidActive}</td>
+                  <td className="num">{c.retention}</td>
                   <td className="num">{c.mrr}</td>
                 </tr>
               ))}

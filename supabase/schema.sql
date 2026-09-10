@@ -12,11 +12,15 @@ create table if not exists putt_showcase (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references profiles(id) not null,
   video_url text not null,
-  distance_m numeric not null,
-  break_angle numeric,
+  -- 퍼팅 종류 (앱에서 선택)
   category text not null check (category in ('long_putt','multi_break','recovery','first_holed')),
+  -- 업로드 시 앱에서 입력 (닉네임은 Apple/Google ID 연동값 또는 직접 입력)
+  nickname text not null,
+  caption text not null,
+  club_name text not null,   -- 골프장명
+  course_name text not null, -- 코스명
+  hole_number int not null check (hole_number between 1 and 18),
   likes_count int not null default 0,
-  course_name text,
   created_at timestamptz default now()
 );
 

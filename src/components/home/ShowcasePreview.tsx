@@ -2,7 +2,7 @@
 
 import { LocaleLink } from "@/components/LocaleLink";
 import { useI18n } from "@/i18n/provider";
-import { MOCK_SHOWCASE } from "@/lib/mock-data";
+import { MOCK_SHOWCASE, formatHoleLocation } from "@/lib/mock-data";
 
 export function ShowcasePreview() {
   const { dict } = useI18n();
@@ -33,23 +33,26 @@ export function ShowcasePreview() {
           {MOCK_SHOWCASE.map((item) => (
             <article className="card" key={item.id}>
               <div className="card-v">
-                <div className="rank">{item.rank}</div>
+                {item.rank ? <div className="rank">{item.rank}</div> : null}
                 <div className="meta">
-                  {item.chips.map((c) => (
-                    <span key={c.text} className={`chip${c.hot ? " hot" : ""}`}>
-                      {c.text}
-                    </span>
-                  ))}
+                  <span className="chip hot">{t.cats[item.category]}</span>
                 </div>
               </div>
               <div className="card-b">
                 <div className="u">
                   <div className="av" />
-                  <div className="un">{item.user}</div>
+                  <div className="un">{item.nickname}</div>
                 </div>
                 <div className="ct">{item.caption}</div>
                 <div className="lk">
-                  <span>{item.meta}</span>
+                  <span>
+                    {formatHoleLocation(
+                      item.clubName,
+                      item.courseName,
+                      item.holeNumber,
+                      t.holeUnit,
+                    )}
+                  </span>
                   <span>
                     <b>{item.likes}</b> {t.likes}
                   </span>
