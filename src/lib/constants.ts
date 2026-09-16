@@ -1,7 +1,16 @@
-/** App Store URL — set NEXT_PUBLIC_APP_STORE_URL when the listing is live. */
-export const APP_STORE_URL =
-  process.env.NEXT_PUBLIC_APP_STORE_URL ??
-  "https://apps.apple.com/search?term=Putthink";
+/** Real App Store product URL — set NEXT_PUBLIC_APP_STORE_URL when the listing is live. */
+export const APP_STORE_LISTING_URL =
+  (process.env.NEXT_PUBLIC_APP_STORE_URL ?? "").trim();
+
+export const IS_APP_STORE_LIVE = APP_STORE_LISTING_URL.length > 0;
+
+/**
+ * Before launch, do not send users to a misleading App Store search.
+ * Point to Support; swap automatically when NEXT_PUBLIC_APP_STORE_URL is set.
+ */
+export const APP_STORE_URL = IS_APP_STORE_LIVE
+  ? APP_STORE_LISTING_URL
+  : "/support";
 
 export const SITE_NAME = "펏띵 Putthink";
 export const SITE_TAGLINE = "그린을 읽어주는 AR 퍼팅 코치";

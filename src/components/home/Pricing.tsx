@@ -1,12 +1,14 @@
 "use client";
 
-import { APP_STORE_URL } from "@/lib/constants";
+import { APP_STORE_URL, IS_APP_STORE_LIVE } from "@/lib/constants";
 import { LocaleLink } from "@/components/LocaleLink";
 import { useI18n } from "@/i18n/provider";
 
 export function PricingSection() {
-  const { dict } = useI18n();
+  const { dict, href } = useI18n();
   const t = dict.pricing;
+  const live = IS_APP_STORE_LIVE;
+  const storeHref = live ? APP_STORE_URL : href("/support");
 
   return (
     <section className="sec" id="pricing">
@@ -34,7 +36,12 @@ export function PricingSection() {
               <li>{t.freeLi2}</li>
               <li>{t.freeLi3}</li>
             </ul>
-            <a className="go" href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
+            <a
+              className="go"
+              href={storeHref}
+              target={live ? "_blank" : undefined}
+              rel={live ? "noopener noreferrer" : undefined}
+            >
               {t.freeCta}
             </a>
           </div>
@@ -52,7 +59,12 @@ export function PricingSection() {
               <li>{t.annualLi2}</li>
               <li>{t.annualLi3}</li>
             </ul>
-            <a className="go" href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
+            <a
+              className="go"
+              href={storeHref}
+              target={live ? "_blank" : undefined}
+              rel={live ? "noopener noreferrer" : undefined}
+            >
               {t.annualCta}
             </a>
           </div>

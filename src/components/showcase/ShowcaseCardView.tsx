@@ -140,7 +140,7 @@ export function ShowcaseCardView({
               )}`}
               style={{ color: "var(--g-2)", textDecoration: "underline" }}
             >
-              Report
+              {t.report}
             </a>
           </p>
         ) : null}

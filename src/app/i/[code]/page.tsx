@@ -1,4 +1,4 @@
-import { APP_STORE_URL, PRICING, SITE_NAME } from "@/lib/constants";
+import { APP_STORE_URL, IS_APP_STORE_LIVE, PRICING, SITE_NAME } from "@/lib/constants";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { InviteLandingClient } from "./InviteLandingClient";
@@ -22,8 +22,9 @@ const copy = {
     h1b: "초대했어요",
     body: (invite: number, free: number) =>
       `이 링크로 설치하면 무료 실행 ${invite}회(일반 ${free}회보다 많음). 초대 링크가 클립보드에 복사됩니다. 설치 후 앱에서「초대 링크로 무료 6회 받기」를 누르거나, 이 링크를 다시 열어 주세요.`,
-    invalid: "초대 링크가 올바르지 않습니다. App Store에서 Putthink를 받아 주세요.",
-    cta: "App Store에서 받기",
+    invalid: "초대 링크가 올바르지 않습니다. 출시 후 App Store에서 Putthink를 받아 주세요.",
+    cta: "출시 예정 · 지원 보기",
+    ctaLive: "App Store에서 받기",
     foot: "이미 앱이 있다면 이 초대 링크를 다시 탭하면 앱으로 바로 열려 적용됩니다. 새로 설치했다면 설정 → 무료 실행에서 초대를 적용해 주세요.",
   },
   en: {
@@ -35,8 +36,9 @@ const copy = {
     h1b: "to Putthink",
     body: (invite: number, free: number) =>
       `Install via this link for ${invite} free runs (normally ${free}). The invite link is copied to your clipboard. After install, tap “Get 6 free tries via invite link” in the app, or reopen this link.`,
-    invalid: "This invite link isn’t valid. Get Putthink on the App Store.",
-    cta: "Get on the App Store",
+    invalid: "This invite link isn’t valid. Get Putthink on the App Store when it’s available.",
+    cta: "Coming soon · Support",
+    ctaLive: "Get on the App Store",
     foot: "If the app is already installed, tap this invite link again to open Putthink. After a fresh install, apply the invite under Settings → Free runs.",
   },
   ja: {
@@ -48,8 +50,9 @@ const copy = {
     h1b: "招待されました",
     body: (invite: number, free: number) =>
       `このリンクから入れると無料実行${invite}回（通常${free}回）。招待リンクがクリップボードにコピーされます。インストール後、アプリで「招待リンクで無料6回を受け取る」を押すか、このリンクを再度開いてください。`,
-    invalid: "招待リンクが正しくありません。App StoreでPutthinkを入手してください。",
-    cta: "App Storeで入手",
+    invalid: "招待リンクが正しくありません。公開後にApp StoreでPutthinkを入手してください。",
+    cta: "近日公開 · サポート",
+    ctaLive: "App Storeで入手",
     foot: "すでにアプリがある場合はこの招待リンクを再度タップするとアプリが開きます。新規インストール後は設定→無料実行から招待を適用してください。",
   },
 } as const;
@@ -142,7 +145,7 @@ export default async function InviteLandingPage({ params }: Props) {
         )}
 
         <a
-          href={APP_STORE_URL}
+          href={IS_APP_STORE_LIVE ? APP_STORE_URL : `/${lang}/support`}
           style={{
             display: "inline-block",
             marginTop: 20,
@@ -155,7 +158,7 @@ export default async function InviteLandingPage({ params }: Props) {
             textDecoration: "none",
           }}
         >
-          {t.cta}
+          {IS_APP_STORE_LIVE ? t.ctaLive : t.cta}
         </a>
 
         <p

@@ -1,6 +1,6 @@
 "use client";
 
-import { APP_STORE_URL } from "@/lib/constants";
+import { APP_STORE_URL, IS_APP_STORE_LIVE } from "@/lib/constants";
 import { Logo } from "./AppStoreButton";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { LocaleLink } from "./LocaleLink";
@@ -10,6 +10,8 @@ import { useI18n } from "@/i18n/provider";
 export function Nav() {
   const { dict, href } = useI18n();
   const [open, setOpen] = useState(false);
+  const live = IS_APP_STORE_LIVE;
+  const downloadHref = live ? APP_STORE_URL : href("/support");
 
   const links = [
     { href: "/how-it-works", label: dict.nav.how },
@@ -34,9 +36,9 @@ export function Nav() {
           <LanguageSwitcher />
           <a
             className="btn-dl"
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={downloadHref}
+            target={live ? "_blank" : undefined}
+            rel={live ? "noopener noreferrer" : undefined}
           >
             {dict.nav.download}
           </a>
@@ -60,9 +62,9 @@ export function Nav() {
           </LocaleLink>
         ))}
         <a
-          href={APP_STORE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={downloadHref}
+          target={live ? "_blank" : undefined}
+          rel={live ? "noopener noreferrer" : undefined}
           onClick={() => setOpen(false)}
         >
           {dict.nav.download}

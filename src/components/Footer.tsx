@@ -52,7 +52,7 @@ export function Footer() {
                 <LocaleLink href="/hof">{t.hof}</LocaleLink>
               </li>
               <li>
-                <LocaleLink href="/support">{t.guidelines}</LocaleLink>
+                <LocaleLink href="/terms">{t.guidelines}</LocaleLink>
               </li>
             </ul>
           </div>

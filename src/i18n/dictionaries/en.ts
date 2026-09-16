@@ -21,7 +21,7 @@ const en: Dictionary = {
     hof: "Hall of Fame",
     pricing: "Pricing",
     support: "Support",
-    download: "Get on the App Store",
+    download: "Coming soon",
     menu: "Menu",
   },
   hero: {
@@ -43,6 +43,7 @@ const en: Dictionary = {
   appStore: {
     downloadOn: "Download on the",
     appStore: "App Store",
+    comingSoon: "Coming soon",
   },
   proof: {
     puttsValue: "30",
@@ -56,7 +57,7 @@ const en: Dictionary = {
     patentsLabel: "Registered multi-break path patents",
     countriesValue: "7",
     countriesUnit: "countries",
-    countriesLabel: "KR · US · UK · CA · AU · JP · DE",
+    countriesLabel: "Target: KR · US · UK · CA · AU · JP · DE",
   },
   how: {
     eyebrow: "How it works",
@@ -88,6 +89,7 @@ const en: Dictionary = {
     empty: "Nothing in this category yet.",
     likes: "likes",
     likeUnavailable: "Likes unlock when the live feed is connected",
+    report: "Report",
     holeUnit: " hole",
     pageSub:
       "OSD aim chrome is baked into every clip, so anyone can verify what they see on screen. Categories are feed filters—not judged awards.",
@@ -124,7 +126,7 @@ const en: Dictionary = {
     freeLi1: "Full feature access",
     freeLi2: "LiDAR scan + AR aim line included",
     freeLi3: "Browse Putt Showcase",
-    freeCta: "Get on the App Store",
+    freeCta: "Coming soon",
     bestBadge: "Most popular",
     annualTag: "Annual",
     annualAmt: "$74.99",
@@ -256,11 +258,11 @@ const en: Dictionary = {
   pressPage: {
     eyebrow: "Press",
     title: "Press & media kit",
-    sub: "Putthink is a shipping AR putting coach that reads multi-break greens with iPhone LiDAR.",
+    sub: "Putthink is an AR putting coach that reads multi-break greens with iPhone LiDAR.",
     releaseLabel: "RELEASE",
-    releaseTitle: "NASAEM launches Putthink, an AR putting coach, in 7 App Store countries",
+    releaseTitle: "NASAEM prepares Putthink, an AR putting coach, for 7 App Store countries",
     releaseBody:
-      "NASAEM Co., Ltd. has launched Putthink—LiDAR-based multi-break putting guidance—in Korea, the US, UK, Canada, Australia, Japan, and Germany. Try three free runs right after download.",
+      "NASAEM Co., Ltd. is preparing to launch Putthink—LiDAR-based multi-break putting guidance—in Korea, the US, UK, Canada, Australia, Japan, and Germany. Three free runs will be available right after download.",
     kitTitle: "Download media kit",
     kitSub: "Leave your email for logos, product stills, and the press PDF.",
     email: "Email",
@@ -289,7 +291,7 @@ const en: Dictionary = {
     demoPreview: "Demo: preview approved dashboard →",
     dashTitle: "Putthink traction dashboard",
     dashSub:
-      "Live usage and financials across 7 launch countries. Figures sync from App Store Connect.",
+      "Projected usage and financials across 7 target countries. Figures sync from App Store Connect when live.",
     lastSync: "Last sync: 2026-09-06 06:00 KST",
     mockBadge: "⚠ Sample data — pre-launch mock screen",
     kpiDownloads: "Total downloads",

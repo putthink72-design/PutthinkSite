@@ -1,5 +1,5 @@
 export const PRIVACY_EN = `Putthink Privacy Policy
-Last updated: September 8, 2026
+Last updated: September 16, 2026
 
 NASAEM Co., Ltd. (“Company”) complies with Korea’s Personal Information Protection Act, the Act on Promotion of Information and Communications Network Utilization and Information Protection, and related laws. This Policy explains how we process personal information on the official Putthink website (“Site”). For camera and LiDAR data processed only on-device in the mobile app, also see the in-app privacy notice.
 
@@ -44,6 +44,12 @@ If processors or entrusted tasks change, we will update this Policy.
 6. Your rights
 You may at any time request access, correction or deletion, suspension of processing, or withdrawal of consent. Email the Privacy Officer below. We will act without undue delay. While a correction or deletion request is pending, we will not use or provide the contested data. We do not target children under 14; where the law requires a legal guardian’s consent, we collect only with that consent.
 
+App account deletion (Putthink app)
+If a cloud account was created in the app (Sign in with Apple, Showcase upload, or invite claiming), you can delete it by:
+• In the app: Settings → Legal → Delete Account
+• Or email the Privacy Officer below with the subject “Account deletion”
+Deletion removes your cloud profile and Showcase uploads. Apple subscriptions must still be cancelled in Apple ID settings. Local on-device data is removed when you delete the app.
+
 7. Destruction
 When personal information is no longer needed, we destroy it without delay.
 • Procedure: identify data due for destruction and destroy it with the Privacy Officer’s approval
@@ -75,7 +81,7 @@ You may seek help from:
 You may also pursue administrative appeals under Korean law regarding dispositions under Arts. 35–37 of the Personal Information Protection Act.
 
 12. Changes
-This Policy applies from September 8, 2026. If we change it, we will post notice on the Site or this page at least 7 days before it takes effect (at least 30 days for material changes to your rights).
+This Policy applies from September 16, 2026. If we change it, we will post notice on the Site or this page at least 7 days before it takes effect (at least 30 days for material changes to your rights).
 `;
 
 export const TERMS_EN = `Putthink Terms of Use

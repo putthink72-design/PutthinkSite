@@ -21,7 +21,7 @@ const ja: Dictionary = {
     hof: "殿堂入り",
     pricing: "料金",
     support: "サポート",
-    download: "App Storeで入手",
+    download: "近日公開",
     menu: "メニュー",
   },
   hero: {
@@ -43,6 +43,7 @@ const ja: Dictionary = {
   appStore: {
     downloadOn: "Download on the",
     appStore: "App Store",
+    comingSoon: "近日公開",
   },
   proof: {
     puttsValue: "30",
@@ -56,7 +57,7 @@ const ja: Dictionary = {
     patentsLabel: "複合傾斜パス予測の登録特許",
     countriesValue: "7",
     countriesUnit: "か国",
-    countriesLabel: "韓国・米国・英国・カナダ・豪州・日本・ドイツ",
+    countriesLabel: "公開予定: 韓国・米国・英国・カナダ・豪州・日本・ドイツ",
   },
   how: {
     eyebrow: "How it works",
@@ -88,6 +89,7 @@ const ja: Dictionary = {
     empty: "このカテゴリの投稿はまだありません。",
     likes: "いいね",
     likeUnavailable: "ライブフィード接続後にいいねできます",
+    report: "報告",
     holeUnit: "番",
     pageSub:
       "OSDの照準表示が映像に焼き付いているので、誰でも目で確認できます。カテゴリはフィード用フィルタであり、部門審査ではありません。",
@@ -124,7 +126,7 @@ const ja: Dictionary = {
     freeLi1: "全機能を制限なく利用",
     freeLi2: "LiDARスキャン · AR照準線を含む",
     freeLi3: "パット自慢の閲覧が可能",
-    freeCta: "App Storeで入手",
+    freeCta: "近日公開",
     bestBadge: "いちばん人気",
     annualTag: "年額",
     annualAmt: "$74.99",
@@ -258,9 +260,9 @@ const ja: Dictionary = {
     title: "プレス・メディアキット",
     sub: "Putthinkは、iPhone LiDARで複合傾斜のグリーンを読み、ARでパッティングを案内する商用アプリです。",
     releaseLabel: "RELEASE",
-    releaseTitle: "ナセム、ARパッティングコーチ「Putthink」を7か国のApp Storeで公開",
+    releaseTitle: "ナセム、ARパッティングコーチ「Putthink」を7か国のApp Storeで公開準備",
     releaseBody:
-      "株式会社ナセムは、iPhone LiDARによる複合傾斜パッティング経路予測を搭載した「Putthink」を、韓国・米国・英国・カナダ・豪州・日本・ドイツで公開しました。ダウンロード直後から3回無料で使えます。",
+      "株式会社ナセムは、iPhone LiDARによる複合傾斜パッティング経路予測を搭載した「Putthink」を、韓国・米国・英国・カナダ・豪州・日本・ドイツで公開する準備を進めています。ダウンロード直後から3回無料で使えます。",
     kitTitle: "メディアキットを入手",
     kitSub: "ロゴ・製品画像・プレスPDFの受け取りにはメールアドレスをご記入ください。",
     email: "メール",
@@ -289,7 +291,7 @@ const ja: Dictionary = {
     demoPreview: "デモ：承認後画面をプレビュー →",
     dashTitle: "Putthink トラクションダッシュボード",
     dashSub:
-      "7か国ローンチ基準の実利用指標と財務状況です。数値はApp Store Connectから自動同期されます。",
+      "7か国ローンチ予定の実利用指標と財務状況です。数値はApp Store Connect連携後に自動同期されます。",
     lastSync: "最終同期: 2026-09-06 06:00 KST",
     mockBadge: "⚠ サンプルデータ — ローンチ前のモック画面です",
     kpiDownloads: "累計ダウンロード",

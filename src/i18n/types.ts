@@ -40,6 +40,7 @@ export type Dictionary = {
   appStore: {
     downloadOn: string;
     appStore: string;
+    comingSoon: string;
   };
   proof: {
     puttsValue: string;
@@ -80,6 +81,7 @@ export type Dictionary = {
     empty: string;
     likes: string;
     likeUnavailable: string;
+    report: string;
     holeUnit: string;
     pageSub: string;
     cats: {

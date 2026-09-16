@@ -21,7 +21,7 @@ const ko: Dictionary = {
     hof: "명예의 전당",
     pricing: "요금제",
     support: "지원",
-    download: "App Store에서 받기",
+    download: "출시 예정",
     menu: "메뉴",
   },
   hero: {
@@ -43,6 +43,7 @@ const ko: Dictionary = {
   appStore: {
     downloadOn: "Download on the",
     appStore: "App Store",
+    comingSoon: "출시 예정",
   },
   proof: {
     puttsValue: "30",
@@ -56,7 +57,7 @@ const ko: Dictionary = {
     patentsLabel: "다중경사 경로예측 등록특허",
     countriesValue: "7",
     countriesUnit: "개국",
-    countriesLabel: "한국·미국·영국·캐나다·호주·일본·독일",
+    countriesLabel: "출시 예정: 한국·미국·영국·캐나다·호주·일본·독일",
   },
   how: {
     eyebrow: "How it works",
@@ -88,6 +89,7 @@ const ko: Dictionary = {
     empty: "이 카테고리의 게시물이 아직 없습니다.",
     likes: "좋아요",
     likeUnavailable: "실데이터가 연결되면 좋아요를 누를 수 있습니다",
+    report: "신고",
     holeUnit: "홀",
     pageSub:
       "조준 화면(OSD)이 영상에 그대로 찍혀 있어 누구나 눈으로 확인할 수 있습니다. 카테고리는 피드 필터일 뿐 부문 심사가 아닙니다.",
@@ -124,7 +126,7 @@ const ko: Dictionary = {
     freeLi1: "모든 기능 제한 없이 사용",
     freeLi2: "라이다 스캔 · AR 조준선 전부 포함",
     freeLi3: "퍼팅 뽐내기 열람 가능",
-    freeCta: "App Store에서 받기",
+    freeCta: "출시 예정",
     bestBadge: "가장 인기",
     annualTag: "연간 구독",
     annualAmt: "$74.99",
@@ -257,9 +259,9 @@ const ko: Dictionary = {
     title: "보도자료 · 미디어킷",
     sub: "펏띵은 아이폰 라이다로 그린의 다중 경사를 읽어 AR로 퍼팅을 안내하는 상용 앱입니다.",
     releaseLabel: "RELEASE",
-    releaseTitle: "나샘, AR 퍼팅 코치 앱 '펏띵' 7개국 App Store 출시",
+    releaseTitle: "나샘, AR 퍼팅 코치 앱 '펏띵' 7개국 App Store 출시 준비",
     releaseBody:
-      "주식회사 나샘은 아이폰 LiDAR 기반 다중 경사 퍼팅 경로예측 기술을 담은 '펏띵(Putthink)'을 한국·미국·영국·캐나다·호주·일본·독일에 출시했습니다. 다운로드 즉시 3회 무료로 쓸 수 있습니다.",
+      "주식회사 나샘은 아이폰 LiDAR 기반 다중 경사 퍼팅 경로예측 기술을 담은 '펏띵(Putthink)'을 한국·미국·영국·캐나다·호주·일본·독일에 출시할 예정입니다. 다운로드 즉시 3회 무료로 쓸 수 있습니다.",
     kitTitle: "미디어킷 다운로드",
     kitSub: "로고·제품 이미지·보도자료 PDF를 받으려면 이메일을 남겨 주세요.",
     email: "이메일",
@@ -288,7 +290,7 @@ const ko: Dictionary = {
     demoPreview: "데모: 승인된 화면 미리보기 →",
     dashTitle: "펏띵 트랙션 대시보드",
     dashSub:
-      "7개국 출시 기준 실사용 지표와 재무 현황입니다. 아래 수치는 App Store Connect에서 자동 동기화됩니다.",
+      "7개국 출시 예정 기준 실사용 지표와 재무 현황입니다. 아래 수치는 App Store Connect 연동 시 자동 동기화됩니다.",
     lastSync: "마지막 동기화: 2026-09-06 06:00 KST",
     mockBadge: "⚠ 예시 데이터 — 출시 전 목업 화면입니다",
     kpiDownloads: "누적 다운로드",
