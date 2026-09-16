@@ -1,10 +1,30 @@
 "use client";
 
+import { FormEvent, useState } from "react";
 import { useI18n } from "@/i18n/provider";
 
 export default function PressPage() {
   const { dict } = useI18n();
   const t = dict.pressPage;
+  const [status, setStatus] = useState<"idle" | "ok" | "err">("idle");
+
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    try {
+      const res = await fetch("/api/press-kit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: fd.get("email"),
+          organization: fd.get("organization"),
+        }),
+      });
+      setStatus(res.ok ? "ok" : "err");
+    } catch {
+      setStatus("err");
+    }
+  }
 
   return (
     <>
@@ -40,7 +60,7 @@ export default function PressPage() {
             <h2 style={{ fontSize: "clamp(24px,3vw,36px)" }}>{t.kitTitle}</h2>
             <p className="sub">{t.kitSub}</p>
           </div>
-          <form className="form-stack" action="#" method="post">
+          <form className="form-stack" onSubmit={onSubmit}>
             <div>
               <label htmlFor="press-email">{t.email}</label>
               <input id="press-email" name="email" type="email" required aria-label={t.email} />
@@ -52,6 +72,12 @@ export default function PressPage() {
             <button type="submit" className="btn-primary">
               {t.submit}
             </button>
+            {status === "ok" && (
+              <p style={{ color: "var(--amber)", marginTop: 8 }}>Request recorded.</p>
+            )}
+            {status === "err" && (
+              <p style={{ color: "#c44", marginTop: 8 }}>Couldn’t submit. Try again later.</p>
+            )}
           </form>
         </div>
       </section>

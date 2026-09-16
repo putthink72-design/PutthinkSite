@@ -130,6 +130,20 @@ export function ShowcaseCardView({
             <b>{item.likes}</b> {t.likes}
           </button>
         </div>
+        {item.isLive ? (
+          <p style={{ marginTop: 10, fontSize: 12 }}>
+            <a
+              href={`mailto:hello@putthink.com?subject=${encodeURIComponent(
+                `Showcase report ${item.id}`,
+              )}&body=${encodeURIComponent(
+                `Please review showcase id: ${item.id}\nReason:\n`,
+              )}`}
+              style={{ color: "var(--g-2)", textDecoration: "underline" }}
+            >
+              Report
+            </a>
+          </p>
+        ) : null}
       </div>
     </article>
   );

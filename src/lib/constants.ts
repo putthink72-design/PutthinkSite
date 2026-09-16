@@ -1,7 +1,7 @@
-/** App Store download URL — replace with real listing when live */
+/** App Store URL — set NEXT_PUBLIC_APP_STORE_URL when the listing is live. */
 export const APP_STORE_URL =
   process.env.NEXT_PUBLIC_APP_STORE_URL ??
-  "https://apps.apple.com/app/putthink";
+  "https://apps.apple.com/search?term=Putthink";
 
 export const SITE_NAME = "펏띵 Putthink";
 export const SITE_TAGLINE = "그린을 읽어주는 AR 퍼팅 코치";

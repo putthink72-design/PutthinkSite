@@ -28,9 +28,24 @@ export function RequestForm() {
           {!done ? (
             <>
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  setDone(true);
+                  const fd = new FormData(e.currentTarget);
+                  try {
+                    const res = await fetch("/api/data-room-request", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        email: fd.get("email"),
+                        organization: fd.get("organization"),
+                        role: fd.get("role"),
+                        message: fd.get("message"),
+                      }),
+                    });
+                    if (res.ok) setDone(true);
+                  } catch {
+                    /* keep form */
+                  }
                 }}
               >
                 <div className="field">
