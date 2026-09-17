@@ -1,4 +1,11 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import {
+  DR_ADMIN_COOKIE,
+  getAdminSessionSigningKey,
+  isValidAdminCredential,
+  readCookie,
+  verifyAdminSessionToken,
+} from "@/lib/data-room-admin-session";
 
 export function createServiceClient(): SupabaseClient | null {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -40,12 +47,18 @@ export function dataRoomNotifyEmail(): string {
 }
 
 export function assertAdminSecret(req: Request): boolean {
-  const expected = process.env.DATA_ROOM_ADMIN_SECRET?.trim();
-  if (!expected) return false;
+  const signingKey = getAdminSessionSigningKey();
+  if (!signingKey) return false;
+
   const header = req.headers.get("authorization") ?? "";
   const bearer = header.startsWith("Bearer ") ? header.slice(7).trim() : "";
   const alt = req.headers.get("x-data-room-admin-secret")?.trim() ?? "";
-  return bearer === expected || alt === expected;
+  if (isValidAdminCredential(bearer) || isValidAdminCredential(alt)) return true;
+
+  const cookie = readCookie(req, DR_ADMIN_COOKIE);
+  if (cookie && verifyAdminSessionToken(signingKey, cookie)) return true;
+
+  return false;
 }
 
 export function normalizeEmail(email: string): string {

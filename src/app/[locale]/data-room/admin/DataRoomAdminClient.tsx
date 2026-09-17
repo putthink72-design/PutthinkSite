@@ -5,8 +5,6 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { LocaleLink } from "@/components/LocaleLink";
 import type { DataRoomRequestRow } from "@/lib/data-room";
 
-const SECRET_KEY = "putthink_dr_admin_secret";
-
 export default function DataRoomAdminClient() {
   const [secret, setSecret] = useState("");
   const [statusFilter, setStatusFilter] = useState("pending");
@@ -16,26 +14,17 @@ export default function DataRoomAdminClient() {
   const [lastNote, setLastNote] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [unlocked, setUnlocked] = useState(false);
+  const [checking, setChecking] = useState(true);
 
-  useEffect(() => {
-    const saved = sessionStorage.getItem(SECRET_KEY);
-    if (saved) {
-      setSecret(saved);
-      setUnlocked(true);
-    }
-  }, []);
-
-  const load = useCallback(async (sec: string, status: string) => {
+  const load = useCallback(async (status: string) => {
     setError(null);
     const res = await fetch(
       `/api/data-room/review?status=${encodeURIComponent(status)}`,
-      {
-        headers: { Authorization: `Bearer ${sec}` },
-      },
+      { credentials: "include" },
     );
     if (res.status === 401) {
       setUnlocked(false);
-      setError("관리자 시크릿이 올바르지 않습니다.");
+      setError(null);
       return;
     }
     if (!res.ok) {
@@ -49,17 +38,56 @@ export default function DataRoomAdminClient() {
   }, []);
 
   useEffect(() => {
-    if (!unlocked || !secret) return;
-    void load(secret, statusFilter);
-  }, [unlocked, secret, statusFilter, load]);
+    let cancelled = false;
+    (async () => {
+      const res = await fetch("/api/data-room/admin-session", {
+        credentials: "include",
+      });
+      if (cancelled) return;
+      if (res.ok) {
+        setUnlocked(true);
+      }
+      setChecking(false);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
-  function onUnlock(e: FormEvent) {
+  useEffect(() => {
+    if (!unlocked || checking) return;
+    void load(statusFilter);
+  }, [unlocked, checking, statusFilter, load]);
+
+  async function onUnlock(e: FormEvent) {
     e.preventDefault();
     const value = secret.trim();
     if (!value) return;
-    sessionStorage.setItem(SECRET_KEY, value);
-    setSecret(value);
+    setError(null);
+    const res = await fetch("/api/data-room/admin-session", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ secret: value }),
+    });
+            if (!res.ok) {
+      setError("시크릿 또는 비밀번호가 올바르지 않습니다.");
+      setUnlocked(false);
+      return;
+    }
+    setSecret("");
     setUnlocked(true);
+  }
+
+  async function onLock() {
+    await fetch("/api/data-room/admin-session", {
+      method: "DELETE",
+      credentials: "include",
+    });
+    setUnlocked(false);
+    setRows([]);
+    setLastLink(null);
+    setLastNote(null);
   }
 
   async function review(
@@ -73,10 +101,8 @@ export default function DataRoomAdminClient() {
     try {
       const res = await fetch("/api/data-room/review", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${secret}`,
-          "Content-Type": "application/json",
-        },
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id,
           action,
@@ -87,6 +113,7 @@ export default function DataRoomAdminClient() {
       if (!res.ok) {
         setError(body.message ?? body.error ?? "처리 실패");
         if (body.actionLink) setLastLink(body.actionLink);
+        if (res.status === 401) setUnlocked(false);
       } else if (action !== "deny") {
         if (body.actionLink) setLastLink(body.actionLink);
         if (body.via === "manual" || body.emailWarning) {
@@ -100,10 +127,12 @@ export default function DataRoomAdminClient() {
             "Supabase 메일 발송을 요청했습니다. 스팸함을 확인하고, 안 오면 아래 링크를 복사해 보내세요.",
           );
         } else if (body.via === "resend") {
-          setLastNote("Resend로 매직링크 메일을 보냈습니다. 아래 링크도 백업으로 복사할 수 있습니다.");
+          setLastNote(
+            "Resend로 매직링크 메일을 보냈습니다. 아래 링크도 백업으로 복사할 수 있습니다.",
+          );
         }
       }
-      await load(secret, statusFilter);
+      await load(statusFilter);
     } finally {
       setBusyId(null);
     }
@@ -132,14 +161,16 @@ export default function DataRoomAdminClient() {
           <div className="gate-eyebrow">INTERNAL</div>
           <h1 style={{ fontSize: 28, marginBottom: 8 }}>접근 요청 검토</h1>
           <p className="lede" style={{ marginBottom: 22 }}>
-            승인하면 요청자 이메일로 일회용 매직링크가 발송됩니다. 링크는 승인
-            후에만 보내며, 요청 접수 시점에는 보내지 않습니다.
+            승인하면 요청자 이메일로 일회용 매직링크가 발송됩니다. 시크릿 또는
+            비밀번호로 잠금 해제하면 이 브라우저에서 30일간 유지됩니다.
           </p>
 
-          {!unlocked ? (
-            <form onSubmit={onUnlock}>
+          {checking ? (
+            <p style={{ color: "var(--dr-text-2)", fontSize: 14 }}>확인 중…</p>
+          ) : !unlocked ? (
+            <form onSubmit={(e) => void onUnlock(e)}>
               <div className="field">
-                <label htmlFor="dr-admin-secret">Admin secret</label>
+                <label htmlFor="dr-admin-secret">시크릿 또는 비밀번호</label>
                 <input
                   id="dr-admin-secret"
                   type="password"
@@ -149,6 +180,11 @@ export default function DataRoomAdminClient() {
                   required
                 />
               </div>
+              {error && (
+                <p style={{ color: "#b42318", fontSize: 13, marginBottom: 12 }}>
+                  {error}
+                </p>
+              )}
               <button type="submit" className="gate-submit">
                 잠금 해제
               </button>
@@ -161,6 +197,7 @@ export default function DataRoomAdminClient() {
                   gap: 8,
                   flexWrap: "wrap",
                   marginBottom: 18,
+                  alignItems: "center",
                 }}
               >
                 {(["pending", "approved", "denied", "all"] as const).map(
@@ -194,12 +231,25 @@ export default function DataRoomAdminClient() {
                   style={{
                     marginLeft: "auto",
                     fontSize: 12,
-                    alignSelf: "center",
                     borderBottom: "1px solid var(--dr-line)",
                   }}
                 >
                   요청 폼 →
                 </LocaleLink>
+                <button
+                  type="button"
+                  onClick={() => void onLock()}
+                  style={{
+                    border: "1px solid var(--dr-line)",
+                    background: "transparent",
+                    borderRadius: 999,
+                    padding: "6px 12px",
+                    fontSize: 12,
+                    cursor: "pointer",
+                  }}
+                >
+                  잠금
+                </button>
               </div>
 
               {error && (
@@ -260,7 +310,9 @@ export default function DataRoomAdminClient() {
                           padding: "8px 14px",
                           marginTop: 8,
                         }}
-                        onClick={() => void navigator.clipboard.writeText(lastLink)}
+                        onClick={() =>
+                          void navigator.clipboard.writeText(lastLink)
+                        }
                       >
                         링크 복사
                       </button>
