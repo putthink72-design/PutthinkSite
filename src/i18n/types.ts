@@ -197,6 +197,23 @@ export type Dictionary = {
     titleThin: string;
     sub: string;
   };
+  devicesPage: {
+    eyebrow: string;
+    title: string;
+    titleThin: string;
+    sub: string;
+    iphoneNum: string;
+    iphoneTitle: string;
+    iphoneNote: string;
+    ipadNum: string;
+    ipadTitle: string;
+    ipadNote: string;
+    notSupportedNum: string;
+    notSupportedTitle: string;
+    notSupportedBody: string;
+    footnote: string;
+    faqLink: string;
+  };
   proofPage: {
     eyebrow: string;
     title: string;
@@ -240,8 +257,6 @@ export type Dictionary = {
     rolePlaceholder: string;
     roleVc: string;
     roleCorp: string;
-    roleAdvisor: string;
-    roleOther: string;
     message: string;
     messagePlaceholder: string;
     submit: string;
@@ -249,6 +264,8 @@ export type Dictionary = {
     successTitle: string;
     successBody: string;
     demoPreview: string;
+    needLogin: string;
+    needPending: string;
     dashTitle: string;
     dashSub: string;
     lastSync: string;

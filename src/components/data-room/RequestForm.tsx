@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { LocaleLink } from "@/components/LocaleLink";
 import { useI18n } from "@/i18n/provider";
@@ -9,6 +10,10 @@ export function RequestForm() {
   const { dict } = useI18n();
   const t = dict.dataRoom;
   const [done, setDone] = useState(false);
+  const search = useSearchParams();
+  const need = search.get("need");
+  const banner =
+    need === "login" ? t.needLogin : need === "pending" ? t.needPending : null;
 
   return (
     <div className="gate">
@@ -24,6 +29,23 @@ export function RequestForm() {
           <div className="gate-eyebrow">{t.requestEyebrow}</div>
           <h1 style={{ whiteSpace: "pre-line" }}>{t.requestTitle}</h1>
           <p className="lede">{t.requestLede}</p>
+
+          {banner && (
+            <p
+              style={{
+                fontSize: 13.5,
+                lineHeight: 1.7,
+                color: "var(--dr-text-2)",
+                background: "var(--dr-panel-2, #fbfbf9)",
+                border: "1px solid var(--dr-line)",
+                borderRadius: 12,
+                padding: "12px 14px",
+                marginBottom: 18,
+              }}
+            >
+              {banner}
+            </p>
+          )}
 
           {!done ? (
             <>
@@ -64,14 +86,12 @@ export function RequestForm() {
                 </div>
                 <div className="field">
                   <label htmlFor="dr-role">{t.role}</label>
-                  <select id="dr-role" name="role" defaultValue="">
+                  <select id="dr-role" name="role" defaultValue="" required>
                     <option value="" disabled>
                       {t.rolePlaceholder}
                     </option>
                     <option>{t.roleVc}</option>
                     <option>{t.roleCorp}</option>
-                    <option>{t.roleAdvisor}</option>
-                    <option>{t.roleOther}</option>
                   </select>
                 </div>
                 <div className="field">
@@ -127,18 +147,20 @@ export function RequestForm() {
               >
                 {t.successBody}
               </p>
-              <LocaleLink
-                href="/data-room"
-                className="gate-submit"
-                style={{
-                  display: "block",
-                  textDecoration: "none",
-                  boxSizing: "border-box",
-                  textAlign: "center",
-                }}
-              >
-                {t.demoPreview}
-              </LocaleLink>
+              {process.env.NEXT_PUBLIC_DATA_ROOM_ALLOW_DEMO_PREVIEW === "1" && (
+                <LocaleLink
+                  href="/data-room"
+                  className="gate-submit"
+                  style={{
+                    display: "block",
+                    textDecoration: "none",
+                    boxSizing: "border-box",
+                    textAlign: "center",
+                  }}
+                >
+                  {t.demoPreview}
+                </LocaleLink>
+              )}
             </div>
           )}
         </div>

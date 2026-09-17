@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { RequestForm } from "@/components/data-room/RequestForm";
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function DataRoomRequestPage() {
-  return <RequestForm />;
+  return (
+    <Suspense fallback={null}>
+      <RequestForm />
+    </Suspense>
+  );
 }

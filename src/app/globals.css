@@ -798,6 +798,35 @@ h2 .thin {
   margin-bottom: 18px;
   letter-spacing: 0.02em;
 }
+
+.devices-bento {
+  grid-template-columns: 1.4fr 1fr;
+}
+.device-list {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.device-list li {
+  font-size: 14.5px;
+  color: var(--bone);
+  padding: 10px 14px;
+  border: 1px solid var(--line-d);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  line-height: 1.4;
+}
+.device-footnote {
+  margin-top: 28px;
+  font-size: 13.5px;
+  color: var(--g-2);
+  line-height: 1.7;
+}
+.device-footnote a {
+  border-bottom: 1px solid var(--line-d);
+}
 .bx-viz {
   margin-top: 22px;
   border-radius: 12px;
@@ -1643,6 +1672,9 @@ h2 .thin {
     margin-bottom: 16px;
   }
   .bento {
+    grid-template-columns: 1fr;
+  }
+  .devices-bento {
     grid-template-columns: 1fr;
   }
   .feed,

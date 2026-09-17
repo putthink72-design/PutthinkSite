@@ -103,6 +103,9 @@ create table if not exists data_room_requests (
   message text,
   status text default 'pending' check (status in ('pending','approved','denied')),
   approved_at timestamptz,
+  magic_link_sent_at timestamptz,
+  reviewed_at timestamptz,
+  review_note text,
   created_at timestamptz default now()
 );
 
@@ -203,10 +206,20 @@ create policy "data_room_req_insert" on data_room_requests for insert
     and approved_at is null
   );
 
--- traction_metrics: only for approved data-room users (wire via custom claim / join later)
--- Placeholder: authenticated select; tighten after approval flag on profiles
-create policy "traction_select_auth" on traction_metrics for select
-  using (auth.role() = 'authenticated');
+-- traction_metrics: approved Data Room emails only (see data_room_magic_link.sql for full policy)
+drop policy if exists "traction_select_auth" on traction_metrics;
+drop policy if exists "traction_select_approved" on traction_metrics;
+create policy "traction_select_approved"
+on traction_metrics for select
+to authenticated
+using (
+  exists (
+    select 1
+    from data_room_requests r
+    where r.status = 'approved'
+      and lower(r.email) = lower(coalesce(auth.jwt() ->> 'email', ''))
+  )
+);
 
 -- ---------------------------------------------------------------------------
 -- Storage: putt-showcase (app uploads; public read for website feed)

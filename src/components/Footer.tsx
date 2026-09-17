@@ -38,7 +38,7 @@ export function Footer() {
                 <LocaleLink href="/technology">{t.technology}</LocaleLink>
               </li>
               <li>
-                <LocaleLink href="/support">{t.devices}</LocaleLink>
+                <LocaleLink href="/devices">{t.devices}</LocaleLink>
               </li>
             </ul>
           </div>

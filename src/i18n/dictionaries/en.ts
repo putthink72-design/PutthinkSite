@@ -213,6 +213,26 @@ const en: Dictionary = {
     titleThin: "proven outside.",
     sub: "Multi-break path prediction, AR aim, and flat-feel distance—built since 2018. No aerial course datasets.",
   },
+  devicesPage: {
+    eyebrow: "Devices",
+    title: "iPhone and iPad",
+    titleThin: "with LiDAR.",
+    sub: "Putthink launches on both iPhone and iPad. Scan greens on Pro models that include a LiDAR sensor.",
+    iphoneNum: "01 — IPHONE",
+    iphoneTitle: "iPhone",
+    iphoneNote:
+      "iPhone 12 and later Pro / Pro Max. Later Pro / Pro Max models with LiDAR are also supported.",
+    ipadNum: "02 — IPAD",
+    ipadTitle: "iPad",
+    ipadNote:
+      "iPad Pro models with LiDAR from 2020 onward. Later LiDAR iPad Pro models are also supported.",
+    notSupportedNum: "03 — NOT SUPPORTED",
+    notSupportedTitle: "Not supported",
+    notSupportedBody:
+      "Non-LiDAR iPhones and iPads, iPad Air, and Android phones or tablets are not supported.",
+    footnote: "For more device questions, see the FAQ.",
+    faqLink: "FAQ →",
+  },
   proofPage: {
     eyebrow: "Field Proof",
     title: "Field tests",
@@ -235,23 +255,91 @@ const en: Dictionary = {
     faqs: [
       {
         q: "Which devices are supported?",
-        a: "iPhones with LiDAR (Pro / Pro Max and similar). See the App Store product page for the current list.",
+        a: "iPhone 12 and later Pro / Pro Max with LiDAR, and iPad Pro models with LiDAR. Putthink launches for both iPhone and iPad. Non-LiDAR iPhones/iPads and Android are not supported. See the Supported devices page for the full model list.",
       },
       {
-        q: "Does the app record video?",
-        a: "No. To avoid heat and performance issues there’s no in-app recorder. Use iOS Screen Recording in Control Center for Showcase clips.",
+        q: "Can I use it on any course? Do I need course data?",
+        a: "No preloaded green surveys. Putthink is live iPhone LiDAR on the spot—nothing else. Practice greens and outdoor greens both work when the sensor can read the surface.",
       },
       {
-        q: "What do I enter for Putt Showcase?",
-        a: "Pick a putt type (long putt, multi-break, uphill/downhill, first hole-out), then enter nickname, caption, club, course, and hole number. Distance and break are not auto-attached; the aim overlay stays in the video so others can verify by eye.",
+        q: "How long does one hole take?",
+        a: "Walk slowly from ball to hole to scan, then check the AR aim line and stroke feel. It’s built to stay short for your group. Keep moving until the yellow coverage cells turn white.",
+      },
+      {
+        q: "Do you guarantee hole-outs? How accurate is it?",
+        a: "We don’t guarantee hole-outs or scores. Putthink reads the putt; you stroke it. Official field test: 4 hole-outs in 30 putts; the other 26 all conceded inside 75 cm. More accurate ball/hole marks and scans produce better guidance.",
       },
       {
         q: "How do free runs and subscriptions work?",
-        a: "Three free runs after download (no card). Then a paid subscription—no trial period. Invite installs get 6 runs.",
+        a: "Three free runs after download with no card (six via invite link). One run is one scan-and-guidance session—not a full round. After free runs, you move straight to a paid subscription (no trial). Monthly, 3-month, 6-month, and annual plans share the same features; only the billing period differs.",
+      },
+      {
+        q: "How do I cancel a subscription?",
+        a: "Cancel in Apple ID → Subscriptions. Deleting the app does not cancel the subscription.",
+      },
+      {
+        q: "If I delete and reinstall, do free runs reset?",
+        a: "No. Free runs are granted once per device (Keychain) and account. Reinstalling does not restore them.",
+      },
+      {
+        q: "Which countries can download?",
+        a: "We target App Stores in Korea, the US, UK, Canada, Australia, Japan, and Germany. Launch timing may vary by country.",
+      },
+      {
+        q: "Does the app record video?",
+        a: "No. To limit heat and performance load there’s no in-app recorder. For Showcase clips, use iOS Screen Recording in Control Center—and keep the aim overlay (OSD) visible in the recording.",
+      },
+      {
+        q: "Is it normal for the phone to get hot?",
+        a: "Yes—LiDAR and AR scanning are heavy workloads. That’s also why we don’t record in-app. If it overheats during long continuous scans, pause and let the device cool.",
+      },
+      {
+        q: "What is the white checkerboard grid?",
+        a: "Scan coverage. Yellow cells are still tentative; white cells are stable. Fill the grid from ball to hole as you walk to finish the terrain scan.",
+      },
+      {
+        q: "In dim evening light the white grid seems to flow—is that a bug?",
+        a: "Usually not a hardware fault. In low light, AR tracking wobbles and the grid can look like it’s rippling. Turn on lights or walk more slowly so grass texture stays visible.",
+      },
+      {
+        q: "How precisely must I mark the ball and hole?",
+        a: "Aim line and path depend heavily on those two points. Rough marks can skew the line—mark the real ball and cup as accurately as you can. Within about 12 m with accurate marks, Putthink shows a calculated path.",
+      },
+      {
+        q: "Do I set green speed myself?",
+        a: "Yes. Adjust in-app to match today’s feel. It isn’t guaranteed to match a posted Stimpmeter number one-to-one—fine-tune if putts feel short or long.",
+      },
+      {
+        q: "Does it model grain or skid?",
+        a: "No. The physics is slope-based. Grain, spike marks, dew, and wetness are not in the current model.",
+      },
+      {
+        q: "Does it work on practice greens, mats, or in rain?",
+        a: "It can run wherever LiDAR reads the surface, including practice greens and mats. Featureless mats/carpet may track poorly, and wet greens or rain can destabilize the scan. Dry outdoor greens work best.",
+      },
+      {
+        q: "How do invite links work?",
+        a: "When a friend installs and applies your in-app invite link, they start with 6 free runs (vs 3 for a normal download). Inviter rewards (subscription benefits, etc.) are coming soon.",
+      },
+      {
+        q: "What do I enter for Putt Showcase?",
+        a: "Pick a putt type (long putt, multi-break, uphill/downhill, first hole-out), then nickname, caption, club, course, and hole number. Distance and break are not auto-attached; the aim overlay stays in the video so others can verify by eye. Record with iOS Screen Recording, then upload.",
+      },
+      {
+        q: "How is Hall of Fame chosen?",
+        a: "No operator judging. Each month the putt with the most likes is auto-listed. The #1 entry receives free-run credit.",
+      },
+      {
+        q: "Is login required? How do I delete my account?",
+        a: "Scan and AR guidance work without login. Showcase upload and likes need Apple or Google. Delete account in app Settings → Legal → Delete Account. Cancel subscriptions separately in Apple ID settings.",
+      },
+      {
+        q: "Are camera and LiDAR frames uploaded to your servers?",
+        a: "Scan camera/LiDAR data is processed on-device by default and is not uploaded to our servers. Only Showcase videos you choose to upload are sent.",
       },
       {
         q: "Does it auto-save round history?",
-        a: "No. There’s no automatic round log.",
+        a: "No. There’s no automatic round or score log. Only clips you post to Putt Showcase stay in the community.",
       },
     ],
   },
@@ -273,22 +361,25 @@ const en: Dictionary = {
     requestEyebrow: "DATA ROOM ACCESS",
     requestTitle: "See live traction\nand financials",
     requestLede:
-      "Request access for acquisition or investment review. We’ll email a magic link after we review.",
+      "Request access for acquisition or investment review. We email a one-time magic link only after a human review.",
     email: "Email",
     org: "Organization",
     role: "Role",
     rolePlaceholder: "Select…",
     roleVc: "Investor / VC",
     roleCorp: "Strategic acquirer (Corp Dev)",
-    roleAdvisor: "Advisor / counsel",
-    roleOther: "Other",
     message: "Notes (optional)",
     messagePlaceholder: "Context or questions for the review",
     submit: "Request access",
     fine: "We only use this information to review access requests.",
     successTitle: "Request received",
-    successBody: "We’ll email a magic link within 1–2 business days.",
+    successBody:
+      "We’ll email a one-time magic link to the address you entered within 1–2 business days after review. Opening the link signs you into the Data Room. No link is sent at submission time.",
     demoPreview: "Demo: preview approved dashboard →",
+    needLogin:
+      "The Data Room opens only with an approved magic link. Request access below, or use the link from your email.",
+    needPending:
+      "You’re signed in, but this email isn’t approved yet—or there’s no approval on file. If you already requested access, please wait 1–2 business days for the email.",
     dashTitle: "Putthink traction dashboard",
     dashSub:
       "Projected usage and financials across 7 target countries. Figures sync from App Store Connect when live.",

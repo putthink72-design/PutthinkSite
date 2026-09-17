@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import {
+  createServiceClient,
+  dataRoomNotifyEmail,
+  siteOrigin,
+} from "@/lib/data-room";
+import { adminNotifyEmail, sendEmail } from "@/lib/email";
 
 function admin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ??
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return null;
-  return createClient(url, key);
+  return createServiceClient();
 }
 
 export async function POST(req: Request) {
@@ -24,16 +24,43 @@ export async function POST(req: Request) {
     if (!sb) {
       return NextResponse.json({ error: "not_configured" }, { status: 503 });
     }
-    const { error } = await sb.from("data_room_requests").insert({
+
+    // Never create as approved — magic link is sent only after human review.
+    const { data, error } = await sb
+      .from("data_room_requests")
+      .insert({
+        email,
+        organization,
+        role,
+        message,
+        status: "pending",
+      })
+      .select("id")
+      .single();
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    const origin = siteOrigin(req);
+    const adminUrl = `${origin}/en/data-room/admin`;
+    const notify = adminNotifyEmail({
       email,
       organization,
       role,
       message,
+      adminUrl,
     });
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-    return NextResponse.json({ ok: true });
+    // Best-effort; request is already stored even if mail fails.
+    void sendEmail({
+      to: dataRoomNotifyEmail(),
+      subject: notify.subject,
+      html: notify.html,
+      text: notify.text,
+      replyTo: email,
+    }).catch(() => undefined);
+
+    return NextResponse.json({ ok: true, id: data?.id ?? null });
   } catch (e) {
     return NextResponse.json({ error: String(e) }, { status: 500 });
   }
