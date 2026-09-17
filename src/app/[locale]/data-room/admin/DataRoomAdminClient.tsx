@@ -92,15 +92,15 @@ export default function DataRoomAdminClient() {
         if (body.via === "manual" || body.emailWarning) {
           setLastNote(
             body.emailWarning
-              ? `메일 발송이 불안정합니다: ${body.emailWarning}. 아래 링크를 복사해 직접 보내세요.`
-              : "메일이 안 오면 아래 매직링크를 복사해 요청자에게 직접 보내세요.",
+              ? `${body.emailWarning}`
+              : "아래 매직링크를 복사해 요청자에게 직접 보내세요.",
           );
         } else if (body.via === "supabase") {
           setLastNote(
-            "Supabase 기본 메일로 발송을 요청했습니다. 스팸함을 확인하고, 안 오면 아래 링크를 복사해 보내세요.",
+            "Supabase 메일 발송을 요청했습니다. 스팸함을 확인하고, 안 오면 아래 링크를 복사해 보내세요.",
           );
         } else if (body.via === "resend") {
-          setLastNote("Resend로 매직링크 메일을 보냈습니다.");
+          setLastNote("Resend로 매직링크 메일을 보냈습니다. 아래 링크도 백업으로 복사할 수 있습니다.");
         }
       }
       await load(secret, statusFilter);

@@ -50,7 +50,7 @@ npm run dev
 2. `supabase/schema.sql` 실행
 3. (이미 schema 적용한 DB라면) `supabase/storage_putt_showcase.sql` 실행 — 버킷 `putt-showcase` + Storage RLS
 4. `supabase/rpc_showcase_hof.sql` 실행 — 프로필 자동생성 · 좋아요 RPC · HoF 선정 함수
-5. Auth: Email (magic link) + Sign in with Apple / Google 활성화 + Redirect URL에 `/auth/callback` 추가
+5. Auth: Email (magic link) + Sign in with Apple / Google 활성화 + Redirect URL에 `/auth/callback` · `/auth/confirm` 추가
 6. `supabase/data_room_magic_link.sql` 실행 — Data Room 승인·매직링크 컬럼/RLS
 7. (선택) `supabase/functions/hof-monthly` 배포 후 매월 1일 KST cron
 
