@@ -20,7 +20,7 @@ export async function GET(req: Request) {
   let q = sb
     .from("data_room_requests")
     .select(
-      "id,email,organization,role,message,status,approved_at,magic_link_sent_at,reviewed_at,review_note,created_at",
+      "id,email,organization,phone,role,message,status,approved_at,magic_link_sent_at,reviewed_at,review_note,created_at",
     )
     .order("created_at", { ascending: false })
     .limit(100);
@@ -69,7 +69,7 @@ export async function POST(req: Request) {
   const { data: row, error: fetchError } = await sb
     .from("data_room_requests")
     .select(
-      "id,email,organization,role,message,status,approved_at,magic_link_sent_at,reviewed_at,review_note,created_at",
+      "id,email,organization,phone,role,message,status,approved_at,magic_link_sent_at,reviewed_at,review_note,created_at",
     )
     .eq("id", id)
     .maybeSingle();
@@ -137,6 +137,7 @@ export async function POST(req: Request) {
         error: "magic_link_failed",
         message: send.error,
         status: "approved",
+        actionLink: send.actionLink ?? null,
       },
       { status: 502 },
     );
@@ -151,5 +152,7 @@ export async function POST(req: Request) {
     ok: true,
     status: "approved",
     via: send.via,
+    actionLink: send.actionLink,
+    emailWarning: send.emailWarning ?? null,
   });
 }

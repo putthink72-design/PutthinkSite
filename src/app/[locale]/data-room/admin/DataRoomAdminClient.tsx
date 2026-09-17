@@ -12,6 +12,8 @@ export default function DataRoomAdminClient() {
   const [statusFilter, setStatusFilter] = useState("pending");
   const [rows, setRows] = useState<DataRoomRequestRow[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [lastLink, setLastLink] = useState<string | null>(null);
+  const [lastNote, setLastNote] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [unlocked, setUnlocked] = useState(false);
 
@@ -66,6 +68,8 @@ export default function DataRoomAdminClient() {
   ) {
     setBusyId(id);
     setError(null);
+    setLastLink(null);
+    setLastNote(null);
     try {
       const res = await fetch("/api/data-room/review", {
         method: "POST",
@@ -82,6 +86,22 @@ export default function DataRoomAdminClient() {
       const body = await res.json().catch(() => ({}));
       if (!res.ok) {
         setError(body.message ?? body.error ?? "처리 실패");
+        if (body.actionLink) setLastLink(body.actionLink);
+      } else if (action !== "deny") {
+        if (body.actionLink) setLastLink(body.actionLink);
+        if (body.via === "manual" || body.emailWarning) {
+          setLastNote(
+            body.emailWarning
+              ? `메일 발송이 불안정합니다: ${body.emailWarning}. 아래 링크를 복사해 직접 보내세요.`
+              : "메일이 안 오면 아래 매직링크를 복사해 요청자에게 직접 보내세요.",
+          );
+        } else if (body.via === "supabase") {
+          setLastNote(
+            "Supabase 기본 메일로 발송을 요청했습니다. 스팸함을 확인하고, 안 오면 아래 링크를 복사해 보내세요.",
+          );
+        } else if (body.via === "resend") {
+          setLastNote("Resend로 매직링크 메일을 보냈습니다.");
+        }
       }
       await load(secret, statusFilter);
     } finally {
@@ -188,6 +208,67 @@ export default function DataRoomAdminClient() {
                 </p>
               )}
 
+              {(lastNote || lastLink) && (
+                <div
+                  style={{
+                    border: "1px solid var(--dr-line)",
+                    borderRadius: 12,
+                    padding: 14,
+                    marginBottom: 16,
+                    background: "var(--dr-panel-2, #fbfbf9)",
+                  }}
+                >
+                  {lastNote && (
+                    <p
+                      style={{
+                        fontSize: 13,
+                        color: "var(--dr-text-2)",
+                        margin: "0 0 10px",
+                        lineHeight: 1.6,
+                      }}
+                    >
+                      {lastNote}
+                    </p>
+                  )}
+                  {lastLink && (
+                    <>
+                      <label
+                        htmlFor="dr-magic-link"
+                        style={{ fontSize: 12, fontWeight: 700 }}
+                      >
+                        매직링크 (복사해서 직접 전달 가능)
+                      </label>
+                      <textarea
+                        id="dr-magic-link"
+                        readOnly
+                        value={lastLink}
+                        rows={3}
+                        style={{
+                          width: "100%",
+                          marginTop: 6,
+                          fontSize: 12,
+                          fontFamily: "var(--mono)",
+                          lineHeight: 1.5,
+                        }}
+                        onFocus={(e) => e.currentTarget.select()}
+                      />
+                      <button
+                        type="button"
+                        className="gate-submit"
+                        style={{
+                          width: "auto",
+                          padding: "8px 14px",
+                          marginTop: 8,
+                        }}
+                        onClick={() => void navigator.clipboard.writeText(lastLink)}
+                      >
+                        링크 복사
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
+
               {rows.length === 0 ? (
                 <p style={{ color: "var(--dr-text-2)", fontSize: 14 }}>
                   표시할 요청이 없습니다.
@@ -223,6 +304,7 @@ export default function DataRoomAdminClient() {
                             }}
                           >
                             {r.email}
+                            {r.phone ? ` · ${r.phone}` : ""}
                             {r.role ? ` · ${r.role}` : ""}
                           </div>
                         </div>

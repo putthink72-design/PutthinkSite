@@ -364,6 +364,8 @@ const ja: Dictionary = {
       "買収・投資検討のためのアクセス申請です。人が審査したあとでのみ、一回限りのマジックリンクをメールします。",
     email: "メール",
     org: "所属",
+    phone: "電話番号",
+    phonePlaceholder: "090-1234-5678",
     role: "役割",
     rolePlaceholder: "選択してください",
     roleVc: "投資家 / VC",

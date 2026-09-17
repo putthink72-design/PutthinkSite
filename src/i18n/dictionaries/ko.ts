@@ -363,6 +363,8 @@ const ko: Dictionary = {
       "인수·투자 검토를 위한 접근 요청입니다. 사람이 검토한 뒤에만 이메일로 일회용 매직링크를 보내드립니다.",
     email: "이메일",
     org: "소속",
+    phone: "전화번호",
+    phonePlaceholder: "010-1234-5678",
     role: "역할",
     rolePlaceholder: "선택해주세요",
     roleVc: "투자자 / VC",

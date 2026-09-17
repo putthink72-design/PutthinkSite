@@ -99,6 +99,7 @@ create table if not exists data_room_requests (
   id uuid primary key default gen_random_uuid(),
   email text not null,
   organization text not null,
+  phone text,
   role text,
   message text,
   status text default 'pending' check (status in ('pending','approved','denied')),
@@ -202,6 +203,7 @@ create policy "data_room_req_insert" on data_room_requests for insert
     char_length(trim(email)) between 3 and 320
     and email ~* '^[^@\s]+@[^@\s]+\.[^@\s]+$'
     and char_length(trim(organization)) between 1 and 300
+    and char_length(trim(coalesce(phone, ''))) between 7 and 40
     and coalesce(status, 'pending') = 'pending'
     and approved_at is null
   );

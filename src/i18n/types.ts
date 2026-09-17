@@ -253,6 +253,8 @@ export type Dictionary = {
     requestLede: string;
     email: string;
     org: string;
+    phone: string;
+    phonePlaceholder: string;
     role: string;
     rolePlaceholder: string;
     roleVc: string;

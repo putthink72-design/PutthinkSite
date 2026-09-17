@@ -364,6 +364,8 @@ const en: Dictionary = {
       "Request access for acquisition or investment review. We email a one-time magic link only after a human review.",
     email: "Email",
     org: "Organization",
+    phone: "Phone",
+    phonePlaceholder: "+1 555 0100",
     role: "Role",
     rolePlaceholder: "Select…",
     roleVc: "Investor / VC",

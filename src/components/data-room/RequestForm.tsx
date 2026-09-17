@@ -60,6 +60,7 @@ export function RequestForm() {
                       body: JSON.stringify({
                         email: fd.get("email"),
                         organization: fd.get("organization"),
+                        phone: fd.get("phone"),
                         role: fd.get("role"),
                         message: fd.get("message"),
                       }),
@@ -83,6 +84,17 @@ export function RequestForm() {
                 <div className="field">
                   <label htmlFor="dr-org">{t.org}</label>
                   <input id="dr-org" type="text" name="organization" required />
+                </div>
+                <div className="field">
+                  <label htmlFor="dr-phone">{t.phone}</label>
+                  <input
+                    id="dr-phone"
+                    type="tel"
+                    name="phone"
+                    placeholder={t.phonePlaceholder}
+                    autoComplete="tel"
+                    required
+                  />
                 </div>
                 <div className="field">
                   <label htmlFor="dr-role">{t.role}</label>

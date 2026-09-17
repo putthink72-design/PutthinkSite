@@ -78,6 +78,7 @@ export function magicLinkEmail(opts: {
 export function adminNotifyEmail(opts: {
   email: string;
   organization: string;
+  phone: string | null;
   role: string | null;
   message: string | null;
   adminUrl: string;
@@ -86,6 +87,7 @@ export function adminNotifyEmail(opts: {
   const text = [
     "New Putthink Data Room access request:",
     `Email: ${opts.email}`,
+    `Phone: ${opts.phone ?? "(none)"}`,
     `Organization: ${opts.organization}`,
     `Role: ${opts.role ?? "(none)"}`,
     `Message: ${opts.message ?? "(none)"}`,
@@ -99,6 +101,7 @@ export function adminNotifyEmail(opts: {
       <h1 style="font-size:20px;margin:0 0 12px">New access request</h1>
       <ul style="padding-left:18px;margin:0 0 16px">
         <li><strong>Email:</strong> ${escapeHtml(opts.email)}</li>
+        <li><strong>Phone:</strong> ${escapeHtml(opts.phone ?? "—")}</li>
         <li><strong>Organization:</strong> ${escapeHtml(opts.organization)}</li>
         <li><strong>Role:</strong> ${escapeHtml(opts.role ?? "—")}</li>
         <li><strong>Message:</strong> ${escapeHtml(opts.message ?? "—")}</li>

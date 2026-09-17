@@ -15,7 +15,7 @@ We process personal information only for the purposes below. We will not use it 
 Depending on how you use the Site, we may collect:
 • Contact form: name, email, message
 • Media kit: email, organization (optional)
-• Data Room request: email, organization, role (optional), message (optional)
+• Data Room request: email, phone, organization, role (optional), message (optional)
 • Automatically: access time, IP address, browser / device info, and cookies or similar technologies needed for operations, security, and access stats
 • If accounts / uploads are enabled: account identifiers, profile data, uploaded video and metadata, likes and similar activity
 

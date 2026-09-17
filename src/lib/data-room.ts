@@ -67,6 +67,7 @@ export type DataRoomRequestRow = {
   id: string;
   email: string;
   organization: string;
+  phone: string | null;
   role: string | null;
   message: string | null;
   status: "pending" | "approved" | "denied";

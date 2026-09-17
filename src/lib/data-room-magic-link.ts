@@ -1,24 +1,34 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { dataRoomPath, siteOrigin } from "@/lib/data-room";
 import { magicLinkEmail, sendEmail } from "@/lib/email";
+
+export type MagicLinkSendResult =
+  | {
+      ok: true;
+      via: "resend" | "supabase" | "manual";
+      actionLink: string | null;
+      emailWarning?: string;
+    }
+  | { ok: false; error: string; actionLink?: string | null };
 
 /**
  * Send a one-time magic link only after human approval.
  *
- * Prefer branded Resend mail with an admin-generated link.
- * If Resend is not configured, fall back to Supabase Auth OTP email.
+ * 1) Always generate an action link (admin can copy if mail fails).
+ * 2) Resend if configured.
+ * 3) Else Supabase Auth email via anon client OTP (service role OTP is unreliable).
  */
 export async function sendDataRoomMagicLink(opts: {
   sb: SupabaseClient;
   email: string;
   organization: string;
   req?: Request;
-}): Promise<{ ok: true; via: "resend" | "supabase" } | { ok: false; error: string }> {
+}): Promise<MagicLinkSendResult> {
   const origin = siteOrigin(opts.req);
   const next = dataRoomPath();
   const redirectTo = `${origin}/auth/callback?next=${encodeURIComponent(next)}`;
+  const hasResend = Boolean(process.env.RESEND_API_KEY?.trim());
 
-  // 1) Try generateLink + Resend (full control over copy / from-address)
   const { data: linkData, error: linkError } =
     await opts.sb.auth.admin.generateLink({
       type: "magiclink",
@@ -26,8 +36,9 @@ export async function sendDataRoomMagicLink(opts: {
       options: { redirectTo },
     });
 
-  const actionLink = linkData?.properties?.action_link;
-  if (!linkError && actionLink) {
+  const actionLink = linkData?.properties?.action_link ?? null;
+
+  if (hasResend && actionLink) {
     const mail = magicLinkEmail({
       organization: opts.organization,
       magicLink: actionLink,
@@ -38,27 +49,60 @@ export async function sendDataRoomMagicLink(opts: {
       html: mail.html,
       text: mail.text,
     });
-    if (sent) return { ok: true, via: "resend" };
+    if (sent) {
+      return { ok: true, via: "resend", actionLink };
+    }
   }
 
-  // 2) Fallback: Supabase sends its Auth email template
-  const { error: otpError } = await opts.sb.auth.signInWithOtp({
-    email: opts.email,
-    options: {
-      emailRedirectTo: redirectTo,
-      shouldCreateUser: true,
-    },
-  });
+  // Built-in Supabase mail: use anon client (not service role).
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (url && anon) {
+    const publicSb = createClient(url, anon, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+    const { error: otpError } = await publicSb.auth.signInWithOtp({
+      email: opts.email,
+      options: {
+        emailRedirectTo: redirectTo,
+        shouldCreateUser: true,
+      },
+    });
 
-  if (otpError) {
+    if (!otpError) {
+      return { ok: true, via: "supabase", actionLink };
+    }
+
+    // Mail failed, but admin can still copy the generated link.
+    if (actionLink) {
+      return {
+        ok: true,
+        via: "manual",
+        actionLink,
+        emailWarning: otpError.message,
+      };
+    }
+
     return {
       ok: false,
-      error:
-        otpError.message ||
-        linkError?.message ||
-        "Failed to send magic link",
+      error: otpError.message || linkError?.message || "Failed to send magic link",
+      actionLink,
     };
   }
 
-  return { ok: true, via: "supabase" };
+  if (actionLink) {
+    return {
+      ok: true,
+      via: "manual",
+      actionLink,
+      emailWarning:
+        "Email transport not configured. Copy the magic link and send it manually.",
+    };
+  }
+
+  return {
+    ok: false,
+    error: linkError?.message || "Failed to generate magic link",
+    actionLink,
+  };
 }

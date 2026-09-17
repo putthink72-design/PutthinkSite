@@ -15,10 +15,14 @@ export async function POST(req: Request) {
     const body = await req.json();
     const email = String(body.email ?? "").trim();
     const organization = String(body.organization ?? "").trim();
+    const phone = String(body.phone ?? "").trim();
     const role = String(body.role ?? "").trim() || null;
     const message = String(body.message ?? "").trim() || null;
-    if (!email || !organization) {
+    if (!email || !organization || !phone) {
       return NextResponse.json({ error: "invalid" }, { status: 400 });
+    }
+    if (phone.length < 7 || phone.length > 40) {
+      return NextResponse.json({ error: "invalid_phone" }, { status: 400 });
     }
     const sb = admin();
     if (!sb) {
@@ -31,6 +35,7 @@ export async function POST(req: Request) {
       .insert({
         email,
         organization,
+        phone,
         role,
         message,
         status: "pending",
@@ -47,6 +52,7 @@ export async function POST(req: Request) {
     const notify = adminNotifyEmail({
       email,
       organization,
+      phone,
       role,
       message,
       adminUrl,
