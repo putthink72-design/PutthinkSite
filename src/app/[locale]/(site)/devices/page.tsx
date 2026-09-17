@@ -27,7 +27,7 @@ export default function DevicesPage() {
       <section className="sec">
         <div className="wrap">
           <div className="bento devices-bento">
-            <div className="bx wide">
+            <div className="bx full">
               <div className="num">{t.iphoneNum}</div>
               <h3>{t.iphoneTitle}</h3>
               <p>{t.iphoneNote}</p>
@@ -37,7 +37,7 @@ export default function DevicesPage() {
                 ))}
               </ul>
             </div>
-            <div className="bx">
+            <div className="bx full">
               <div className="num">{t.ipadNum}</div>
               <h3>{t.ipadTitle}</h3>
               <p>{t.ipadNote}</p>

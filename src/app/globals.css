@@ -800,14 +800,28 @@ h2 .thin {
 }
 
 .devices-bento {
-  grid-template-columns: 1.4fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  max-width: 100%;
+}
+.devices-bento .bx,
+.devices-bento .bx.full {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 .device-list {
   list-style: none;
   margin: 18px 0 0;
   padding: 0;
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
   gap: 8px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 .device-list li {
   font-size: 14.5px;
@@ -817,6 +831,8 @@ h2 .thin {
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.03);
   line-height: 1.4;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .device-footnote {
   margin-top: 28px;

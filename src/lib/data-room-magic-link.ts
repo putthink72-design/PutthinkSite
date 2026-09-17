@@ -21,10 +21,11 @@ function buildConfirmLink(opts: {
   origin: string;
   hashedToken: string;
   next: string;
+  type?: string;
 }): string {
   const u = new URL("/auth/confirm", opts.origin);
   u.searchParams.set("token_hash", opts.hashedToken);
-  u.searchParams.set("type", "magiclink");
+  u.searchParams.set("type", opts.type || "magiclink");
   u.searchParams.set("next", opts.next);
   return u.toString();
 }
@@ -56,8 +57,16 @@ export async function sendDataRoomMagicLink(opts: {
     });
 
   const hashedToken = linkData?.properties?.hashed_token ?? null;
+  const verificationType =
+    (linkData?.properties as { verification_type?: string } | undefined)
+      ?.verification_type ?? "magiclink";
   const actionLink = hashedToken
-    ? buildConfirmLink({ origin, hashedToken, next })
+    ? buildConfirmLink({
+        origin,
+        hashedToken,
+        next,
+        type: verificationType,
+      })
     : null;
 
   if (!actionLink) {

@@ -12,6 +12,7 @@ export function RequestForm() {
   const [done, setDone] = useState(false);
   const search = useSearchParams();
   const need = search.get("need");
+  const authError = search.get("auth_error");
   const banner =
     need === "login" ? t.needLogin : need === "pending" ? t.needPending : null;
 
@@ -44,6 +45,14 @@ export function RequestForm() {
               }}
             >
               {banner}
+              {authError ? (
+                <>
+                  <br />
+                  <span style={{ color: "#b42318" }}>
+                    로그인 오류: {authError}
+                  </span>
+                </>
+              ) : null}
             </p>
           )}
 
