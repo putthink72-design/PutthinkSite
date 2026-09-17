@@ -22,8 +22,13 @@ export function siteOrigin(req?: Request): string {
 
 /** Default landing after magic-link login (locale-prefixed). */
 export function dataRoomPath(): string {
-  const path = (process.env.DATA_ROOM_LOGIN_PATH ?? "/en/data-room").trim();
+  const path = (process.env.DATA_ROOM_LOGIN_PATH ?? "/ko/data-room").trim();
   return path.startsWith("/") ? path : `/${path}`;
+}
+
+export function dataRoomRequestPath(locale: string = "ko"): string {
+  const loc = locale === "en" || locale === "ja" || locale === "ko" ? locale : "ko";
+  return `/${loc}/data-room/request`;
 }
 
 export function dataRoomNotifyEmail(): string {

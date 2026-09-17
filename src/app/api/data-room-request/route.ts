@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     }
 
     const origin = siteOrigin(req);
-    const adminUrl = `${origin}/en/data-room/admin`;
+    const adminUrl = `${origin}/ko/data-room/admin`;
     const notify = adminNotifyEmail({
       email,
       organization,

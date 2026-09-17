@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LOCALE_COOKIE,
@@ -39,6 +40,16 @@ export function LanguageSwitcher() {
   const { locale, preference, dict } = useI18n();
   const pathname = usePathname();
   const router = useRouter();
+
+  // Cookie preference can disagree with URL locale (e.g. magic link → /en/…).
+  // Keep the path on the locked language so the switcher label matches the page.
+  useEffect(() => {
+    if (preference === "system") return;
+    if (preference === locale) return;
+    const rest = stripLocale(pathname);
+    const dest = rest === "/" ? `/${preference}` : `/${preference}${rest}`;
+    router.replace(dest);
+  }, [preference, locale, pathname, router]);
 
   const onChange = (next: LanguageOption) => {
     setPreferenceCookie(next);

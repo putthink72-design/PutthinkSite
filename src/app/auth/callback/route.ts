@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   const failToRequest = () => {
-    const dest = new URL("/en/data-room/request", origin);
+    const dest = new URL("/ko/data-room/request", origin);
     dest.searchParams.set("need", "login");
     return NextResponse.redirect(dest);
   };

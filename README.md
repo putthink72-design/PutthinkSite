@@ -62,7 +62,7 @@ npm run dev
 4. 승인 시에만 일회용 매직링크 메일 발송  
    - `RESEND_API_KEY` 있으면 브랜드 메일 + `auth.admin.generateLink`  
    - 없으면 Supabase Auth OTP 메일로 폴백
-5. 수신자가 링크 → `/auth/callback?next=/en/data-room` → 승인된 이메일만 대시보드 입장
+5. 수신자가 링크 → `/auth/confirm?…&next=/ko/data-room` → 승인된 이메일만 대시보드 입장
 
 필수 env: `SUPABASE_SERVICE_ROLE_KEY`, `DATA_ROOM_ADMIN_SECRET`, `NEXT_PUBLIC_SITE_URL`  
 출시 전 목업을 열어 두려면 `DATA_ROOM_ALLOW_DEMO_PREVIEW=1` 과 `NEXT_PUBLIC_DATA_ROOM_ALLOW_DEMO_PREVIEW=1`

@@ -12,11 +12,11 @@ export async function GET(request: NextRequest) {
   const { searchParams, origin } = request.nextUrl;
   const token_hash = searchParams.get("token_hash");
   const type = (searchParams.get("type") ?? "magiclink") as EmailOtpType;
-  const nextRaw = searchParams.get("next") ?? "/en/data-room";
+  const nextRaw = searchParams.get("next") ?? "/ko/data-room";
   const next = nextRaw.startsWith("/") ? nextRaw : `/${nextRaw}`;
 
   const fail = (reason: string) => {
-    const url = new URL("/en/data-room/request", origin);
+    const url = new URL("/ko/data-room/request", origin);
     url.searchParams.set("need", "login");
     url.searchParams.set("auth_error", reason);
     return NextResponse.redirect(url);
