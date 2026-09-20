@@ -16,13 +16,14 @@ export const SUPPORTED_IPHONES = [
   "iPhone 18 Pro Max",
 ] as const;
 
+/** LiDAR iPad Pro only. Names follow Apple Support “Identify your iPad model”; year + chip where relevant. */
 export const SUPPORTED_IPADS = [
   "iPad Pro 11-inch (2nd generation, 2020)",
   "iPad Pro 12.9-inch (4th generation, 2020)",
-  "iPad Pro 11-inch (3rd generation, 2021)",
-  "iPad Pro 12.9-inch (5th generation, 2021)",
-  "iPad Pro 11-inch (4th generation, 2022)",
-  "iPad Pro 12.9-inch (6th generation, 2022)",
+  "iPad Pro 11-inch (3rd generation, M1, 2021)",
+  "iPad Pro 12.9-inch (5th generation, M1, 2021)",
+  "iPad Pro 11-inch (4th generation, M2, 2022)",
+  "iPad Pro 12.9-inch (6th generation, M2, 2022)",
   "iPad Pro 11-inch (M4, 2024)",
   "iPad Pro 13-inch (M4, 2024)",
   "iPad Pro 11-inch (M5, 2025)",
