@@ -196,6 +196,25 @@ export type Dictionary = {
     title: string;
     titleThin: string;
     sub: string;
+    registeredPrefix: string;
+  };
+  guidelinesPage: {
+    eyebrow: string;
+    title: string;
+    titleThin: string;
+    sub: string;
+    sections: {
+      num: string;
+      title: string;
+      body: string;
+      items: string[];
+    }[];
+    footnoteBefore: string;
+    termsLink: string;
+    footnoteMid: string;
+    privacyLink: string;
+    footnoteAfter: string;
+    supportLink: string;
   };
   devicesPage: {
     eyebrow: string;

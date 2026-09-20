@@ -139,20 +139,21 @@ export const MOCK_FIELD_TESTS = [
   },
 ];
 
+/** Registered KR patents (Nasaem Co., Ltd.). */
 export const PATENTS = [
   {
+    no: "10-2053911",
+    registered: "2019.12.03",
+    title: "골프 가이드 시스템 및 이를 이용한 골프 가이드 방법",
+  },
+  {
     no: "10-2148254",
-    title: "다중 경사 그린 퍼팅 경로 예측 방법",
-    summary: "라이다 높이맵 기반 다중 브레이크 볼 궤적 물리 모델",
+    registered: "2020.08.20",
+    title: "IoT 기반 스마트 퍼팅 가이드 제공 시스템 및 그 방법",
   },
   {
     no: "10-2202594",
-    title: "AR 기반 퍼팅 조준 안내 시스템",
-    summary: "카메라 화면 위 실측 조준선 오버레이 및 보정 거리 표시",
-  },
-  {
-    no: "10-2053911",
-    title: "평지 환산 거리 산출 방법",
-    summary: "오르막·내리막을 반영한 체감 거리 환산 알고리즘",
+    registered: "2021.01.07",
+    title: "퍼팅 가이드 제공 시스템 및 그 방법",
   },
 ];

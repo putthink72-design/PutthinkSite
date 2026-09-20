@@ -29,7 +29,9 @@ export default function TechnologyPage() {
                   0{i + 1} — {p.no}
                 </div>
                 <h3>{p.title}</h3>
-                <p>{p.summary}</p>
+                <p>
+                  {t.registeredPrefix} {p.registered}
+                </p>
               </div>
             ))}
           </div>

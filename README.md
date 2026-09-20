@@ -35,6 +35,7 @@ npm run dev
 | `/{locale}/proof` | 필드 테스트 |
 | `/{locale}/showcase` | 퍼팅 뽐내기 |
 | `/{locale}/hof` | 명예의 전당 |
+| `/{locale}/guidelines` | 커뮤니티 운영 규정 |
 | `/{locale}/pricing` | 요금제 |
 | `/{locale}/support` | FAQ·문의 |
 | `/{locale}/press` | 보도자료 |

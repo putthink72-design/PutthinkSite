@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { formatHoleLocation } from "@/lib/mock-data";
 import type { LiveShowcaseCard } from "@/lib/showcase-data";
+import { LocaleLink } from "@/components/LocaleLink";
 import { useI18n } from "@/i18n/provider";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { createClient } from "@/lib/supabase/client";
@@ -132,16 +133,12 @@ export function ShowcaseCardView({
         </div>
         {item.isLive ? (
           <p style={{ marginTop: 10, fontSize: 12 }}>
-            <a
-              href={`mailto:hello@putthink.com?subject=${encodeURIComponent(
-                `Showcase report ${item.id}`,
-              )}&body=${encodeURIComponent(
-                `Please review showcase id: ${item.id}\nReason:\n`,
-              )}`}
+            <LocaleLink
+              href="/support#contact"
               style={{ color: "var(--g-2)", textDecoration: "underline" }}
             >
               {t.report}
-            </a>
+            </LocaleLink>
           </p>
         ) : null}
       </div>
