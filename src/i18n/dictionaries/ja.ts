@@ -54,7 +54,7 @@ const ja: Dictionary = {
     holedLabel: "残り26打はすべてコンシード",
     patentsValue: "3",
     patentsUnit: "件",
-    patentsLabel: "複合傾斜パス予測の登録特許",
+    patentsLabel: "パッティングガイド分野の登録特許",
     countriesValue: "7",
     countriesUnit: "か国",
     countriesLabel: "公開予定: 韓国・米国・英国・カナダ・豪州・日本・ドイツ",
@@ -63,7 +63,7 @@ const ja: Dictionary = {
     eyebrow: "How it works",
     title: "スキャンして、見て、",
     titleThin: "そのまま打つ。",
-    sub: "計算はすでに終わっています。2018年から積み上げた登録特許3件の物理モデルが、複合傾斜をリアルタイムで解きます。",
+    sub: "計算はすでに終わっています。傾斜ごとの実測打ち出し実験で較正した物理エンジンが、複合傾斜をリアルタイムで解きます。",
     scanNum: "01 — SCAN",
     scanTitle: "歩きながらグリーンをスキャン",
     scanBody:
@@ -205,13 +205,13 @@ const ja: Dictionary = {
     titleThin: "そのまま打つ。",
     subBefore:
       "事前に用意したコース測量データはありません。PutthinkはiPhone LiDARのリアルタイムスキャンだけです。",
-    subLink: "特許の詳細 →",
+    subLink: "技術・特許 →",
   },
   technology: {
     eyebrow: "Technology",
     title: "登録特許3件、",
-    titleThin: "現場で検証。",
-    sub: "2018年から積み上げた複合傾斜パス予測・AR照準・平地換算距離の技術です。航空測量のCourse Dataは使いません。",
+    titleThin: "2018年からの研究。",
+    sub: "株式会社ナセムが2018年から登録したパッティングガイド分野の特許です。Putthinkはこの研究をもとに、iPhone LiDARの実測と実験で較正した物理エンジンを新たに開発しました。航空測量のコースデータは使いません。",
     registeredPrefix: "登録",
   },
   guidelinesPage: {

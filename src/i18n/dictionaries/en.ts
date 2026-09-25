@@ -54,7 +54,7 @@ const en: Dictionary = {
     holedLabel: "Other 26 all conceded",
     patentsValue: "3",
     patentsUnit: "patents",
-    patentsLabel: "Registered multi-break path patents",
+    patentsLabel: "Registered putting-guide patents",
     countriesValue: "7",
     countriesUnit: "countries",
     countriesLabel: "Target: KR · US · UK · CA · AU · JP · DE",
@@ -63,7 +63,7 @@ const en: Dictionary = {
     eyebrow: "How it works",
     title: "Scan, see,",
     titleThin: "then stroke.",
-    sub: "The math is already done. Three registered patents since 2018 solve multi-break greens in real time.",
+    sub: "The math is already done. A physics engine calibrated with real ball-launch tests on measured slopes solves multi-break greens in real time.",
     scanNum: "01 — SCAN",
     scanTitle: "Walk the green to scan",
     scanBody:
@@ -205,13 +205,13 @@ const en: Dictionary = {
     titleThin: "then stroke.",
     subBefore:
       "No preloaded course survey data. Putthink is live iPhone LiDAR—nothing else. ",
-    subLink: "Patent details →",
+    subLink: "Technology & patents →",
   },
   technology: {
     eyebrow: "Technology",
     title: "Three patents,",
-    titleThin: "proven outside.",
-    sub: "Multi-break path prediction, AR aim, and flat-feel distance—built since 2018. No aerial course datasets.",
+    titleThin: "research since 2018.",
+    sub: "Putting-guide patents registered by Nasaem Co., Ltd. since 2018. Building on that research, Putthink was newly developed around live iPhone LiDAR measurement and an experimentally calibrated physics engine. No aerial course datasets.",
     registeredPrefix: "Registered",
   },
   guidelinesPage: {

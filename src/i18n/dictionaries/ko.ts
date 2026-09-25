@@ -54,7 +54,7 @@ const ko: Dictionary = {
     holedLabel: "나머지 26회 전량 컨시드",
     patentsValue: "3",
     patentsUnit: "건",
-    patentsLabel: "다중경사 경로예측 등록특허",
+    patentsLabel: "퍼팅 가이드 분야 등록특허",
     countriesValue: "7",
     countriesUnit: "개국",
     countriesLabel: "출시 예정: 한국·미국·영국·캐나다·호주·일본·독일",
@@ -63,7 +63,7 @@ const ko: Dictionary = {
     eyebrow: "How it works",
     title: "스캔하고, 보고,",
     titleThin: "그대로 친다.",
-    sub: "계산은 이미 끝나 있습니다. 2018년부터 쌓은 등록특허 3건의 물리 모델이 그린의 다중 경사를 실시간으로 풉니다.",
+    sub: "계산은 이미 끝나 있습니다. 경사별 실측 발사 실험으로 교정한 물리 엔진이 그린의 다중 경사를 실시간으로 풉니다.",
     scanNum: "01 — SCAN",
     scanTitle: "그린을 걸으며 스캔",
     scanBody:
@@ -204,13 +204,13 @@ const ko: Dictionary = {
     titleThin: "그대로 친다.",
     subBefore:
       "사전 확보된 골프장 그린 데이터는 없습니다. 펏띵은 아이폰 라이다 실시간 스캔이 전부입니다. ",
-    subLink: "특허 상세 →",
+    subLink: "기술·특허 →",
   },
   technology: {
     eyebrow: "Technology",
     title: "등록특허 3건,",
-    titleThin: "현장에서 검증.",
-    sub: "2018년부터 쌓은 다중 경사 경로예측·AR 조준·평지 환산 거리 기술입니다. 항공측량 Course Data는 쓰지 않습니다.",
+    titleThin: "2018년부터 쌓은 연구.",
+    sub: "㈜나샘이 2018년부터 등록한 퍼팅 가이드 분야 특허입니다. 펏띵은 이 연구를 바탕으로 아이폰 라이다 실측과 실험으로 교정한 물리 엔진을 새로 개발했으며, 항공측량 코스 데이터는 쓰지 않습니다.",
     registeredPrefix: "등록",
   },
   guidelinesPage: {
