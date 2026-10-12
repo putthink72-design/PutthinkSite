@@ -66,23 +66,13 @@ export function Footer() {
                 <LocaleLink href="/support#contact">{t.contact}</LocaleLink>
               </li>
               <li>
+                <LocaleLink href="/press">{t.press}</LocaleLink>
+              </li>
+              <li>
                 <LocaleLink href="/terms">{t.terms}</LocaleLink>
               </li>
               <li>
                 <LocaleLink href="/privacy">{t.privacy}</LocaleLink>
-              </li>
-            </ul>
-          </div>
-          <div className="ft-col">
-            <h5>{t.company}</h5>
-            <ul>
-              <li>
-                <a href="https://nasem.kr" target="_blank" rel="noopener noreferrer">
-                  {t.companyName}
-                </a>
-              </li>
-              <li>
-                <LocaleLink href="/press">{t.press}</LocaleLink>
               </li>
             </ul>
           </div>
