@@ -64,7 +64,7 @@ const en: Dictionary = {
     scanNum: "01 — SCAN",
     scanTitle: "Walk the green to scan",
     scanBody:
-      "Walk from ball to hole and LiDAR rebuilds the terrain as a 5 cm height map.",
+      "Walk from hole to ball and LiDAR rebuilds the terrain as a 5 cm height map.",
     aimNum: "02 — AIM",
     aimTitle: "Aim line overlays the real green",
     aimBody:
@@ -324,7 +324,7 @@ const en: Dictionary = {
       },
       {
         q: "How long does one hole take?",
-        a: "Walk slowly from ball to hole to scan, then check the AR aim line and stroke feel. It’s built to stay short for your group. Keep moving until the yellow coverage cells turn white.",
+        a: "Walk slowly from hole to ball to scan, then check the AR aim line and stroke feel. It’s built to stay short for your group. Keep moving until the yellow coverage cells turn white.",
       },
       {
         q: "Do you guarantee hole-outs? How accurate is it?",
@@ -356,7 +356,7 @@ const en: Dictionary = {
       },
       {
         q: "What is the white checkerboard grid?",
-        a: "Scan coverage. Yellow cells are still tentative; white cells are stable. Fill the grid from ball to hole as you walk to finish the terrain scan.",
+        a: "Scan coverage. Yellow cells are still tentative; white cells are stable. Fill the grid from hole to ball as you walk to finish the terrain scan.",
       },
       {
         q: "In dim evening light the white grid seems to flow—is that a bug?",

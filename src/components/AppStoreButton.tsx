@@ -27,12 +27,19 @@ export function AppStoreButton({ href }: { href?: string }) {
   );
 }
 
-export function Logo({ href = "/" }: { href?: string }) {
+export function Logo({
+  href = "/",
+  onClick,
+}: {
+  href?: string;
+  onClick?: () => void;
+}) {
   return (
     <Link
       className="logo"
       href={href}
       onClick={() => {
+        onClick?.();
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}
     >
