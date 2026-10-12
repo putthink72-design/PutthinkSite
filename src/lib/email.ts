@@ -54,7 +54,7 @@ export function magicLinkEmail(opts: {
     opts.magicLink,
     "",
     "If you did not request access, ignore this email.",
-    "— NASAEM / Putthink",
+    "— MultiPipe / Putthink",
   ].join("\n");
 
   const html = `

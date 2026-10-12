@@ -49,9 +49,6 @@ export type Dictionary = {
     holedValue: string;
     holedUnit: string;
     holedLabel: string;
-    patentsValue: string;
-    patentsUnit: string;
-    patentsLabel: string;
     countriesValue: string;
     countriesUnit: string;
     countriesLabel: string;
@@ -166,7 +163,6 @@ export type Dictionary = {
     product: string;
     how: string;
     pricing: string;
-    technology: string;
     devices: string;
     community: string;
     showcase: string;
@@ -177,11 +173,7 @@ export type Dictionary = {
     contact: string;
     terms: string;
     privacy: string;
-    company: string;
-    companyName: string;
     press: string;
-    patents: string;
-    copyright: string;
     dataRoomHintBefore: string;
     dataRoomHintAfter: string;
   };
@@ -189,14 +181,6 @@ export type Dictionary = {
     title: string;
     titleThin: string;
     subBefore: string;
-    subLink: string;
-  };
-  technology: {
-    eyebrow: string;
-    title: string;
-    titleThin: string;
-    sub: string;
-    registeredPrefix: string;
   };
   guidelinesPage: {
     eyebrow: string;
@@ -322,8 +306,6 @@ export type Dictionary = {
     colRetention: string;
     colMrr: string;
     assetsTitle: string;
-    assetP: string;
-    assetPBody: string;
     assetR: string;
     assetRBody: string;
     assetC: string;

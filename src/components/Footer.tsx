@@ -35,9 +35,6 @@ export function Footer() {
                 <LocaleLink href="/pricing">{t.pricing}</LocaleLink>
               </li>
               <li>
-                <LocaleLink href="/technology">{t.technology}</LocaleLink>
-              </li>
-              <li>
                 <LocaleLink href="/devices">{t.devices}</LocaleLink>
               </li>
             </ul>
@@ -78,7 +75,6 @@ export function Footer() {
           </div>
         </div>
         <div className="ft-b">
-          <span>{t.copyright}</span>
           <span>
             {t.dataRoomHintBefore}
             <LocaleLink href="/data-room/request">Data Room</LocaleLink>

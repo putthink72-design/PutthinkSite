@@ -26,13 +26,6 @@ export function ProofBar() {
           </div>
           <div className="pcell">
             <div className="v mono">
-              {t.patentsValue}
-              <em>{t.patentsUnit}</em>
-            </div>
-            <div className="k">{t.patentsLabel}</div>
-          </div>
-          <div className="pcell">
-            <div className="v mono">
               {t.countriesValue}
               <em>{t.countriesUnit}</em>
             </div>

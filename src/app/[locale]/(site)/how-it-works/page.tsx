@@ -1,7 +1,6 @@
 "use client";
 
 import { HowItWorks } from "@/components/home/HowItWorks";
-import { LocaleLink } from "@/components/LocaleLink";
 import { useI18n } from "@/i18n/provider";
 
 export default function HowItWorksPage() {
@@ -18,12 +17,7 @@ export default function HowItWorksPage() {
             <br />
             <span className="thin">{t.titleThin}</span>
           </h1>
-          <p className="sub">
-            {t.subBefore}
-            <LocaleLink href="/technology" style={{ borderBottom: "1px solid var(--line-d)" }}>
-              {t.subLink}
-            </LocaleLink>
-          </p>
+          <p className="sub">{t.subBefore}</p>
         </div>
       </header>
       <HowItWorks />

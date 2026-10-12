@@ -138,22 +138,3 @@ export const MOCK_FIELD_TESTS = [
     conceded: 21,
   },
 ];
-
-/** Registered KR patents (Nasaem Co., Ltd.). */
-export const PATENTS = [
-  {
-    no: "10-2053911",
-    registered: "2019.12.03",
-    title: "골프 가이드 시스템 및 이를 이용한 골프 가이드 방법",
-  },
-  {
-    no: "10-2148254",
-    registered: "2020.08.20",
-    title: "IoT 기반 스마트 퍼팅 가이드 제공 시스템 및 그 방법",
-  },
-  {
-    no: "10-2202594",
-    registered: "2021.01.07",
-    title: "퍼팅 가이드 제공 시스템 및 그 방법",
-  },
-];

@@ -1,7 +1,7 @@
 export const PRIVACY_EN = `Putthink Privacy Policy
 Last updated: September 16, 2026
 
-NASAEM Co., Ltd. (“Company”) complies with Korea’s Personal Information Protection Act, the Act on Promotion of Information and Communications Network Utilization and Information Protection, and related laws. This Policy explains how we process personal information on the official Putthink website (“Site”). For camera and LiDAR data processed only on-device in the mobile app, also see the in-app privacy notice.
+MultiPipe (“Company”) complies with Korea’s Personal Information Protection Act, the Act on Promotion of Information and Communications Network Utilization and Information Protection, and related laws. This Policy explains how we process personal information on the official Putthink website (“Site”). For camera and LiDAR data processed only on-device in the mobile app, also see the in-app privacy notice.
 
 1. Purposes of processing
 We process personal information only for the purposes below. We will not use it for other purposes without taking steps required by law (including obtaining fresh consent when needed).
@@ -87,7 +87,7 @@ This Policy applies from September 16, 2026. If we change it, we will post notic
 export const TERMS_EN = `Putthink Terms of Use
 Last updated: September 8, 2026
 
-These Terms govern use of the official Putthink website (“Site”) operated by NASAEM Co., Ltd. (“Company”) under Korea’s information-network and personal-information laws. Using the Site means you agree to these Terms.
+These Terms govern use of the official Putthink website (“Site”) operated by MultiPipe (“Company”) under Korea’s information-network and personal-information laws. Using the Site means you agree to these Terms.
 
 1. Purpose
 These Terms set the conditions for using information, content, contact, Data Room, and other online services on the Site (“Services”), and the rights and duties of the Company and users.

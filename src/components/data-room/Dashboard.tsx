@@ -355,12 +355,6 @@ export function Dashboard({ email = "investor@example-fund.com" }: { email?: str
         </div>
         <div className="assets">
           <div className="asset">
-            <div className="ico">P</div>
-            <h4>{t.assetP}</h4>
-            <p>{t.assetPBody}</p>
-            <a href="#">{t.download}</a>
-          </div>
-          <div className="asset">
             <div className="ico">R</div>
             <h4>{t.assetR}</h4>
             <p>{t.assetRBody}</p>
@@ -382,7 +376,7 @@ export function Dashboard({ email = "investor@example-fund.com" }: { email?: str
 
         <div className="dfooter">
           <p>{t.meetHint}</p>
-          <a className="meet-btn" href="mailto:hello@nasem.kr">
+          <a className="meet-btn" href="mailto:goriccc@gmail.com">
             {t.meetCta}
           </a>
         </div>
