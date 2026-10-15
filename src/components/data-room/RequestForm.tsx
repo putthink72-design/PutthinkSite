@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Logo } from "@/components/AppStoreButton";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { LocaleLink } from "@/components/LocaleLink";
 import { useI18n } from "@/i18n/provider";
@@ -20,10 +21,7 @@ export function RequestForm() {
     <div className="gate">
       <div className="gate-card">
         <div className="gate-brand" style={{ justifyContent: "space-between", maxWidth: 460, margin: "0 auto 34px", width: "100%" }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 9 }}>
-            <span className="dot" />
-            Putthink
-          </span>
+          <Logo className="logo-dr" src="/putthink_logo_black.png?v=3" />
           <LanguageSwitcher />
         </div>
         <div className="gate-box">

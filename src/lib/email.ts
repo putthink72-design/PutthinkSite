@@ -63,7 +63,7 @@ export function magicLinkEmail(opts: {
       <h1 style="font-size:22px;margin:0 0 16px">Access approved</h1>
       <p style="margin:0 0 16px">Your request for <strong>${escapeHtml(opts.organization)}</strong> was approved. Use the button below to sign in. The link is one-time and expires shortly.</p>
       <p style="margin:24px 0">
-        <a href="${escapeAttr(opts.magicLink)}" style="display:inline-block;background:#0a0a0a;color:#f3f1eb;text-decoration:none;padding:12px 20px;border-radius:999px;font-weight:600">Open Data Room</a>
+        <a href="${escapeAttr(opts.magicLink)}" style="display:inline-block;background:#0b1310;color:#f3f1eb;text-decoration:none;padding:12px 20px;border-radius:999px;font-weight:600">Open Data Room</a>
       </p>
       <p style="font-size:13px;color:#666;margin:24px 0 0">If the button does not work, paste this URL into your browser:<br/>
         <span style="word-break:break-all">${escapeHtml(opts.magicLink)}</span>

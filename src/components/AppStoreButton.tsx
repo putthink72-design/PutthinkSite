@@ -28,23 +28,46 @@ export function AppStoreButton({ href }: { href?: string }) {
 }
 
 export function Logo({
-  href = "/",
+  href,
   onClick,
+  className,
+  priority = false,
+  src = "/putthink_logo.png?v=3",
 }: {
+  /** Omit to render a non-linking brand mark (e.g. Data Room). */
   href?: string;
   onClick?: () => void;
+  className?: string;
+  priority?: boolean;
+  src?: string;
 }) {
+  const img = (
+    <img
+      className="logo-img"
+      src={src}
+      alt="Putthink"
+      width={680}
+      height={162}
+      decoding={priority ? "sync" : "async"}
+    />
+  );
+
+  const cls = className ? `logo ${className}` : "logo";
+
+  if (!href) {
+    return <span className={cls}>{img}</span>;
+  }
+
   return (
     <Link
-      className="logo"
+      className={cls}
       href={href}
       onClick={() => {
         onClick?.();
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}
     >
-      <i aria-hidden="true" />
-      Putthink
+      {img}
     </Link>
   );
 }

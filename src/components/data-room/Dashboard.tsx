@@ -1,5 +1,6 @@
 "use client";
 
+import { Logo } from "@/components/AppStoreButton";
 import { FlagSprite } from "@/components/FlagSprite";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { LocaleLink } from "@/components/LocaleLink";
@@ -113,8 +114,7 @@ export function Dashboard({ email = "investor@example-fund.com" }: { email?: str
       <div className="dtop">
         <div className="dtop-in">
           <div className="dbrand">
-            <span className="dot" />
-            Putthink
+            <Logo className="logo-dr" src="/putthink_logo_black.png?v=3" />
             <span className="tag">DATA ROOM</span>
           </div>
           <div className="duser">

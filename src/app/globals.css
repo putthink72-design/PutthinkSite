@@ -5,9 +5,10 @@
    Amber: product screen / credit reward only. Site chrome = achromatic.
    ═══════════════════════════════════════════════════════════ */
 :root {
-  --ink: #0a0a0a;
-  --ink-2: #141414;
-  --ink-3: #1e1e1e;
+  /* Matches putthink_logo.png black */
+  --ink: #0b1310;
+  --ink-2: #15201b;
+  --ink-3: #1c2923;
   --bone: #f3f1eb;
   --bone-2: #e8e5dc;
   --turf: #0f3a28;
@@ -17,7 +18,7 @@
   --g-1: #8a8a85;
   --g-2: #5a5a56;
   --line-d: rgba(255, 255, 255, 0.1);
-  --line-l: rgba(10, 10, 10, 0.1);
+  --line-l: rgba(11, 19, 16, 0.1);
   --font: Pretendard, var(--font-pretendard, -apple-system), BlinkMacSystemFont, sans-serif;
   --mono: var(--font-jetbrains), ui-monospace, monospace;
   --max: 1240px;
@@ -45,9 +46,9 @@
 }
 
 @theme inline {
-  --color-ink: #0a0a0a;
-  --color-ink-2: #141414;
-  --color-ink-3: #1e1e1e;
+  --color-ink: #0b1310;
+  --color-ink-2: #15201b;
+  --color-ink-3: #1c2923;
   --color-bone: #f3f1eb;
   --color-bone-2: #e8e5dc;
   --color-turf: #0f3a28;
@@ -162,7 +163,7 @@ body::after {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(10, 10, 10, 0.82);
+  background: rgba(11, 19, 16, 0.82);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--line-d);
 }
@@ -192,19 +193,23 @@ body::after {
   font-size: 13px;
 }
 .logo {
-  font-size: 19px;
-  font-weight: 800;
-  letter-spacing: -0.05em;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 9px;
+  flex: none;
+  line-height: 0;
 }
-.logo i {
-  width: 7px;
-  height: 7px;
-  background: var(--amber);
-  border-radius: 50%;
+.logo-img {
   display: block;
+  width: auto !important;
+  /* Former wordmark was ~19px type */
+  height: 20px !important;
+  max-width: none !important;
+}
+.logo-nav .logo-img {
+  height: 30px !important;
+}
+.logo-dr .logo-img {
+  height: 20px !important;
 }
 .nlinks {
   display: flex;
@@ -265,7 +270,7 @@ body::after {
 }
 .mobile-menu {
   display: none;
-  background: rgba(10, 10, 10, 0.96);
+  background: rgba(11, 19, 16, 0.96);
   border-bottom: 1px solid var(--line-d);
   padding: 12px var(--pad) 20px;
 }
@@ -448,7 +453,7 @@ h1 .thin {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(10, 10, 10, 0.55);
+  background: rgba(11, 19, 16, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.22);
   color: #fff;
   font-size: 18px;
@@ -1377,7 +1382,7 @@ h2 .thin {
   padding: clamp(24px, 2.8vw, 36px);
   min-width: 0;
   overflow-wrap: anywhere;
-  box-shadow: 0 10px 30px rgba(10, 10, 10, 0.04);
+  box-shadow: 0 10px 30px rgba(11, 19, 16, 0.04);
 }
 .iv-card.hi {
   background: var(--ink);

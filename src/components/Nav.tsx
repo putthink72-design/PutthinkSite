@@ -24,7 +24,12 @@ export function Nav() {
   return (
     <nav className="nav" id="nav">
       <div className="nav-in">
-        <Logo href={href("/")} onClick={() => setOpen(false)} />
+        <Logo
+          className="logo-nav"
+          href={href("/")}
+          onClick={() => setOpen(false)}
+          priority
+        />
         <ul className="nlinks">
           {links.map((l) => (
             <li key={l.href}>
