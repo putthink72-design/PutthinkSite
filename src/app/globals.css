@@ -20,7 +20,8 @@
   --line-d: rgba(255, 255, 255, 0.1);
   --line-l: rgba(11, 19, 16, 0.1);
   --font: Pretendard, var(--font-pretendard, -apple-system), BlinkMacSystemFont, sans-serif;
-  --mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-jetbrains: "JetBrains Mono", ui-monospace, monospace;
+  --mono: var(--font-jetbrains);
   --max: 1240px;
   --pad: clamp(20px, 4.4vw, 60px);
 
@@ -58,7 +59,7 @@
   --color-g-1: #8a8a85;
   --color-g-2: #5a5a56;
   --font-sans: var(--font-pretendard), -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-mono: var(--font-jetbrains);
   --max-width-site: 1240px;
 }
 
