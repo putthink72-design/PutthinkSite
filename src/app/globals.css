@@ -889,6 +889,18 @@ h2 .thin {
   gap: 14px;
   min-width: 0;
 }
+.sec.light .how-step {
+  background: #fff;
+  border-color: var(--line-l);
+  color: var(--ink);
+  box-shadow: 0 10px 30px rgba(11, 19, 16, 0.04);
+}
+.sec.light .how-step p {
+  color: var(--g-2);
+}
+.sec.light .how-step .bx-viz {
+  border-color: var(--line-l);
+}
 .how-step .how-step-viz {
   margin-top: 22px;
 }
