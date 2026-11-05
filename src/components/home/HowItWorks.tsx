@@ -31,7 +31,7 @@ export function HowItWorks() {
   const t = dict.how;
 
   return (
-    <section className="sec" id="how">
+    <section className="sec light" id="how">
       <div className="wrap">
         <div className="head">
           <div className="eyebrow">{t.eyebrow}</div>
