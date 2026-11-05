@@ -14,8 +14,6 @@ export type Dictionary = {
   };
   nav: {
     how: string;
-    showcase: string;
-    hof: string;
     pricing: string;
     support: string;
     download: string;
@@ -67,37 +65,6 @@ export type Dictionary = {
     strokeNum: string;
     strokeTitle: string;
     strokeBody: string;
-  };
-  showcase: {
-    eyebrow: string;
-    title: string;
-    subBefore: string;
-    subBold: string;
-    subAfter: string;
-    viewAll: string;
-    empty: string;
-    likes: string;
-    likeUnavailable: string;
-    report: string;
-    holeUnit: string;
-    pageSub: string;
-    cats: {
-      all: string;
-      long_putt: string;
-      multi_break: string;
-      recovery: string;
-      first_holed: string;
-    };
-  };
-  hof: {
-    eyebrow: string;
-    title: string;
-    subBefore: string;
-    subBold: string;
-    subAfter: string;
-    autoSelected: string;
-    archive: string;
-    pageSub: string;
   };
   pricing: {
     eyebrow: string;
@@ -164,10 +131,6 @@ export type Dictionary = {
     how: string;
     pricing: string;
     devices: string;
-    community: string;
-    showcase: string;
-    hof: string;
-    guidelines: string;
     support: string;
     faq: string;
     contact: string;
@@ -181,24 +144,6 @@ export type Dictionary = {
     title: string;
     titleThin: string;
     subBefore: string;
-  };
-  guidelinesPage: {
-    eyebrow: string;
-    title: string;
-    titleThin: string;
-    sub: string;
-    sections: {
-      num: string;
-      title: string;
-      body: string;
-      items: string[];
-    }[];
-    footnoteBefore: string;
-    termsLink: string;
-    footnoteMid: string;
-    privacyLink: string;
-    footnoteAfter: string;
-    supportLink: string;
   };
   devicesPage: {
     eyebrow: string;
@@ -321,16 +266,5 @@ export type Dictionary = {
   legal: {
     termsTitle: string;
     privacyTitle: string;
-  };
-  auth: {
-    title: string;
-    sub: string;
-    apple: string;
-    google: string;
-    loading: string;
-    close: string;
-    note: string;
-    error: string;
-    notConfigured: string;
   };
 };

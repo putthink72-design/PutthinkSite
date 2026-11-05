@@ -17,8 +17,6 @@ const en: Dictionary = {
   },
   nav: {
     how: "How it works",
-    showcase: "Putt Showcase",
-    hof: "Hall of Fame",
     pricing: "Pricing",
     support: "Support",
     download: "Coming soon",
@@ -74,43 +72,6 @@ const en: Dictionary = {
     strokeBody:
       "Raw m/s doesn’t help on the green. We convert uphill and downhill into a flat-feel distance—and still show the raw numbers if you want them.",
   },
-  showcase: {
-    eyebrow: "Putt Showcase",
-    title: "Putt Showcase",
-    subBefore:
-      "When you upload, pick a putt type and enter nickname, caption, club, course, and hole. ",
-    subBold: "Because the aim overlay stays burned into the video,",
-    subAfter:
-      " padded numbers are obvious to anyone watching. Lucky drops and hard reads sort themselves out.",
-    viewAll: "See full feed →",
-    empty: "Nothing in this category yet.",
-    likes: "likes",
-    likeUnavailable: "Likes unlock when the live feed is connected",
-    report: "Report",
-    holeUnit: " hole",
-    pageSub:
-      "OSD aim chrome is baked into every clip, so anyone can verify what they see on screen. Categories are feed filters—not judged awards.",
-    cats: {
-      all: "All",
-      long_putt: "Long putt",
-      multi_break: "Multi-break",
-      recovery: "Uphill / downhill",
-      first_holed: "First hole-out",
-    },
-  },
-  hof: {
-    eyebrow: "Hall of Fame",
-    title: "Hall of Fame",
-    subBefore:
-      "No human judging. Each month the most-liked putt is inducted automatically, and ",
-    subBold: "the winner gets free-run credits",
-    subAfter:
-      ". Inductions stay forever so you can share them from your profile anytime.",
-    autoSelected: "Auto-selected",
-    archive: "Full archive →",
-    pageSub:
-      "Monthly #1 by likes is inducted automatically. No operator review. No rotating “challenge of the month.”",
-  },
   pricing: {
     eyebrow: "Pricing",
     title: "Try three runs",
@@ -122,7 +83,7 @@ const en: Dictionary = {
     freePer: "Right after download · no card",
     freeLi1: "Full feature access",
     freeLi2: "LiDAR scan + AR aim line included",
-    freeLi3: "Browse Putt Showcase",
+    freeLi3: "Share via invite link",
     freeCta: "Coming soon",
     bestBadge: "Most popular",
     annualTag: "Annual",
@@ -130,7 +91,7 @@ const en: Dictionary = {
     annualUnit: "/yr",
     annualPer: "$6.25 / mo · save 37% vs monthly",
     annualLi1: "Unlimited putts",
-    annualLi2: "Upload to Showcase · chase Hall of Fame",
+    annualLi2: "Same full features · lowest monthly rate",
     annualLi3: "Best value if you play every month",
     annualCta: "Start annual plan",
     flexTag: "Monthly · 3-mo · 6-mo",
@@ -179,10 +140,6 @@ const en: Dictionary = {
     how: "How it works",
     pricing: "Pricing",
     devices: "Supported devices",
-    community: "Community",
-    showcase: "Putt Showcase",
-    hof: "Hall of Fame",
-    guidelines: "Community guidelines",
     support: "Support",
     faq: "FAQ",
     contact: "Contact",
@@ -197,82 +154,6 @@ const en: Dictionary = {
     titleThin: "then stroke.",
     subBefore:
       "No preloaded course survey data. Putthink is live iPhone LiDAR—nothing else.",
-  },
-  guidelinesPage: {
-    eyebrow: "Community",
-    title: "Cheer freely,",
-    titleThin: "no manipulation.",
-    sub: "Putt Showcase and Hall of Fame are communities where the aim overlay stays on camera. These rules keep that trust intact.",
-    sections: [
-      {
-        num: "01 — SPIRIT",
-        title: "What this community is for",
-        body: "Share putts you read on hard greens, and cheer others on. We don’t judge categories or hand-pick monthly challenges.",
-        items: [
-          "Putt Showcase: a feed of real putts uploaded from the app",
-          "Hall of Fame: monthly #1 by likes, with free-run credit auto-awarded",
-          "Categories (long putt, multi-break, recovery, first holed) are filters—not judged divisions",
-        ],
-      },
-      {
-        num: "02 — POST",
-        title: "What you can post",
-        body: "Only putting videos recorded and uploaded from the Putthink app. Nickname, caption, club, course, and hole should match reality.",
-        items: [
-          "Keep the aim overlay (OSD) / AR line visible in the clip when possible",
-          "Post only putts you hit, from your own account",
-          "Avoid unnecessary capture of other people’s faces, voices, or personal data",
-        ],
-      },
-      {
-        num: "03 — HONESTY",
-        title: "Boast honestly",
-        body: "Because the aim screen stays in the video, padded numbers or edited clips break community trust.",
-        items: [
-          "No hiding, faking, or compositing OSD, distance, or aim lines",
-          "No false club / hole / category metadata",
-          "No duplicate near-identical clips or posting someone else’s video",
-        ],
-      },
-      {
-        num: "04 — NOT ALLOWED",
-        title: "Not allowed",
-        body: "Content and behavior that break golf etiquette or the law are not allowed.",
-        items: [
-          "Hate, harassment, slurs, sexual or violent content",
-          "Spam, scams, phishing, or unsolicited promotion",
-          "Material that infringes copyright, likeness, or trademarks",
-          "Like / ranking manipulation (multi-accounts, bots, paid inducement)",
-          "Anything that violates law or the Terms of Use",
-        ],
-      },
-      {
-        num: "05 — HOF",
-        title: "Likes and Hall of Fame",
-        body: "Likes are cheers. Hall of Fame inducts the month’s #1 by likes automatically—no operator judging.",
-        items: [
-          "Like only while signed in on your own account",
-          "Confirmed manipulation can void that period’s induction and credits",
-          "Inducted clips stay in the archive, but may be removed for guideline breaches",
-        ],
-      },
-      {
-        num: "06 — ENFORCE",
-        title: "Reports and actions",
-        body: "Use Report on a card when something looks wrong. We may remove posts, limit visibility, or restrict accounts based on reports and review.",
-        items: [
-          "Serious violations may be acted on without prior notice",
-          "Repeat offenses can limit upload, likes, and other community features",
-          "Contact us via the Contact page",
-        ],
-      },
-    ],
-    footnoteBefore: "Accounts, billing, and app use follow the ",
-    termsLink: "Terms of Use",
-    footnoteMid: " and ",
-    privacyLink: "Privacy Policy",
-    footnoteAfter: ". For other questions, see ",
-    supportLink: "Support →",
   },
   devicesPage: {
     eyebrow: "Devices",
@@ -348,7 +229,7 @@ const en: Dictionary = {
       },
       {
         q: "Does the app record video?",
-        a: "No. To limit heat and performance load there’s no in-app recorder. For Showcase clips, use iOS Screen Recording in Control Center—and keep the aim overlay (OSD) visible in the recording.",
+        a: "No. To limit heat and performance load there’s no in-app recorder. Use iOS Screen Recording in Control Center if you need a clip.",
       },
       {
         q: "Is it normal for the phone to get hot?",
@@ -383,24 +264,16 @@ const en: Dictionary = {
         a: "When a friend installs and applies your in-app invite link, they start with 6 free runs (vs 3 for a normal download). Inviter rewards (subscription benefits, etc.) are coming soon.",
       },
       {
-        q: "What do I enter for Putt Showcase?",
-        a: "Pick a putt type (long putt, multi-break, uphill/downhill, first hole-out), then nickname, caption, club, course, and hole number. Distance and break are not auto-attached; the aim overlay stays in the video so others can verify by eye. Record with iOS Screen Recording, then upload.",
-      },
-      {
-        q: "How is Hall of Fame chosen?",
-        a: "No operator judging. Each month the putt with the most likes is auto-listed. The #1 entry receives free-run credit.",
-      },
-      {
         q: "Is login required? How do I delete my account?",
-        a: "Scan and AR guidance work without login. Showcase upload and likes need Apple or Google. Delete account in app Settings → Legal → Delete Account. Cancel subscriptions separately in Apple ID settings.",
+        a: "Scan and AR guidance work without login. If a cloud account was created (e.g. invite claiming), delete it in app Settings → Legal → Delete Account. Cancel subscriptions separately in Apple ID settings.",
       },
       {
         q: "Are camera and LiDAR frames uploaded to your servers?",
-        a: "Scan camera/LiDAR data is processed on-device by default and is not uploaded to our servers. Only Showcase videos you choose to upload are sent.",
+        a: "Scan camera/LiDAR data is processed on-device by default and is not uploaded to our servers.",
       },
       {
         q: "Does it auto-save round history?",
-        a: "No. There’s no automatic round or score log. Only clips you post to Putt Showcase stay in the community.",
+        a: "No. There’s no automatic round or score log.",
       },
     ],
   },
@@ -495,17 +368,6 @@ const en: Dictionary = {
   legal: {
     termsTitle: "Terms of Use",
     privacyTitle: "Privacy Policy",
-  },
-  auth: {
-    title: "Sign in to continue",
-    sub: "Likes need a one-time Apple or Google sign-in. Browsing never requires an account.",
-    apple: "Continue with Apple",
-    google: "Continue with Google",
-    loading: "Connecting…",
-    close: "Close",
-    note: "Menus and feeds stay available without signing in.",
-    error: "Sign-in failed. Please try again.",
-    notConfigured: "Auth isn’t configured yet. Check environment variables.",
   },
 };
 

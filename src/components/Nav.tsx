@@ -15,8 +15,6 @@ export function Nav() {
 
   const links = [
     { href: "/how-it-works", label: dict.nav.how },
-    { href: "/showcase", label: dict.nav.showcase },
-    { href: "/hof", label: dict.nav.hof },
     { href: "/pricing", label: dict.nav.pricing },
     { href: "/support", label: dict.nav.support },
   ];

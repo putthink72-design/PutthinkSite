@@ -9,7 +9,6 @@ We process personal information only for the purposes below. We will not use it 
 • Media kit: fulfilling press / media-kit download requests and keeping a delivery log
 • Data Room access: receiving investment / M&A access requests, approval or denial notices, and magic-link authentication email
 • Operations & security: keeping the Site stable, preventing abuse, and meeting legal duties
-• Community features (when offered): account and post management for Putt Showcase and similar content
 
 2. Personal information we collect
 Depending on how you use the Site, we may collect:
@@ -17,7 +16,6 @@ Depending on how you use the Site, we may collect:
 • Media kit: email, organization (optional)
 • Data Room request: email, phone, organization, role (optional), message (optional)
 • Automatically: access time, IP address, browser / device info, and cookies or similar technologies needed for operations, security, and access stats
-• If accounts / uploads are enabled: account identifiers, profile data, uploaded video and metadata, likes and similar activity
 
 Camera / LiDAR frames and meshes used for scanning in the Putthink app are processed on-device by default and are not uploaded to our Site servers. Subscription payments are handled by Apple through your Apple ID; we do not receive full card numbers.
 
@@ -25,7 +23,7 @@ Camera / LiDAR frames and meshes used for scanning in the Putthink app are proce
 We keep personal information only for the period you agreed to or the period required by law.
 • Inquiries, media kit, Data Room requests: 1 year after the purpose is fulfilled (response, delivery, or access decision), longer if needed for disputes or legal duties
 • Access logs and similar automatic data: up to 1 year from collection (or longer if a statute such as the Protection of Communications Secrets Act requires it)
-• Account / post data (when applicable): until withdrawal or deletion, or for any longer statutory period
+• Data Room account data (when applicable): until withdrawal or access revocation, or for any longer statutory period
 • Other statutory retention: periods under consumer-protection, telecom-secrecy, and similar laws
 
 We destroy personal information without delay when the retention period ends or the purpose is achieved.
@@ -45,10 +43,10 @@ If processors or entrusted tasks change, we will update this Policy.
 You may at any time request access, correction or deletion, suspension of processing, or withdrawal of consent. Email the Privacy Officer below. We will act without undue delay. While a correction or deletion request is pending, we will not use or provide the contested data. We do not target children under 14; where the law requires a legal guardian’s consent, we collect only with that consent.
 
 App account deletion (Putthink app)
-If a cloud account was created in the app (Sign in with Apple, Showcase upload, or invite claiming), you can delete it by:
+If a cloud account was created in the app (Sign in with Apple or invite claiming), you can delete it by:
 • In the app: Settings → Legal → Delete Account
 • Or email the Privacy Officer below with the subject “Account deletion”
-Deletion removes your cloud profile and Showcase uploads. Apple subscriptions must still be cancelled in Apple ID settings. Local on-device data is removed when you delete the app.
+Deletion removes your cloud profile. Apple subscriptions must still be cancelled in Apple ID settings. Local on-device data is removed when you delete the app.
 
 7. Destruction
 When personal information is no longer needed, we destroy it without delay.
@@ -101,7 +99,7 @@ These Terms set the conditions for using information, content, contact, Data Roo
 We post these Terms on the Site. We may amend them within the law; we will announce the effective date and reasons with the current Terms at least 7 days beforehand (at least 30 days if the change is unfavorable to users). Continued use after the effective date means you accept the change.
 
 4. Services
-We may provide product, technology, pricing, and field-test information; community browsing (and posting when enabled); contact and press/media intake; Data Room requests and (if approved) materials; and other services we designate. We may change Service content for operational or technical reasons and will notice changes on the Site.
+We may provide product, technology, pricing, and field-test information; contact and press/media intake; Data Room requests and (if approved) materials; and other services we designate. We may change Service content for operational or technical reasons and will notice changes on the Site.
 
 5. Relationship to the App and subscriptions
 Site content includes guidance about the App. Download, free runs, Putthink Pro subscriptions, billing, cancellation, and refunds follow the App Store and Apple Media Services terms. Prices may vary by country and storefront. Payment instruments are handled by Apple. App-specific license, disclaimers, and device requirements follow the in-app EULA.
@@ -111,7 +109,7 @@ https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 You must not: submit false information or steal others’ identities; attack or disrupt the Site; infringe IP, privacy, or other rights; post illegal, obscene, defamatory, hateful, or spam content; access restricted Data Room areas without approval or leak materials; or violate law, these Terms, or Site notices.
 
 7. Posts and content
-You are responsible for content you post. We may take down or temporarily restrict content that violates law or rights. Nickname, caption, club, course, hole, and putt type entered in Showcase are self-reported; verification may rely on aim chrome remaining in the video. We do not guarantee hole-outs, scores, or financial results.
+You are responsible for inquiries and other content you submit on the Site. We may take down or temporarily restrict content that violates law or rights. We do not guarantee hole-outs, scores, or financial results.
 
 8. Data Room
 Data Room access is for legitimate investment or M&A review only, after our approval and authentication. Approved users must keep materials confidential and may not share or reuse them without prior written consent. We may set, change, or revoke access scope and duration.

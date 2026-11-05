@@ -33,14 +33,3 @@ export const PRICING = {
   semiAnnual: 44.99,
   annual: 74.99,
 } as const;
-
-export const SHOWCASE_CATEGORIES = [
-  { id: "all", label: "전체" },
-  { id: "long_putt", label: "롱퍼트" },
-  { id: "multi_break", label: "다중브레이크 난이도" },
-  { id: "recovery", label: "극복(오르막·내리막)" },
-  { id: "first_holed", label: "첫 홀인" },
-] as const;
-
-export type ShowcaseCategoryId =
-  (typeof SHOWCASE_CATEGORIES)[number]["id"];

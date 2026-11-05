@@ -33,9 +33,6 @@ npm run dev
 | `/{locale}/technology` | 기술·특허 |
 | `/{locale}/devices` | 지원 기기 (iPhone·iPad) |
 | `/{locale}/proof` | 필드 테스트 |
-| `/{locale}/showcase` | 퍼팅 뽐내기 |
-| `/{locale}/hof` | 명예의 전당 |
-| `/{locale}/guidelines` | 커뮤니티 운영 규정 |
 | `/{locale}/pricing` | 요금제 |
 | `/{locale}/support` | FAQ·문의 |
 | `/{locale}/press` | 보도자료 |
@@ -49,11 +46,8 @@ npm run dev
 
 1. 프로젝트 생성 후 `.env.local`에 URL/키 설정
 2. `supabase/schema.sql` 실행
-3. (이미 schema 적용한 DB라면) `supabase/storage_putt_showcase.sql` 실행 — 버킷 `putt-showcase` + Storage RLS
-4. `supabase/rpc_showcase_hof.sql` 실행 — 프로필 자동생성 · 좋아요 RPC · HoF 선정 함수
-5. Auth: Email (magic link) + Sign in with Apple / Google 활성화 + Redirect URL에 `/auth/callback` · `/auth/confirm` 추가
-6. `supabase/data_room_magic_link.sql` 실행 — Data Room 승인·매직링크 컬럼/RLS
-7. (선택) `supabase/functions/hof-monthly` 배포 후 매월 1일 KST cron
+3. Auth: Email (magic link) 활성화 + Redirect URL에 `/auth/callback` · `/auth/confirm` 추가 (Data Room 매직링크용)
+4. `supabase/data_room_magic_link.sql` 실행 — Data Room 승인·매직링크 컬럼/RLS
 
 ### Data Room 매직링크
 
@@ -67,19 +61,6 @@ npm run dev
 
 필수 env: `SUPABASE_SERVICE_ROLE_KEY`, `DATA_ROOM_ADMIN_SECRET`, `NEXT_PUBLIC_SITE_URL`  
 출시 전 목업을 열어 두려면 `DATA_ROOM_ALLOW_DEMO_PREVIEW=1` 과 `NEXT_PUBLIC_DATA_ROOM_ALLOW_DEMO_PREVIEW=1`
-
-### Showcase 영상 업로드 (앱)
-
-- 로그인 후 Storage `putt-showcase`에 업로드
-- **경로 필수:** `{auth.uid()}/{filename}.mp4` (또는 `.mov`)
-- 메타데이터는 `putt_showcase`에 insert (`user_id` = 본인 uid, `video_url` = public object URL)
-- 한도: 400MB, MIME `video/mp4` · `video/quicktime`
-
-### 웹 로그인 UX
-
-- 메뉴·피드·명예의 전당은 **비로그인으로 전부 열람**
-- Apple/Google 로그인은 **좋아요를 누를 때만** 모달로 표시
-- 업로드 UI는 웹에 없음 (앱 전용)
 
 ## 스택
 

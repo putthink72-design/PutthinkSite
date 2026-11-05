@@ -40,20 +40,6 @@ export function Footer() {
             </ul>
           </div>
           <div className="ft-col">
-            <h5>{t.community}</h5>
-            <ul>
-              <li>
-                <LocaleLink href="/showcase">{t.showcase}</LocaleLink>
-              </li>
-              <li>
-                <LocaleLink href="/hof">{t.hof}</LocaleLink>
-              </li>
-              <li>
-                <LocaleLink href="/guidelines">{t.guidelines}</LocaleLink>
-              </li>
-            </ul>
-          </div>
-          <div className="ft-col">
             <h5>{t.support}</h5>
             <ul>
               <li>
