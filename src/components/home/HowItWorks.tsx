@@ -31,7 +31,11 @@ export function HowItWorks() {
   const t = dict.how;
 
   return (
-    <section className="sec light" id="how">
+    <section
+      className="sec sec-bone"
+      id="how"
+      style={{ background: "var(--bone)", color: "var(--ink)" }}
+    >
       <div className="wrap">
         <div className="head">
           <div className="eyebrow">{t.eyebrow}</div>
