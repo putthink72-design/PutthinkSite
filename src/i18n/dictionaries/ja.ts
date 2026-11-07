@@ -35,7 +35,7 @@ const ja: Dictionary = {
     uphillAdjust: "+0.9m 上り補正",
     strokeCue: "8.3mの感覚で打ってください",
     playDemo: "デモ映像を再生",
-    fullDemo: "Full Demo (7分45秒)",
+    fullDemo: "Full Demo (15分28秒)",
     closeDemo: "閉じる",
   },
   appStore: {
