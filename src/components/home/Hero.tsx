@@ -40,6 +40,16 @@ async function playMuted(el: HTMLVideoElement) {
   }
 }
 
+/** Safari often ignores the loop attribute on WebM — restart manually. */
+function restartLoop(el: HTMLVideoElement) {
+  try {
+    el.currentTime = 0;
+  } catch {
+    /* ignore seek errors on unsupported codecs */
+  }
+  void el.play().catch(() => {});
+}
+
 export function Hero() {
   const { dict } = useI18n();
   const t = dict.hero;
@@ -56,6 +66,17 @@ export function Hero() {
     void playMuted(el).then(() => {
       if (!el.paused) setLoopPlaying(true);
     });
+  }, [open]);
+
+  useEffect(() => {
+    if (open) return;
+    const el = loopRef.current;
+    if (!el) return;
+
+    // Safari often ignores `loop` on WebM and may still fire `ended`.
+    const onEnded = () => restartLoop(el);
+    el.addEventListener("ended", onEnded);
+    return () => el.removeEventListener("ended", onEnded);
   }, [open]);
 
   const openModal = useCallback((src: string) => {
