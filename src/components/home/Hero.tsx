@@ -40,14 +40,34 @@ async function playMuted(el: HTMLVideoElement) {
   }
 }
 
-/** Safari often ignores the loop attribute on WebM — restart manually. */
+/**
+ * Safari plays WebM but native `loop` is unreliable (often freezes at EOF
+ * without firing `ended`). Drive looping in JS instead of the HTML attribute.
+ */
 function restartLoop(el: HTMLVideoElement) {
-  try {
-    el.currentTime = 0;
-  } catch {
-    /* ignore seek errors on unsupported codecs */
+  const play = () => {
+    el.muted = true;
+    void el.play().catch(() => {});
+  };
+
+  if (el.seekable.length === 0) {
+    play();
+    return;
   }
-  void el.play().catch(() => {});
+
+  const onSeeked = () => {
+    el.removeEventListener("seeked", onSeeked);
+    play();
+  };
+  el.addEventListener("seeked", onSeeked);
+
+  try {
+    // Non-zero helps some Safari WebM builds actually seek.
+    el.currentTime = 0.001;
+  } catch {
+    el.removeEventListener("seeked", onSeeked);
+    play();
+  }
 }
 
 export function Hero() {
@@ -57,6 +77,7 @@ export function Hero() {
   const [loopPlaying, setLoopPlaying] = useState(false);
   const loopRef = useRef<HTMLVideoElement>(null);
   const fullRef = useRef<HTMLVideoElement>(null);
+  const restartingRef = useRef(false);
   const open = modalSrc !== null;
 
   useEffect(() => {
@@ -73,10 +94,31 @@ export function Hero() {
     const el = loopRef.current;
     if (!el) return;
 
-    // Safari often ignores `loop` on WebM and may still fire `ended`.
-    const onEnded = () => restartLoop(el);
+    const kick = () => {
+      if (restartingRef.current) return;
+      restartingRef.current = true;
+      restartLoop(el);
+      window.setTimeout(() => {
+        restartingRef.current = false;
+      }, 250);
+    };
+
+    const onEnded = () => kick();
+
+    // Safari WebM often freezes on the last frame and never emits `ended`.
+    const onTimeUpdate = () => {
+      const { duration, currentTime, paused } = el;
+      if (!duration || !Number.isFinite(duration) || duration <= 0) return;
+      if (paused) return;
+      if (currentTime >= duration - 0.2) kick();
+    };
+
     el.addEventListener("ended", onEnded);
-    return () => el.removeEventListener("ended", onEnded);
+    el.addEventListener("timeupdate", onTimeUpdate);
+    return () => {
+      el.removeEventListener("ended", onEnded);
+      el.removeEventListener("timeupdate", onTimeUpdate);
+    };
   }, [open]);
 
   const openModal = useCallback((src: string) => {
@@ -169,14 +211,13 @@ export function Hero() {
                 poster={HERO_POSTER}
                 autoPlay
                 muted
-                loop
                 playsInline
                 preload="auto"
                 disablePictureInPicture
                 controls={false}
                 onPlaying={() => setLoopPlaying(true)}
                 onPause={() => {
-                  if (!open) setLoopPlaying(false);
+                  if (!open && !restartingRef.current) setLoopPlaying(false);
                 }}
               />
               {!loopPlaying && !open ? (
