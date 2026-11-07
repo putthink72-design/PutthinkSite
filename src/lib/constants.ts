@@ -15,7 +15,7 @@ export const APP_STORE_URL = IS_APP_STORE_LIVE
 export const SITE_NAME = "펏띵 Putthink";
 export const SITE_TAGLINE = "그린을 읽어주는 AR 퍼팅 코치";
 export const SITE_DESCRIPTION =
-  "아이폰 라이다로 그린의 다중 경사를 스캔하고, AR로 퍼팅 방향과 세기를 안내합니다. 다운로드 후 3회 무료.";
+  "아이폰 라이다로 그린의 다중 경사를 스캔하고, AR로 퍼팅 방향과 세기를 안내합니다. 계정당 평생 9회 무료.";
 
 /** Official field-test numbers — do not change */
 export const FIELD_TEST = {
@@ -24,12 +24,20 @@ export const FIELD_TEST = {
   conceded: 16,
 } as const;
 
+/**
+ * Marketing / deep-link reference prices (USD list).
+ * In-app UI must show StoreKit localized prices only — never hardcode these in the app.
+ * Site copy may show these as list prices; actual App Store price can vary by country.
+ */
 export const PRICING = {
-  freeRuns: 3,
-  inviteFreeRuns: 6,
-  inviterCreditRuns: 3,
-  monthly: 9.99,
-  quarterly: 24.99,
-  semiAnnual: 44.99,
-  annual: 74.99,
+  /** Lifetime free runs per Apple ID account */
+  freeRuns: 9,
+  /** Extra free runs for the invitee (policy: none) */
+  inviteeBonusRuns: 0,
+  /** Bonus runs credited to the inviter when invitee completes first scan result */
+  inviterCreditRuns: 9,
+  monthly: 7.99,
+  quarterly: 19.99,
+  semiAnnual: 34.99,
+  annual: 59.99,
 } as const;

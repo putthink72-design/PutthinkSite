@@ -43,7 +43,7 @@ If processors or entrusted tasks change, we will update this Policy.
 You may at any time request access, correction or deletion, suspension of processing, or withdrawal of consent. Email the Privacy Officer below. We will act without undue delay. While a correction or deletion request is pending, we will not use or provide the contested data. We do not target children under 14; where the law requires a legal guardian’s consent, we collect only with that consent.
 
 App account deletion (Putthink app)
-If a cloud account was created in the app (Sign in with Apple or invite claiming), you can delete it by:
+If a cloud account was created in the app (Sign in with Apple, including when registering an invite code), you can delete it by:
 • In the app: Settings → Legal → Delete Account
 • Or email the Privacy Officer below with the subject “Account deletion”
 Deletion removes your cloud profile. Apple subscriptions must still be cancelled in Apple ID settings. Local on-device data is removed when you delete the app.

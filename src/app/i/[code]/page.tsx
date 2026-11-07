@@ -15,45 +15,48 @@ function langFromHeaders(accept: string | null): "ko" | "en" | "ja" {
 const copy = {
   ko: {
     title: (name: string) => `친구 초대 · ${name}`,
-    desc: (n: number) => `초대 링크로 Putthink를 설치하면 무료 실행 ${n}회.`,
+    desc: (free: number, credit: number) =>
+      `초대 코드로 Putthink에 가입하면 계정당 평생 무료 ${free}회. 친구가 첫 스캔을 완료하면 초대자에게 +${credit}회.`,
     ogTitle: "Putthink 초대",
-    ogDesc: (n: number) => `이 링크로 설치하면 무료 ${n}회`,
+    ogDesc: (free: number) => `계정당 평생 무료 ${free}회 · 초대 코드로 시작`,
     h1a: "친구가 Putthink로",
     h1b: "초대했어요",
-    body: (invite: number, free: number) =>
-      `이 링크로 설치하면 무료 실행 ${invite}회(일반 ${free}회보다 많음). 초대 링크가 클립보드에 복사됩니다. 설치 후 앱에서「초대 링크로 무료 6회 받기」를 누르거나, 이 링크를 다시 열어 주세요.`,
+    body: (free: number, credit: number) =>
+      `초대 코드가 클립보드에 복사됩니다. Sign in with Apple로 가입하면 계정당 평생 무료 ${free}회를 쓸 수 있습니다(초대받아도 추가 횟수는 없습니다). 첫 스캔 직전에 로그인하면서 이 코드를 입력해 주세요. 당신이 첫 스캔 결과를 완료하면 초대한 친구에게 +${credit}회가 적립됩니다.`,
     invalid: "초대 링크가 올바르지 않습니다. 출시 후 App Store에서 Putthink를 받아 주세요.",
     cta: "출시 예정 · 지원 보기",
     ctaLive: "App Store에서 받기",
-    foot: "이미 앱이 있다면 이 초대 링크를 다시 탭하면 앱으로 바로 열려 적용됩니다. 새로 설치했다면 설정 → 무료 실행에서 초대를 적용해 주세요.",
+    foot: "이미 앱이 있다면 로그인·설정 화면에서 이 초대 코드를 직접 입력할 수 있습니다. 출시 후 App Store에서 Putthink를 설치해 주세요.",
   },
   en: {
     title: (name: string) => `Invite · ${name}`,
-    desc: (n: number) => `Install Putthink via invite for ${n} free runs.`,
+    desc: (free: number, credit: number) =>
+      `Join Putthink with an invite code for ${free} lifetime free runs per account. Completing your first scan credits +${credit} to your friend.`,
     ogTitle: "Putthink invite",
-    ogDesc: (n: number) => `Install via this link for ${n} free runs`,
+    ogDesc: (free: number) => `${free} lifetime free runs per account · start with an invite code`,
     h1a: "A friend invited you",
     h1b: "to Putthink",
-    body: (invite: number, free: number) =>
-      `Install via this link for ${invite} free runs (normally ${free}). The invite link is copied to your clipboard. After install, tap “Get 6 free tries via invite link” in the app, or reopen this link.`,
+    body: (free: number, credit: number) =>
+      `Your invite code is copied to the clipboard. Sign in with Apple for ${free} lifetime free runs per account—invitees get no extra free runs. Enter this code on the sign-in screen (just before your first scan) or in Settings. When you complete your first scan result, your friend earns +${credit} bonus runs.`,
     invalid: "This invite link isn’t valid. Get Putthink on the App Store when it’s available.",
     cta: "Coming soon · Support",
     ctaLive: "Get on the App Store",
-    foot: "If the app is already installed, tap this invite link again to open Putthink. After a fresh install, apply the invite under Settings → Free runs.",
+    foot: "If the app is already installed, enter this invite code on the sign-in or Settings screen. Install Putthink from the App Store when it’s available.",
   },
   ja: {
     title: (name: string) => `招待 · ${name}`,
-    desc: (n: number) => `招待リンクから入れると無料実行${n}回。`,
+    desc: (free: number, credit: number) =>
+      `招待コードでPutthinkに登録するとアカウントあたり生涯無料${free}回。最初のスキャン完了で招待者に+${credit}回。`,
     ogTitle: "Putthink招待",
-    ogDesc: (n: number) => `このリンクから入れると無料${n}回`,
+    ogDesc: (free: number) => `アカウントあたり生涯無料${free}回 · 招待コードでスタート`,
     h1a: "友だちからPutthinkに",
     h1b: "招待されました",
-    body: (invite: number, free: number) =>
-      `このリンクから入れると無料実行${invite}回（通常${free}回）。招待リンクがクリップボードにコピーされます。インストール後、アプリで「招待リンクで無料6回を受け取る」を押すか、このリンクを再度開いてください。`,
+    body: (free: number, credit: number) =>
+      `招待コードがクリップボードにコピーされます。Sign in with Appleで登録するとアカウントあたり生涯無料${free}回を使えます（招待されても追加の無料回数はありません）。最初のスキャン直前のログイン画面か設定でこのコードを入力してください。あなたが最初のスキャン結果を完了すると、招待した友だちに+${credit}回が付与されます。`,
     invalid: "招待リンクが正しくありません。公開後にApp StoreでPutthinkを入手してください。",
     cta: "近日公開 · サポート",
     ctaLive: "App Storeで入手",
-    foot: "すでにアプリがある場合はこの招待リンクを再度タップするとアプリが開きます。新規インストール後は設定→無料実行から招待を適用してください。",
+    foot: "すでにアプリがある場合は、ログイン画面または設定でこの招待コードを入力できます。公開後にApp StoreでPutthinkをインストールしてください。",
   },
 } as const;
 
@@ -64,11 +67,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = copy[lang];
   return {
     title: t.title(SITE_NAME),
-    description: t.desc(PRICING.inviteFreeRuns),
+    description: t.desc(PRICING.freeRuns, PRICING.inviterCreditRuns),
     robots: { index: false, follow: false },
     openGraph: {
       title: t.ogTitle,
-      description: t.ogDesc(PRICING.inviteFreeRuns),
+      description: t.ogDesc(PRICING.freeRuns),
       url: `https://putthink.com/i/${code}`,
     },
   };
@@ -134,7 +137,7 @@ export default async function InviteLandingPage({ params }: Props) {
           }}
         >
           {valid ? (
-            t.body(PRICING.inviteFreeRuns, PRICING.freeRuns)
+            t.body(PRICING.freeRuns, PRICING.inviterCreditRuns)
           ) : (
             t.invalid
           )}

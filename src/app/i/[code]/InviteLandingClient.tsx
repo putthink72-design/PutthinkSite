@@ -15,9 +15,9 @@ export function InviteLandingClient({
       typeof navigator !== "undefined"
         ? navigator.language.slice(0, 2).toLowerCase()
         : "en";
-    if (lang === "ko") return `초대 링크가 클립보드에 복사됨 · ${code}`;
-    if (lang === "ja") return `招待リンクをコピーしました · ${code}`;
-    return `Invite link copied · ${code}`;
+    if (lang === "ko") return `초대 코드가 클립보드에 복사됨 · ${code}`;
+    if (lang === "ja") return `招待コードをコピーしました · ${code}`;
+    return `Invite code copied · ${code}`;
   }, [code]);
   const idleLabel = useMemo(() => {
     const lang =
@@ -33,11 +33,12 @@ export function InviteLandingClient({
     let cancelled = false;
     (async () => {
       try {
-        await navigator.clipboard.writeText(inviteUrl);
+        // Prefer the code — app login/settings expect manual code entry (no clipboard auto-read).
+        await navigator.clipboard.writeText(code);
         if (!cancelled) setCopied(true);
       } catch {
         try {
-          await navigator.clipboard.writeText(code);
+          await navigator.clipboard.writeText(inviteUrl);
           if (!cancelled) setCopied(true);
         } catch {
           /* ignore — user can still open App Store */
