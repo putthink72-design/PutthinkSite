@@ -10,33 +10,13 @@ import {
 import { AppStoreButton } from "@/components/AppStoreButton";
 import { useI18n } from "@/i18n/provider";
 
-type HeroSources = { webm: string; mp4: string };
-
 /** Muted preview — plays on page load */
-const HERO_LOOP: HeroSources = {
-  webm: "/hero/phone-loop.webm",
-  mp4: "/hero/phone-loop.mp4",
-};
+const HERO_LOOP = "/hero/phone-loop.webm";
 /** Phone tap — shorter demo with sound */
-const HERO_DEMO: HeroSources = {
-  webm: "/hero/phone.webm",
-  mp4: "/hero/phone.mp4",
-};
+const HERO_DEMO = "/hero/phone.webm";
 /** Full Demo button — full-length demo with sound */
-const HERO_FULL: HeroSources = {
-  webm: "/hero/phonefull.webm",
-  mp4: "/hero/phonefull.mp4",
-};
+const HERO_FULL = "/hero/phonefull.webm";
 const HERO_POSTER = "/hero/phone-poster.jpg";
-
-function VideoSources({ sources }: { sources: HeroSources }) {
-  return (
-    <>
-      <source src={sources.webm} type="video/webm" />
-      <source src={sources.mp4} type="video/mp4" />
-    </>
-  );
-}
 
 async function playMuted(el: HTMLVideoElement) {
   el.defaultMuted = true;
@@ -63,11 +43,11 @@ async function playMuted(el: HTMLVideoElement) {
 export function Hero() {
   const { dict } = useI18n();
   const t = dict.hero;
-  const [modalSources, setModalSources] = useState<HeroSources | null>(null);
+  const [modalSrc, setModalSrc] = useState<string | null>(null);
   const [loopPlaying, setLoopPlaying] = useState(false);
   const loopRef = useRef<HTMLVideoElement>(null);
   const fullRef = useRef<HTMLVideoElement>(null);
-  const open = modalSources !== null;
+  const open = modalSrc !== null;
 
   useEffect(() => {
     if (open) return;
@@ -78,13 +58,13 @@ export function Hero() {
     });
   }, [open]);
 
-  const openModal = useCallback((sources: HeroSources) => {
+  const openModal = useCallback((src: string) => {
     const loop = loopRef.current;
     if (loop) {
       loop.pause();
       setLoopPlaying(false);
     }
-    setModalSources(sources);
+    setModalSrc(src);
   }, []);
 
   const closeModal = useCallback(() => {
@@ -93,11 +73,11 @@ export function Hero() {
       full.pause();
       full.currentTime = 0;
     }
-    setModalSources(null);
+    setModalSrc(null);
   }, []);
 
   useEffect(() => {
-    if (!modalSources) return;
+    if (!modalSrc) return;
 
     const id = window.setTimeout(() => {
       const full = fullRef.current;
@@ -118,7 +98,7 @@ export function Hero() {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
     };
-  }, [modalSources, closeModal]);
+  }, [modalSrc, closeModal]);
 
   const onPhoneKey = (e: ReactKeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -164,6 +144,7 @@ export function Hero() {
               <video
                 ref={loopRef}
                 className="phone-vid"
+                src={HERO_LOOP}
                 poster={HERO_POSTER}
                 autoPlay
                 muted
@@ -176,9 +157,7 @@ export function Hero() {
                 onPause={() => {
                   if (!open) setLoopPlaying(false);
                 }}
-              >
-                <VideoSources sources={HERO_LOOP} />
-              </video>
+              />
               {!loopPlaying && !open ? (
                 <span className="phone-play" aria-hidden="true">
                   ▶
@@ -196,14 +175,12 @@ export function Hero() {
         </div>
       </div>
 
-      {modalSources ? (
+      {modalSrc ? (
         <div
           className="vid-modal"
           role="dialog"
           aria-modal="true"
-          aria-label={
-            modalSources.webm === HERO_FULL.webm ? t.fullDemo : t.playDemo
-          }
+          aria-label={modalSrc === HERO_FULL ? t.fullDemo : t.playDemo}
           onClick={closeModal}
         >
           <div className="vid-modal-panel" onClick={(e) => e.stopPropagation()}>
@@ -216,16 +193,15 @@ export function Hero() {
               ×
             </button>
             <video
-              key={modalSources.webm}
+              key={modalSrc}
               ref={fullRef}
               className="vid-modal-player"
+              src={modalSrc}
               poster={HERO_POSTER}
               controls
               playsInline
               preload="auto"
-            >
-              <VideoSources sources={modalSources} />
-            </video>
+            />
           </div>
         </div>
       ) : null}
