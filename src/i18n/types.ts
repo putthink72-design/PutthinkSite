@@ -120,6 +120,8 @@ export type Dictionary = {
     receiverP1: string;
     receiverB2: string;
     receiverP2: string;
+    receiverB3: string;
+    receiverP3: string;
   };
   cta: {
     title: string;

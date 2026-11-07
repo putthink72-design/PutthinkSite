@@ -110,26 +110,29 @@ const en: Dictionary = {
     eyebrow: "Invite",
     title: "Better with",
     titleThin: "someone to play with.",
-    sub: "When a friend finishes their first scan result, you earn +9 bonus runs. Their free allotment stays at 9—no extra for invitees.",
+    sub: "Invite a friend and when they finish their first scan result, I get +9 runs. Their free allotment stays at nine.",
     senderK: "You invite",
     senderTitle: "Share your invite code",
     senderCap: "+9 runs per friend",
-    senderB1: "Reward trigger",
+    senderB1: "When I get +9",
     senderP1:
-      "After a friend registers your code, you get +9 when they complete their first scan result (aim line + info). Subscription is not required for the reward.",
-    senderB2: "Spend order",
+      "Once a friend enters the code and sees their first scan result (aim line + info), I get +9—subscribed or not.",
+    senderB2: "How runs are used",
     senderP2:
-      "While subscribed, runs are unlimited. Otherwise bonus invite runs are used before the base free 9.",
-    senderB3: "Invite many friends",
-    senderP3: "No cap on how many different friends you invite. No multi-level (friend-of-friend) rewards.",
+      "While subscribed, unlimited. Otherwise invite bonus runs go first, then the base free nine.",
+    senderB3: "Invite as many as you like",
+    senderP3: "No friend cap. Each friend who completes a first scan adds another +9.",
     receiverK: "They join",
     receiverTitle: "Nine lifetime free runs",
-    receiverCap: "No extra free runs for being invited",
+    receiverCap: "Starts with the same nine free runs",
     receiverB1: "Just enter the code",
     receiverP1:
-      "Enter the invite code at Sign in with Apple (before first scan) or in Settings. No card required.",
+      "Drop the invite code at Sign in with Apple (before the first scan) or in Settings. No card needed.",
     receiverB2: "Then subscribe if needed",
-    receiverP2: "When free and bonus runs run out, you move to a subscription. No separate trial period.",
+    receiverP2: "When free and bonus runs run out, you move to a subscription. No separate trial.",
+    receiverB3: "They can invite too—+9 each",
+    receiverP3:
+      "After joining, they can invite others. When a friend finishes a first scan, they get +9—and it keeps stacking with no cap.",
   },
   cta: {
     title: "Read the green",
@@ -262,7 +265,7 @@ const en: Dictionary = {
       },
       {
         q: "How do invite codes work?",
-        a: "Share your in-app invite code. When a friend registers it and completes their first scan result, you earn +9 bonus runs. Their free allotment stays at nine lifetime runs—no invitee bonus. Only direct (one-level) invites count, with no friend cap.",
+        a: "Share your in-app invite code. When a friend registers it and finishes their first scan result, I get +9. Their base free allotment stays at nine. They can invite others too—each first scan earns them +9, with no friend cap.",
       },
       {
         q: "Is login required? How do I delete my account?",

@@ -51,6 +51,10 @@ export function Invite() {
                 <b>{t.receiverB2}</b>
                 {t.receiverP2}
               </li>
+              <li>
+                <b>{t.receiverB3}</b>
+                {t.receiverP3}
+              </li>
             </ul>
           </div>
         </div>
