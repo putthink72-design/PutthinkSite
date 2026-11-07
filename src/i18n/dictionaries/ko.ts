@@ -47,9 +47,9 @@ const ko: Dictionary = {
     puttsValue: "30",
     puttsUnit: "회 중",
     puttsLabel: "실외 필드테스트 퍼팅",
-    holedValue: "4",
+    holedValue: "14",
     holedUnit: "회 홀인",
-    holedLabel: "나머지 26회 전량 컨시드",
+    holedLabel: "나머지 16회 전량 컨시드",
     countriesValue: "7",
     countriesUnit: "개국",
     countriesLabel: "출시 예정: 한국·미국·영국·캐나다·호주·일본·독일",
@@ -177,7 +177,7 @@ const ko: Dictionary = {
   proofPage: {
     eyebrow: "Field Proof",
     title: "필드 테스트",
-    sub: "공식 수치: 30회 퍼팅 중 홀인 4회, 나머지 26회 컨시드(75cm 이내) 성공.",
+    sub: "공식 수치: 30회 퍼팅 중 홀인 14회, 나머지 16회 컨시드(75cm 이내) 성공.",
     cardBody: "실외 그린에서 진행한 검증 회차입니다. 영상 원본은 Data Room에서 제공됩니다.",
   },
   supportPage: {
@@ -208,7 +208,7 @@ const ko: Dictionary = {
       },
       {
         q: "홀인을 보장하나요? 얼마나 정확한가요?",
-        a: "홀인·성적을 보장하지 않습니다. 읽는 건 펏띵이고, 치는 건 사용자입니다. 공식 필드 테스트는 30회 퍼팅 중 홀인 4회, 나머지 26회는 75cm 이내 컨시드였습니다. 볼·홀 지정과 스캔이 정확할수록 안내가 좋아집니다.",
+        a: "홀인·성적을 보장하지 않습니다. 읽는 건 펏띵이고, 치는 건 사용자입니다. 공식 필드 테스트는 30회 퍼팅 중 홀인 14회, 나머지 16회는 75cm 이내 컨시드였습니다. 볼·홀 지정과 스캔이 정확할수록 안내가 좋아집니다.",
       },
       {
         q: "무료 실행과 구독은 어떻게 되나요?",

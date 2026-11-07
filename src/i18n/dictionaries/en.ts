@@ -47,9 +47,9 @@ const en: Dictionary = {
     puttsValue: "30",
     puttsUnit: "putts",
     puttsLabel: "Outdoor field-test putts",
-    holedValue: "4",
+    holedValue: "14",
     holedUnit: "holed",
-    holedLabel: "Other 26 all conceded",
+    holedLabel: "Other 16 all conceded",
     countriesValue: "7",
     countriesUnit: "countries",
     countriesLabel: "Target: KR · US · UK · CA · AU · JP · DE",
@@ -178,7 +178,7 @@ const en: Dictionary = {
   proofPage: {
     eyebrow: "Field Proof",
     title: "Field tests",
-    sub: "Official: 4 hole-outs in 30 putts; the other 26 all conceded inside 75 cm.",
+    sub: "Official: 14 hole-outs in 30 putts; the other 16 all conceded inside 75 cm.",
     cardBody: "Outdoor green validation rounds. Source video is available in the Data Room.",
   },
   supportPage: {
@@ -209,7 +209,7 @@ const en: Dictionary = {
       },
       {
         q: "Do you guarantee hole-outs? How accurate is it?",
-        a: "We don’t guarantee hole-outs or scores. Putthink reads the putt; you stroke it. Official field test: 4 hole-outs in 30 putts; the other 26 all conceded inside 75 cm. More accurate ball/hole marks and scans produce better guidance.",
+        a: "We don’t guarantee hole-outs or scores. Putthink reads the putt; you stroke it. Official field test: 14 hole-outs in 30 putts; the other 16 all conceded inside 75 cm. More accurate ball/hole marks and scans produce better guidance.",
       },
       {
         q: "How do free runs and subscriptions work?",

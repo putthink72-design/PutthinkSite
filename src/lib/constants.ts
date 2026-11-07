@@ -20,8 +20,8 @@ export const SITE_DESCRIPTION =
 /** Official field-test numbers — do not change */
 export const FIELD_TEST = {
   totalPutts: 30,
-  holed: 4,
-  conceded: 26,
+  holed: 14,
+  conceded: 16,
 } as const;
 
 export const PRICING = {

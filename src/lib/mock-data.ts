@@ -3,8 +3,8 @@ export const MOCK_FIELD_TESTS = [
     testNo: 5,
     date: "2026-08-12",
     total: 30,
-    holed: 4,
-    conceded: 26,
+    holed: 14,
+    conceded: 16,
   },
   {
     testNo: 4,

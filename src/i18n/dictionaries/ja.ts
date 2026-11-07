@@ -47,9 +47,9 @@ const ja: Dictionary = {
     puttsValue: "30",
     puttsUnit: "打中",
     puttsLabel: "屋外フィールドテスト",
-    holedValue: "4",
+    holedValue: "14",
     holedUnit: "回カップイン",
-    holedLabel: "残り26打はすべてコンシード",
+    holedLabel: "残り16打はすべてコンシード",
     countriesValue: "7",
     countriesUnit: "か国",
     countriesLabel: "公開予定: 韓国・米国・英国・カナダ・豪州・日本・ドイツ",
@@ -178,7 +178,7 @@ const ja: Dictionary = {
   proofPage: {
     eyebrow: "Field Proof",
     title: "フィールドテスト",
-    sub: "公式数値：30打中カップイン4、残り26打はすべてコンシード（75cm以内）。",
+    sub: "公式数値：30打中カップイン14、残り16打はすべてコンシード（75cm以内）。",
     cardBody: "屋外グリーンでの検証ラウンドです。原映像はData Roomで提供します。",
   },
   supportPage: {
@@ -209,7 +209,7 @@ const ja: Dictionary = {
       },
       {
         q: "カップインを保証しますか？精度はどのくらいですか？",
-        a: "カップインやスコアは保証しません。読むのはPutthink、打つのはあなたです。公式フィールドテストは30打中カップイン4、残り26は75cm以内のコンシードでした。ボールとホールの指定・スキャンが正確なほど案内が良くなります。",
+        a: "カップインやスコアは保証しません。読むのはPutthink、打つのはあなたです。公式フィールドテストは30打中カップイン14、残り16は75cm以内のコンシードでした。ボールとホールの指定・スキャンが正確なほど案内が良くなります。",
       },
       {
         q: "無料実行と購読のしくみは？",
